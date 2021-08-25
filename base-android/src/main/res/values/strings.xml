@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="btn_retry">Retry</string>
+    <string name="error_msg">An Error Occurred</string>
+    <string name="app_base_empty">No data found</string>
+    <string name="app_base_universalError">Something Went Wrong</string>
+</resources>
