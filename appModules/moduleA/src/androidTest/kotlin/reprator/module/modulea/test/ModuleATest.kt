@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package reprator.module.modulea.util.test
+package reprator.module.modulea.test
 
 import androidx.test.espresso.IdlingRegistry
 import com.jakewharton.espresso.OkHttp3IdlingResource
@@ -30,7 +30,7 @@ import reprator.module.modulea.ModuleA
 import reprator.module.modulea.dispatcherWithCustomBody
 import reprator.module.modulea.util.CustomMockServer
 import reprator.module.modulea.util.launchFragmentInHiltContainer
-import reprator.module.modulea.util.screen.ModuleAScreen
+import reprator.module.modulea.screen.ModuleAScreen
 import javax.inject.Inject
 
 @HiltAndroidTest

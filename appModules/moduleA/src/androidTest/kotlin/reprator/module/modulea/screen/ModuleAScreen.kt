@@ -14,16 +14,17 @@
  * limitations under the License.
  */
 
-package reprator.module.modulea.util.di
+package reprator.module.modulea.screen
 
-import app.template.base.util.network.AppCoroutineDispatchers
-import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.Dispatchers
+import com.kaspersky.kaspresso.screens.KScreen
+import io.github.kakaocup.kakao.text.KTextView
+import reprator.module.modulea.ModuleA
+import reprator.module.modulea.R
 
-class TestDispatcherProvider(
-    override val main: CoroutineDispatcher = Dispatchers.Main,
-    override val computation: CoroutineDispatcher = Dispatchers.Unconfined,
-    override val io: CoroutineDispatcher = Dispatchers.IO,
-    override val default: CoroutineDispatcher = Dispatchers.Unconfined,
-    override val singleThread: CoroutineDispatcher = Dispatchers.Unconfined
-) : AppCoroutineDispatchers
+object ModuleAScreen : KScreen<ModuleAScreen>() {
+
+    override val layoutId: Int = R.layout.fragment_modulea
+    override val viewClass: Class<*> = ModuleA::class.java
+
+    val textView = KTextView { withId(R.id.moduleA_title) }
+}

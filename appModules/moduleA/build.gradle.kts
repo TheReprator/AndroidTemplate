@@ -26,7 +26,7 @@ android {
         )
 
         resourceConfigurations.add(AndroidSdk.localesEnglish)
-        testInstrumentationRunner = "reprator.gojek.trendingList.TrendingListTestRunner"
+        testInstrumentationRunner = "reprator.module.modulea.util.ModuleATestRunner"
     }
 
     buildFeatures.dataBinding = true

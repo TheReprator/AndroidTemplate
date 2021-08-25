@@ -18,8 +18,8 @@ package reprator.androidtemplate.appinitializers
 
 import android.app.Application
 import app.template.base_android.appinitializers.AppInitializer
-import reprator.gojek_assignment.implementation.AppDebugTree
-import reprator.gojek_assignment.implementation.CrashlyticsTree
+import reprator.androidtemplate.implementation.AppDebugTree
+import reprator.androidtemplate.implementation.CrashlyticsTree
 import timber.log.Timber
 import javax.inject.Inject
 import javax.inject.Named

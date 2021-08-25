@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package reprator.module.modulea.util.di
+package reprator.module.modulea.di
 
 import android.util.Log
 import com.jakewharton.espresso.OkHttp3IdlingResource

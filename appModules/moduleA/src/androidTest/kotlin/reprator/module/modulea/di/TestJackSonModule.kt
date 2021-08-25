@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package reprator.module.modulea.util.di
+package reprator.module.modulea.di
 
 import com.fasterxml.jackson.annotation.JsonInclude
 import com.fasterxml.jackson.databind.DeserializationFeature
