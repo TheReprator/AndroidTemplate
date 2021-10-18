@@ -1,6 +1,6 @@
 object AndroidSdk {
     const val min = 21
-    const val compile = 30
+    const val compile = 31
     const val target = compile
 
     val localesEnglish = "en"
@@ -31,7 +31,7 @@ object AppModules {
 object Libs {
 
     object Versions{
-        const val kotlin = "1.5.30"
+        const val kotlin = "1.5.31"
         const val spotless = "5.14.2"
         const val dokka = "1.5.0"
         const val ktlint = "0.40.0"
@@ -55,7 +55,7 @@ object Libs {
     }
 
     const val inject = "javax.inject:javax.inject:1"
-    const val androidGradlePlugin = "com.android.tools.build:gradle:7.0.1"
+    const val androidGradlePlugin = "com.android.tools.build:gradle:7.0.3"
     const val dependencyUpdates = "com.github.ben-manes:gradle-versions-plugin:0.39.0"
     const val timber = "com.jakewharton.timber:timber:4.7.1"
     const val crashlytics = "com.google.firebase:firebase-crashlytics-gradle:2.1.1"
@@ -233,7 +233,7 @@ object Libs {
             const val kakao = "io.github.kakaocup:kakao:3.0.2"
             const val kaspresso = "com.kaspersky.android-components:kaspresso:1.2.1"
             const val fragmentRuntime = "androidx.lifecycle:lifecycle-runtime-testing:2.3.1"
-            const val fragmentTesting = "androidx.fragment:fragment-testing:1.3.4"
+            const val fragmentTesting = "androidx.fragment:fragment-testing:1.4.0-alpha10"
             const val okhttpIdlingResource = "com.jakewharton.espresso:okhttp3-idling-resource:1.0.0"
             const val dexmaker = "com.linkedin.dexmaker:dexmaker:2.28.1"
         }
