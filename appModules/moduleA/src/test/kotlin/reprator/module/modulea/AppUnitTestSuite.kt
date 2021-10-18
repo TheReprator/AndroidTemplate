@@ -22,5 +22,5 @@ import org.junit.platform.suite.api.SuiteDisplayName
 
 @Suite
 @SuiteDisplayName("TrendingList Unit Test Suite")
-@SelectPackages("reprator.gojek.trendingList")
-class TrendingTestSuite
+@SelectPackages("reprator.module.modulea")
+class AppUnitTestSuite
