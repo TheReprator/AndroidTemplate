@@ -21,6 +21,6 @@ import org.junit.platform.suite.api.Suite
 import org.junit.platform.suite.api.SuiteDisplayName
 
 @Suite
-@SuiteDisplayName("TrendingList Unit Test Suite")
+@SuiteDisplayName("Module Unit Test Suite")
 @SelectPackages("app.module.modulea")
 class AppUnitTestSuite
