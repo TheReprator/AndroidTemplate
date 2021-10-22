@@ -1,5 +1,5 @@
 /*
- * Copyright $YEAR
+ * Copyright 2021 Vikram LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,3 +14,20 @@
  * limitations under the License.
  */
 
+package app.module.modulea.util
+
+import okhttp3.HttpUrl
+import okhttp3.mockwebserver.MockWebServer
+
+class CustomMockServer {
+
+    companion object {
+        lateinit var httpUrl: HttpUrl
+    }
+    val mockWebServer = MockWebServer()
+
+    init {
+        mockWebServer.start()
+        httpUrl = mockWebServer.url("/")
+    }
+}

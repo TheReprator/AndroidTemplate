@@ -1,5 +1,5 @@
 /*
- * Copyright $YEAR
+ * Copyright 2021 Vikram LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,3 +14,17 @@
  * limitations under the License.
  */
 
+package app.module.modulea.screen
+
+import com.kaspersky.kaspresso.screens.KScreen
+import io.github.kakaocup.kakao.text.KTextView
+import app.module.modulea.ModuleA
+import app.module.modulea.R
+
+object ModuleAScreen : KScreen<ModuleAScreen>() {
+
+    override val layoutId: Int = R.layout.fragment_modulea
+    override val viewClass: Class<*> = ModuleA::class.java
+
+    val textView = KTextView { withId(R.id.moduleA_title) }
+}

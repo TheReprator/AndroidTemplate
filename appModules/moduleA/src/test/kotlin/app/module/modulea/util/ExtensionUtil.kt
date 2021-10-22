@@ -1,5 +1,5 @@
 /*
- * Copyright $YEAR
+ * Copyright 2021 Vikram LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,3 +14,13 @@
  * limitations under the License.
  */
 
+package app.module.modulea.util
+
+import androidx.lifecycle.Observer
+import io.mockk.every
+
+inline fun <reified T> Observer<T>.onChangeExtension() {
+    every {
+        onChanged(any())
+    } returns Unit
+}

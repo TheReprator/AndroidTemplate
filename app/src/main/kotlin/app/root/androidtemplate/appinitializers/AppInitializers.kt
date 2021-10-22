@@ -1,5 +1,5 @@
 /*
- * Copyright $YEAR
+ * Copyright 2021 Vikram LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,3 +14,18 @@
  * limitations under the License.
  */
 
+package app.root.androidtemplate.appinitializers
+
+import android.app.Application
+import app.template.base_android.appinitializers.AppInitializer
+import javax.inject.Inject
+
+class AppInitializers @Inject constructor(
+    private val initializers: Set<@JvmSuppressWildcards AppInitializer>
+) {
+    fun init(application: Application) {
+        initializers.forEach {
+            it.init(application)
+        }
+    }
+}

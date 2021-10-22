@@ -8,7 +8,7 @@
 
     <fragment
         android:id="@+id/navigation_moduleA"
-        android:name="reprator.module.modulea.ModuleA"
-        android:label="TrendingList Fragment"
+        android:name="app.module.modulea.ModuleA"
+        android:label="Module A Fragment"
         tools:layout="@layout/fragment_modulea"/>
 </navigation>

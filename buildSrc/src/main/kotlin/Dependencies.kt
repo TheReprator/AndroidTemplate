@@ -8,7 +8,7 @@ object AndroidSdk {
 }
 
 object AppConstant {
-    const val applicationPackage = "reprator.androidtemplate"
+    const val applicationPackage = "app.root.androidtemplate"
     const val name = "AndroidTemplate"
     const val host = "https://example.com/"
     const val hostConstant = "HOST"

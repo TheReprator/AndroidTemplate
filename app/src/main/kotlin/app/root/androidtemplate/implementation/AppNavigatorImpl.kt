@@ -1,5 +1,5 @@
 /*
- * Copyright $YEAR
+ * Copyright 2021 Vikram LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,3 +14,11 @@
  * limitations under the License.
  */
 
+package app.root.androidtemplate.implementation
+
+import app.template.navigation.AppNavigator
+import dagger.hilt.android.scopes.ActivityScoped
+import javax.inject.Inject
+
+@ActivityScoped
+class AppNavigatorImpl @Inject constructor() : AppNavigator

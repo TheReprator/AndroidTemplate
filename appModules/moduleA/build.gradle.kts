@@ -26,7 +26,7 @@ android {
         )
 
         resourceConfigurations.add(AndroidSdk.localesEnglish)
-        testInstrumentationRunner = "reprator.module.modulea.util.ModuleATestRunner"
+        testInstrumentationRunner = "app.module.modulea.util.ModuleATestRunner"
     }
 
     buildFeatures.dataBinding = true
