@@ -14,26 +14,17 @@
  * limitations under the License.
  */
 
-package app.root.androidtemplate.di
+package app.root.androidtemplate.appinitializers
 
+import android.app.Application
+import app.template.base.util.Logger
 import app.template.base_android.appinitializers.AppInitializer
-import dagger.Binds
-import dagger.Module
-import dagger.hilt.InstallIn
-import dagger.hilt.components.SingletonComponent
-import dagger.multibindings.IntoSet
-import app.root.androidtemplate.appinitializers.CoilAppInitializer
-import app.root.androidtemplate.appinitializers.TimberInitializer
+import javax.inject.Inject
+import javax.inject.Named
 
-@InstallIn(SingletonComponent::class)
-@Module
-abstract class AppModuleBinds {
-
-    @Binds
-    @IntoSet
-    abstract fun provideCoilInitializer(bind: CoilAppInitializer): AppInitializer
-
-    @Binds
-    @IntoSet
-    abstract fun provideTimberInitializer(bind: TimberInitializer): AppInitializer
+class TimberInitializer @Inject constructor(
+    private val logger: Logger,
+    @Named("isDebug") val isDebug: Boolean
+) : AppInitializer {
+    override fun init(application: Application) = logger.setup(isDebug)
 }
