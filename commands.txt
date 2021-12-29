@@ -1,3 +1,6 @@
+To give permission to gradlew
+    chmod +x gradlew
+
 To list all available tasks:
 	a) gradlew tasks
 	b) .gradlew tasks
