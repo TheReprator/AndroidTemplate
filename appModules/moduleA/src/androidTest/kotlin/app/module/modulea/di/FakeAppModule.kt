@@ -1,5 +1,5 @@
 /*
- * Copyright 2021 Vikram LLC
+ * Copyright 2021
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,8 +20,8 @@ import android.content.Context
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.coroutineScope
 import androidx.lifecycle.testing.TestLifecycleOwner
-import app.template.base.util.interent.ConnectionDetector
 import app.template.base.util.AppCoroutineDispatchers
+import app.template.base.util.interent.ConnectionDetector
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
