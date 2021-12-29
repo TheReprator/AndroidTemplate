@@ -7,6 +7,7 @@ To list all available tasks:
 	c) ./gradlew tasks
 	d) .\gradlew tasks
 
+test
 To generate apk:
     gradlew --stacktrace assembleDebug
 
