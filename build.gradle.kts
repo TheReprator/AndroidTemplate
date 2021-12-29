@@ -69,12 +69,12 @@ subprojects {
     }
 
     detekt {
-        config = rootProject.files("$rootDir/config/detekt/detekt.yml")
+        config.setFrom(files("${rootProject.rootDir}/config/detekt/detekt.yml"))
+        baseline = file("${rootProject.rootDir}/config/detekt/baseline.xml")
+
         reports {
-            html {
-                enabled = true
-                destination = file("$rootDir/reports/detekt/detekt.html")
-            }
+            html.required.set(true)
+            html.outputLocation.set(file("${rootProject.rootDir}/reports/detekt/detekt.html"))
         }
     }
 
