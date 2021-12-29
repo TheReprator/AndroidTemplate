@@ -117,7 +117,6 @@ dependencies {
        UI Tests
     */
     implementation(Libs.TestDependencies.UITest.busyBee)
-    debugImplementation(Libs.TestDependencies.UITest.fragmentTesting)
 
     androidTestImplementation(Libs.TestDependencies.UITest.fragmentRuntime)
 
@@ -138,8 +137,11 @@ dependencies {
 
     // OkHttp Idling Resource
     androidTestImplementation(Libs.TestDependencies.UITest.okhttpIdlingResource)
+    androidTestImplementation(Libs.TestDependencies.Espresso.idlingResource)
 
     androidTestImplementation(Libs.Coroutines.coroutineTest) {
         exclude(group = "org.jetbrains.kotlinx", module = "kotlinx-coroutines-debug")
     }
+
+    debugImplementation(Libs.TestDependencies.UITest.fragmentTesting)
 }

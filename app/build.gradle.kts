@@ -90,6 +90,8 @@ dependencies {
 
     implementation(Libs.DaggerHilt.hilt)
     kapt(Libs.DaggerHilt.compiler)
+
+    debugImplementation(Libs.leakCanary)
 }
 
 if (file("google-services.json").exists()) {

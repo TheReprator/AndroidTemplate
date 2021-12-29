@@ -16,7 +16,7 @@
 
 package app.module.modulea.test
 
-import androidx.test.espresso.IdlingRegistry
+import android.support.test.espresso.IdlingRegistry
 import app.module.modulea.ModuleA
 import app.module.modulea.dispatcherWithCustomBody
 import app.module.modulea.screen.ModuleAScreen

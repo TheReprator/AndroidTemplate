@@ -61,6 +61,7 @@ object Libs {
     const val timber = "com.jakewharton.timber:timber:4.7.1"
     const val crashlytics = "com.google.firebase:firebase-crashlytics-gradle:2.8.1"
     const val swiperefresh = "androidx.swiperefreshlayout:swiperefreshlayout:1.1.0"
+    const val leakCanary = "com.squareup.leakcanary:leakcanary-android:2.7"
     const val detekt = "io.gitlab.arturbosch.detekt:detekt-formatting:${Versions.detekt}"
 
     object Coil {
@@ -243,7 +244,9 @@ object Libs {
             const val contrib = "androidx.test.espresso:espresso-contrib:$version"
             const val intents = "androidx.test.espresso:espresso-intents:$version"
             const val web = "androidx.test.espresso:espresso-web:$version"
-            const val idlingResource = "androidx.test.espresso:espresso-idling-resource:$version"
+            const val idlingResourceX = "androidx.test.espresso:espresso-idling-resource:$version"
+            const val idlingResource = "com.android.support.test.espresso.idling:idling-concurrent:3.0.2"
+
         }
     }
 }
