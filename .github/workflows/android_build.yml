@@ -130,7 +130,7 @@ jobs:
 
   instrumentation-test:
 
-    needs: UNIT_TEST
+    needs: [PR_TITLE_CHECK, UNIT_TEST]
 
     name: Run UI Tests
     runs-on: macos-latest
