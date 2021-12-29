@@ -14,18 +14,14 @@
  * limitations under the License.
  */
 
-package app.root.androidtemplate.implementation
+package app.template.base.util
 
-import app.template.base.util.AppCoroutineDispatchers
 import kotlinx.coroutines.CoroutineDispatcher
-import javax.inject.Inject
-import javax.inject.Singleton
 
-@Singleton
-class AppCoroutineDispatchersImpl @Inject constructor(
-    override val main: CoroutineDispatcher,
-    override val computation: CoroutineDispatcher,
-    override val io: CoroutineDispatcher,
-    override val default: CoroutineDispatcher,
-    override val singleThread: CoroutineDispatcher
-) : AppCoroutineDispatchers
+interface AppCoroutineDispatchers {
+    val main: CoroutineDispatcher
+    val computation: CoroutineDispatcher
+    val io: CoroutineDispatcher
+    val default: CoroutineDispatcher
+    val singleThread: CoroutineDispatcher
+}

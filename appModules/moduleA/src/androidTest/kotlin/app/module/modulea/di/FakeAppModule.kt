@@ -21,7 +21,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.coroutineScope
 import androidx.lifecycle.testing.TestLifecycleOwner
 import app.template.base.util.interent.ConnectionDetector
-import app.template.base.util.network.AppCoroutineDispatchers
+import app.template.base.util.AppCoroutineDispatchers
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

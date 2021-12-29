@@ -14,18 +14,26 @@
  * limitations under the License.
  */
 
-package app.root.androidtemplate.implementation
+package app.root.androidtemplate.di
 
-import app.template.base.util.AppCoroutineDispatchers
-import kotlinx.coroutines.CoroutineDispatcher
-import javax.inject.Inject
+import app.root.androidtemplate.implementation.AppAnalytics
+import app.root.androidtemplate.implementation.AppLogger
+import app.template.base.util.Analytics
+import app.template.base.util.Logger
+import dagger.Binds
+import dagger.Module
+import dagger.hilt.InstallIn
+import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
 
-@Singleton
-class AppCoroutineDispatchersImpl @Inject constructor(
-    override val main: CoroutineDispatcher,
-    override val computation: CoroutineDispatcher,
-    override val io: CoroutineDispatcher,
-    override val default: CoroutineDispatcher,
-    override val singleThread: CoroutineDispatcher
-) : AppCoroutineDispatchers
+@InstallIn(SingletonComponent::class)
+@Module
+abstract class FirebaseModule {
+    @Singleton
+    @Binds
+    internal abstract fun provideLogger(bind: AppLogger): Logger
+
+    @Singleton
+    @Binds
+    internal abstract fun provideAnalytics(bind: AppAnalytics): Analytics
+}

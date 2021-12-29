@@ -31,6 +31,8 @@ buildscript {
         classpath(Libs.TestDependencies.Junit5.classPath)
 
         classpath(Libs.dependencyUpdates)
+        classpath(Libs.crashlytics)
+        classpath(Libs.Google.gmsGoogleServices)
     }
 }
 

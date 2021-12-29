@@ -23,15 +23,10 @@ import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import dagger.multibindings.IntoSet
 import app.root.androidtemplate.appinitializers.CoilAppInitializer
-import app.root.androidtemplate.appinitializers.TimberInitializer
 
 @InstallIn(SingletonComponent::class)
 @Module
 abstract class AppModuleBinds {
-
-    @Binds
-    @IntoSet
-    abstract fun provideTimberInitializer(bind: TimberInitializer): AppInitializer
 
     @Binds
     @IntoSet

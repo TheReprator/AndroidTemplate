@@ -85,6 +85,16 @@ dependencies {
 
     implementation(Libs.OkHttp.loggingInterceptor)
 
+    implementation(Libs.Firebase.analytics)
+    implementation(Libs.Firebase.crashlytics)
+
     implementation(Libs.DaggerHilt.hilt)
     kapt(Libs.DaggerHilt.compiler)
+}
+
+if (file("google-services.json").exists()) {
+    plugins {
+        id(Libs.Plugins.crashlytics)
+        id(Libs.Plugins.googleServices)
+    }
 }

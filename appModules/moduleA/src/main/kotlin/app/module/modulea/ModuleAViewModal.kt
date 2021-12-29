@@ -19,7 +19,7 @@ package app.module.modulea
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import app.template.base.extensions.computationalBlock
-import app.template.base.util.network.AppCoroutineDispatchers
+import app.template.base.util.AppCoroutineDispatchers
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.americanexpress.busybee.BusyBee
 import kotlinx.coroutines.CoroutineExceptionHandler

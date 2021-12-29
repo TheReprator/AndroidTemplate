@@ -16,7 +16,7 @@
 
 package app.module.modulea.util
 
-import app.template.base.util.network.AppCoroutineDispatchers
+import app.template.base.util.AppCoroutineDispatchers
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.test.TestCoroutineDispatcher

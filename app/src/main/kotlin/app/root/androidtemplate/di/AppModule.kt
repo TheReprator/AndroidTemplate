@@ -22,7 +22,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ProcessLifecycleOwner
 import app.template.base.util.date.DateUtils
 import app.template.base.util.interent.ConnectionDetector
-import app.template.base.util.network.AppCoroutineDispatchers
+import app.template.base.util.AppCoroutineDispatchers
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -37,6 +37,8 @@ import app.root.androidtemplate.R
 import app.root.androidtemplate.implementation.AppCoroutineDispatchersImpl
 import app.root.androidtemplate.implementation.DateUtilsImpl
 import app.root.androidtemplate.implementation.connectivity.InternetChecker
+import com.google.firebase.analytics.FirebaseAnalytics
+import com.google.firebase.crashlytics.FirebaseCrashlytics
 import java.util.concurrent.Executors
 import javax.inject.Named
 import javax.inject.Singleton
@@ -90,4 +92,14 @@ class AppModule {
     fun provideIsDebug(): Boolean {
         return BuildConfig.DEBUG
     }
+
+    @Provides
+    @Singleton
+    fun provideFirebaseCrashlytics(): FirebaseCrashlytics = FirebaseCrashlytics.getInstance()
+
+    @Provides
+    @Singleton
+    fun provideFirebaseAnalytics(
+        @ApplicationContext context: Context
+    ): FirebaseAnalytics = FirebaseAnalytics.getInstance(context)
 }

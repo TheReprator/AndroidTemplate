@@ -41,6 +41,7 @@ object Libs {
     object Plugins {
         const val androidApplication = "com.android.application"
         const val crashlytics = "com.google.firebase.crashlytics"
+        const val googleServices = "com.google.gms.google-services"
         const val androidLibrary = "com.android.library"
         const val kotlinLibrary = "kotlin"
         const val kotlinJVM = "jvm"
@@ -58,7 +59,7 @@ object Libs {
     const val androidGradlePlugin = "com.android.tools.build:gradle:7.0.4"
     const val dependencyUpdates = "com.github.ben-manes:gradle-versions-plugin:0.39.0"
     const val timber = "com.jakewharton.timber:timber:4.7.1"
-    const val crashlytics = "com.google.firebase:firebase-crashlytics-gradle:2.1.1"
+    const val crashlytics = "com.google.firebase:firebase-crashlytics-gradle:2.8.1"
     const val swiperefresh = "androidx.swiperefreshlayout:swiperefreshlayout:1.1.0"
     const val detekt = "io.gitlab.arturbosch.detekt:detekt-formatting:${Versions.detekt}"
 
@@ -69,12 +70,12 @@ object Libs {
 
     object Google {
         const val materialWidget = "com.google.android.material:material:1.4.0"
-        const val crashlytics = "com.crashlytics.sdk.android:crashlytics:2.10.1"
-        const val gmsGoogleServices = "com.google.gms:google-services:4.3.4"
+        const val gmsGoogleServices = "com.google.gms:google-services:4.3.10"
     }
 
     object Firebase {
-        const val firebaseAnalytics = "com.google.firebase:firebase-analytics:17.4.3"
+        const val analytics = "com.google.firebase:firebase-analytics-ktx:20.0.2"
+        const val crashlytics = "com.google.firebase:firebase-crashlytics-ktx:18.2.6"
         const val core = "com.google.firebase:firebase-core:18.0.1"
         const val iid = "com.google.firebase:firebase-iid:21.0.1"
         const val messaging = "com.google.firebase:firebase-messaging:21.0.1"

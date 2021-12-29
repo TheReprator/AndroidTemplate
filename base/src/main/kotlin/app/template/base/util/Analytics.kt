@@ -14,14 +14,12 @@
  * limitations under the License.
  */
 
-package app.template.base.util.network
+package app.template.base.util
 
-import kotlinx.coroutines.CoroutineDispatcher
-
-interface AppCoroutineDispatchers {
-    val main: CoroutineDispatcher
-    val computation: CoroutineDispatcher
-    val io: CoroutineDispatcher
-    val default: CoroutineDispatcher
-    val singleThread: CoroutineDispatcher
+interface Analytics {
+    fun trackScreenView(
+        label: String,
+        route: String?,
+        arguments: Any? = null,
+    )
 }

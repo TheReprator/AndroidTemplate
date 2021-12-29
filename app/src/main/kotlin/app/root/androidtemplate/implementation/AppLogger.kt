@@ -16,16 +16,115 @@
 
 package app.root.androidtemplate.implementation
 
-import android.os.Build
 import android.util.Log
+import app.template.base.util.Logger
+import app.template.base_android.util.isAndroidNOrLater
+import com.google.firebase.crashlytics.FirebaseCrashlytics
 import timber.log.Timber
 import java.util.regex.Pattern
+import javax.inject.Inject
+import javax.inject.Provider
+
+internal class AppLogger @Inject constructor(
+    private val firebaseCrashlytics: Provider<FirebaseCrashlytics>,
+) : Logger {
+    override fun setup(debugMode: Boolean) {
+        if (debugMode) {
+            Timber.plant(AppDebugTree())
+        }
+        try {
+            Timber.plant(CrashlyticsTree(firebaseCrashlytics.get()))
+        } catch (e: IllegalStateException) {
+            // Firebase is likely not setup in this project. Ignore the exception
+        }
+    }
+
+    override fun setUserId(id: String) {
+        try {
+            firebaseCrashlytics.get().setUserId(id)
+        } catch (e: IllegalStateException) {
+            // Firebase is likely not setup in this project. Ignore the exception
+        }
+    }
+
+    override fun v(message: String, vararg args: Any?) {
+        Timber.v(message, *args)
+    }
+
+    override fun v(t: Throwable, message: String, vararg args: Any?) {
+        Timber.v(t, message, *args)
+    }
+
+    override fun v(t: Throwable) {
+        Timber.v(t)
+    }
+
+    override fun d(message: String, vararg args: Any?) {
+        Timber.d(message, *args)
+    }
+
+    override fun d(t: Throwable, message: String, vararg args: Any?) {
+        Timber.d(t, message, *args)
+    }
+
+    override fun d(t: Throwable) {
+        Timber.d(t)
+    }
+
+    override fun i(message: String, vararg args: Any?) {
+        Timber.i(message, *args)
+    }
+
+    override fun i(t: Throwable, message: String, vararg args: Any?) {
+        Timber.i(t, message, *args)
+    }
+
+    override fun i(t: Throwable) {
+        Timber.i(t)
+    }
+
+    override fun w(message: String, vararg args: Any?) {
+        Timber.w(message, *args)
+    }
+
+    override fun w(t: Throwable, message: String, vararg args: Any?) {
+        Timber.w(t, message, *args)
+    }
+
+    override fun w(t: Throwable) {
+        Timber.w(t)
+    }
+
+    override fun e(message: String, vararg args: Any?) {
+        Timber.e(message, *args)
+    }
+
+    override fun e(t: Throwable, message: String, vararg args: Any?) {
+        Timber.e(t, message, *args)
+    }
+
+    override fun e(t: Throwable) {
+        Timber.e(t)
+    }
+
+    override fun wtf(message: String, vararg args: Any?) {
+        Timber.wtf(message, *args)
+    }
+
+    override fun wtf(t: Throwable, message: String, vararg args: Any?) {
+        Timber.wtf(t, message, *args)
+    }
+
+    override fun wtf(t: Throwable) {
+        Timber.wtf(t)
+    }
+}
 
 /**
  * Special version of [Timber.DebugTree] which is tailored for Timber being wrapped
  * within another class.
  */
-class AppDebugTree : Timber.DebugTree() {
+private class AppDebugTree : Timber.DebugTree() {
     override fun log(priority: Int, tag: String?, message: String, t: Throwable?) {
         super.log(priority, createClassTag(), message, t)
     }
@@ -43,7 +142,7 @@ class AppDebugTree : Timber.DebugTree() {
         tag = tag.substring(tag.lastIndexOf('.') + 1)
         // Tag length limit was removed in API 24.
         return when {
-            Build.VERSION.SDK_INT >= 24 || tag.length <= MAX_TAG_LENGTH -> tag
+            isAndroidNOrLater || tag.length <= MAX_TAG_LENGTH -> tag
             else -> tag.substring(0, MAX_TAG_LENGTH)
         }
     }
@@ -55,16 +154,14 @@ class AppDebugTree : Timber.DebugTree() {
     }
 }
 
-class CrashlyticsTree : Timber.Tree() {
+private class CrashlyticsTree(
+    private val firebaseCrashlytics: FirebaseCrashlytics
+) : Timber.Tree() {
     override fun isLoggable(tag: String?, priority: Int): Boolean {
         return priority >= Log.INFO
     }
 
     override fun log(priority: Int, tag: String?, message: String, t: Throwable?) {
-        if (t != null) {
-            // firebaseCrashlytics.recordException(t)
-        } else {
-            // firebaseCrashlytics.log(message)
-        }
+        firebaseCrashlytics.log(message)
     }
 }
