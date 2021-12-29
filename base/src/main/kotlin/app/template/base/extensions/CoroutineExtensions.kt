@@ -1,5 +1,5 @@
 /*
- * Copyright 2021 Vikram LLC
+ * Copyright 2021
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,8 +16,8 @@
 
 package app.template.base.extensions
 
-import app.template.base.util.isNull
 import app.template.base.util.AppCoroutineDispatchers
+import app.template.base.util.isNull
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch

@@ -28,7 +28,7 @@ import javax.inject.Singleton
 
 @InstallIn(SingletonComponent::class)
 @Module
-abstract class FirebaseModule {
+abstract class FirebaseModuleBinds {
     @Singleton
     @Binds
     internal abstract fun provideLogger(bind: AppLogger): Logger
