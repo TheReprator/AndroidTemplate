@@ -1,5 +1,5 @@
 /*
- * Copyright 2021 Vikram LLC
+ * Copyright 2021
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -69,8 +69,8 @@ class DateUtilsImpl @Inject constructor() : DateUtils {
         locale: Locale = Locale.getDefault()
     ):
         SimpleDateFormat {
-            return SimpleDateFormat(dateFormat, locale)
-        }
+        return SimpleDateFormat(dateFormat, locale)
+    }
 
     override fun convertToEpoch(time: Long): Long = time * EPOCH
 

@@ -1,5 +1,5 @@
 /*
- * Copyright 2021 Vikram LLC
+ * Copyright 2021
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,14 +16,14 @@
 
 package app.root.androidtemplate.di
 
+import app.root.androidtemplate.appinitializers.CoilAppInitializer
+import app.root.androidtemplate.appinitializers.TimberInitializer
 import app.template.base_android.appinitializers.AppInitializer
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import dagger.multibindings.IntoSet
-import app.root.androidtemplate.appinitializers.CoilAppInitializer
-import app.root.androidtemplate.appinitializers.TimberInitializer
 
 @InstallIn(SingletonComponent::class)
 @Module

@@ -1,5 +1,5 @@
 /*
- * Copyright 2021 Vikram LLC
+ * Copyright 2021
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,9 +21,9 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.OnLifecycleEvent
 import androidx.lifecycle.coroutineScope
+import app.root.androidtemplate.implementation.connectivity.base.ConnectivityProvider
 import app.template.base.util.interent.ConnectionDetector
 import dagger.hilt.android.qualifiers.ApplicationContext
-import app.root.androidtemplate.implementation.connectivity.base.ConnectivityProvider
 import javax.inject.Inject
 import javax.inject.Singleton
 
