@@ -16,13 +16,10 @@
 
 package app.module.modulea
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import app.template.base.extensions.computationalBlock
 import app.template.base.util.network.AppCoroutineDispatchers
-import app.template.base_android.util.event.Event
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.americanexpress.busybee.BusyBee
 import kotlinx.coroutines.CoroutineExceptionHandler
@@ -37,44 +34,28 @@ class ModuleAViewModal @Inject constructor(
     private val BUSYBEE_OPERATION_NAME = "Network Call"
     private val busyBee = BusyBee.singleton()
 
-    private val _isLoading = MutableLiveData(true)
-    val isLoading: LiveData<Boolean> = _isLoading
-
-    private val _errorMsg = MutableLiveData("")
-    val errorMsg: LiveData<String> = _errorMsg
-
-    private val _swipeErrorMsg = MutableLiveData(Event(""))
-    val swipeErrorMsg: LiveData<Event<String>> = _swipeErrorMsg
-
-    private val _swipeLoading = MutableLiveData(false)
-    val swipeLoading: LiveData<Boolean> = _swipeLoading
-
     var previousPosition = -1
 
     fun fetchList() {
         useCaseCall(
             {
-                _isLoading.value = it
+
             },
             {
-                _errorMsg.value = it
+
             }
         )
     }
 
     fun retryList() {
-        _isLoading.value = true
-        _errorMsg.value = ""
         fetchList()
     }
 
     fun onRefresh() {
         useCaseCall(
             {
-                _swipeLoading.value = it
             },
             {
-                _swipeErrorMsg.value = Event(it)
             }
         )
     }

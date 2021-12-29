@@ -29,7 +29,7 @@ android {
         testInstrumentationRunner = "app.module.modulea.util.ModuleATestRunner"
     }
 
-    buildFeatures.dataBinding = true
+    buildFeatures.viewBinding = true
 
     kotlinOptions {
         jvmTarget = JavaVersion.VERSION_11.toString()
