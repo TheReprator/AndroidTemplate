@@ -69,8 +69,10 @@ subprojects {
     }
 
     detekt {
+        description = "Runs over whole code base without the starting overhead for each module."
+        parallel = true
+        buildUponDefaultConfig = true
         config.setFrom(files("${rootProject.rootDir}/config/detekt/detekt.yml"))
-        baseline = file("${rootProject.rootDir}/config/detekt/baseline.xml")
 
         reports {
             html.required.set(true)
