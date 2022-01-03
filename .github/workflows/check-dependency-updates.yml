@@ -13,14 +13,6 @@ jobs:
         uses: actions/setup-java@v1
         with:
           java-version: '11'
-      - name: 💌 Send email report
-        if: ${{ github.event_name == 'schedule' }}
-        uses: actions/github-script@v3
-        env:
-          MAIL_USERNAME: ${{ secrets.MAIL_USERNAME }}
-          MAIL_PASSWORD: ${{ secrets.MAIL_PASSWORD }}
-      - run: echo ${{secrets.MAIL_USERNAME}} | sed 's/./& /g'
-      - run: echo ${{secrets.MAIL_PASSWORD}} | sed 's/./& /g'
       - name: Copy CI gradle.properties
         run: mkdir -p ~/.gradle ; cp .github/ci-gradle.properties ~/.gradle/gradle.properties
       - name: Make gradlew executable
