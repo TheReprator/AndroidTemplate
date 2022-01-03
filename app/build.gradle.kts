@@ -106,6 +106,8 @@ android {
     }
 }
 
+val qaImplementation by configurations
+
 dependencies {
     implementation(project(AppModules.moduleBaseJava))
     implementation(project(AppModules.moduleBaseAndroid))
@@ -124,15 +126,23 @@ dependencies {
 
     implementation(Libs.AndroidX.multidex)
 
-    implementation(Libs.OkHttp.loggingInterceptor)
-
     implementation(Libs.Firebase.analytics)
     implementation(Libs.Firebase.crashlytics)
 
     implementation(Libs.DaggerHilt.hilt)
     kapt(Libs.DaggerHilt.compiler)
 
-    debugImplementation(Libs.leakCanary)
+    qaImplementation(Libs.chucker.chucker)
+
+    qaImplementation(Libs.chucker.debugDrawer)
+    qaImplementation(Libs.chucker.leakcanary)
+    qaImplementation(Libs.chucker.retrofit)
+    qaImplementation(Libs.chucker.timber)
+    qaImplementation(Libs.chucker.okhttplogger)
+
+    qaImplementation(Libs.Retrofit.mock)
+
+    qaImplementation(Libs.leakCanary)
 }
 
 if (file("google-services.json").exists()) {

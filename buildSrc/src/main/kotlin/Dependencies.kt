@@ -1,6 +1,6 @@
 object AndroidSdk {
     const val min = 21
-    const val compile = 31
+    const val compile = 32
     const val target = compile
 
     val localesEnglish = "en"
@@ -29,6 +29,18 @@ object AppModules {
 }
 
 object Libs {
+
+    object chucker {
+        private const val version = "3.5.2"
+        const val chucker = "com.github.chuckerteam.chucker:library:$version"
+
+        private const val debugDrawerVersion = "0.9.7"
+        const val debugDrawer = "au.com.gridstone.debugdrawer:debugdrawer:$debugDrawerVersion"
+        const val leakcanary = "au.com.gridstone.debugdrawer:debugdrawer-leakcanary:$debugDrawerVersion"
+        const val retrofit = "au.com.gridstone.debugdrawer:debugdrawer-retrofit:$debugDrawerVersion"
+        const val timber = "au.com.gridstone.debugdrawer:debugdrawer-timber:$debugDrawerVersion"
+        const val okhttplogger = "au.com.gridstone.debugdrawer:debugdrawer-okhttp-logger:$debugDrawerVersion"
+    }
 
     object Versions{
         const val kotlin = "1.6.10"
@@ -160,6 +172,7 @@ object Libs {
     object Retrofit {
         private const val version = "2.9.0"
         const val retrofit = "com.squareup.retrofit2:retrofit:$version"
+        const val mock = "com.squareup.retrofit2:retrofit-mock:$version"
         const val jacksonConverter = "com.squareup.retrofit2:converter-jackson:$version"
         const val jacksonKotlinModule = "com.fasterxml.jackson.module:jackson-module-kotlin:2.13.1"
     }

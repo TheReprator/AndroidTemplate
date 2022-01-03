@@ -27,7 +27,6 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import okhttp3.Cache
 import okhttp3.OkHttpClient
-import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.jackson.JacksonConverterFactory
 import java.io.File
@@ -58,15 +57,7 @@ object NetworkModule {
         )
 
     @Provides
-    fun provideHttpLoggingInterceptor(): HttpLoggingInterceptor {
-        return HttpLoggingInterceptor().apply {
-            level = HttpLoggingInterceptor.Level.BODY
-        }
-    }
-
-    @Provides
     fun provideOkHttpClient(
-        httpLoggingInterceptor: HttpLoggingInterceptor,
         offlineCacheInterceptor: OfflineCacheInterceptor,
         cacheInterceptor: CacheInterceptor,
         cache: Cache
@@ -80,7 +71,6 @@ object NetworkModule {
                 followSslRedirects(true)
                 cache(cache)
                 retryOnConnectionFailure(false)
-                addInterceptor(httpLoggingInterceptor)
                 addInterceptor(offlineCacheInterceptor)
                 addNetworkInterceptor(cacheInterceptor)
             }

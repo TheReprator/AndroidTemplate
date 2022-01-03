@@ -96,10 +96,6 @@ tasks.withType<DokkaMultiModuleTask>().configureEach {
 Generate dependency graph for app in terms of modules
 * */
 apply(from = file("$rootDir/gradle/dependencyGraph.gradle"))
-
-/*
-Generate dependency graph for app in terms of dependencies
-* */
 project.rootProject.allprojects {
     apply(plugin = "project-report")
 
