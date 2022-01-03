@@ -18,11 +18,11 @@ module.exports = ({ }) => {
 
     const mailOptions = {
         from: {
-            name: 'Jetflix',
+            name: 'App Template',
             address: process.env.MAIL_USERNAME
         },
-        to: 'yasinkacmaz57@gmail.com',
-        subject: 'Dependency update report of Jetflix ¯\\_(ツ)_/¯',
+        to: 'mr.vikram004@gmail.com',
+        subject: 'Dependency update report of App Template',
         text: `${report}`
     };
 
