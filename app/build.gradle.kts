@@ -1,3 +1,7 @@
+import com.android.build.api.dsl.ApkSigningConfig
+import java.io.FileInputStream
+import java.util.*
+
 plugins {
     id(Libs.Plugins.androidApplication)
     kotlin(Libs.Plugins.kotlinAndroid)
@@ -12,6 +16,23 @@ kapt {
 
     arguments {
         arg("dagger.hilt.shareTestComponents", "true")
+    }
+}
+
+fun getKeyStoreConfig(defaultSigningConfig: ApkSigningConfig, propertyFileName: String) {
+    val properties = Properties()
+    val propFile = File("./signingconfig/$propertyFileName")
+    if (propFile.canRead() && propFile.exists()) {
+        properties.load(FileInputStream(propFile))
+        if (properties.containsKey("storeFile") && properties.containsKey("storePassword") &&
+            properties.containsKey("keyAlias") && properties.containsKey("keyPassword")
+        ) {
+            defaultSigningConfig.storeFile = file("../${properties.getProperty("storeFile")}")
+            defaultSigningConfig.storePassword = properties.getProperty("storePassword")
+            defaultSigningConfig.keyAlias = properties.getProperty("keyAlias")
+            defaultSigningConfig.keyPassword = properties.getProperty("keyPassword")
+            defaultSigningConfig.isV2SigningEnabled = true
+        }
     }
 }
 
@@ -36,10 +57,30 @@ android {
         buildConfigField("String", AppConstant.hostConstant, "\"${AppConstant.host}\"")
     }
 
+    signingConfigs {
+        getByName("debug") {
+            getKeyStoreConfig(this, "signing-debug.properties")
+        }
+    }
+
     buildTypes {
 
         getByName("debug") {
             isDebuggable = true
+        }
+    }
+
+    flavorDimensions.add("mode")
+
+    productFlavors {
+        create("qa") {
+            dimension = "mode"
+            applicationIdSuffix = ".qa"
+            proguardFiles.add(file("proguard-rules-chucker.pro"))
+        }
+
+        create("standard") {
+            dimension = "mode"
         }
     }
 
