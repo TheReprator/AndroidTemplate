@@ -34,8 +34,6 @@ class ModuleAViewModal @Inject constructor(
     private val BUSYBEE_OPERATION_NAME = "Network Call"
     private val busyBee = BusyBee.singleton()
 
-    var previousPosition = -1
-
     fun fetchList() {
         useCaseCall(
             {
@@ -65,6 +63,7 @@ class ModuleAViewModal @Inject constructor(
         busyBee.busyWith(BUSYBEE_OPERATION_NAME)
 
         computationalBlock {
+            busyBee.completed(BUSYBEE_OPERATION_NAME)
         }
     }
 
