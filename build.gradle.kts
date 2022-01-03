@@ -1,10 +1,12 @@
+import app.template.buildsrc.AppDependencyUpdates
+import app.template.buildsrc.ReleaseType
+import com.diffplug.gradle.spotless.SpotlessExtension
+import com.github.benmanes.gradle.versions.updates.DependencyUpdatesTask
 import org.gradle.api.tasks.testing.logging.TestExceptionFormat
 import org.gradle.api.tasks.testing.logging.TestLogEvent
-import org.jetbrains.dokka.gradle.DokkaTaskPartial
-import com.diffplug.gradle.spotless.SpotlessExtension
 import org.jetbrains.dokka.gradle.DokkaMultiModuleTask
+import org.jetbrains.dokka.gradle.DokkaTaskPartial
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
-
 
 plugins {
     kotlin(Libs.Plugins.kotlinJVM) version Libs.Versions.kotlin
@@ -13,6 +15,7 @@ plugins {
     id(Libs.Plugins.spotless) version Libs.Versions.spotless
 
     id(Libs.Plugins.detekt) version Libs.Versions.detekt
+    id(Libs.Plugins.dependencyUpdateVersions) version Libs.Versions.dependencyUpdate
 }
 
 buildscript {
@@ -28,15 +31,15 @@ buildscript {
         classpath(Libs.Kotlin.gradlePlugin)
         classpath(Libs.AndroidX.Navigation.navigationPlugin)
         classpath(Libs.DaggerHilt.classPath)
-        classpath(Libs.TestDependencies.Junit5.classPath)
 
-        classpath(Libs.dependencyUpdates)
+        classpath(Libs.crashlytics)
+        classpath(Libs.Google.gmsGoogleServices)
+
+        classpath(Libs.TestDependencies.Junit5.classPath)
     }
 }
 
 subprojects {
-
-    plugins.apply(Libs.Plugins.updateVersions)
 
     plugins.apply(Libs.Plugins.detekt)
 
@@ -67,12 +70,15 @@ subprojects {
     }
 
     detekt {
-        config = rootProject.files("$rootDir/config/detekt/detekt.yml")
+        description = "Runs over whole code base without the starting overhead for each module."
+        parallel = true
+        buildUponDefaultConfig = true
+        autoCorrect = true
+        config.setFrom(files("${rootProject.rootDir}/config/detekt/detekt.yml"))
+
         reports {
-            html {
-                enabled = true
-                destination = file("$rootDir/reports/detekt/detekt.html")
-            }
+            html.required.set(true)
+            html.outputLocation.set(file("${rootProject.rootDir}/reports/detekt/detekt.html"))
         }
     }
 
@@ -104,6 +110,26 @@ project.rootProject.allprojects {
         evaluationDependsOnChildren()
         this.setRenderer(org.gradle.api.tasks.diagnostics.internal.dependencies.AsciiDependencyReportRenderer())
     }
+}
+
+//Task added to know the updated depencecy
+tasks.withType<DependencyUpdatesTask> {
+
+    rejectVersionIf {
+        val current = AppDependencyUpdates.versionToRelease(currentVersion)
+        // If we're using a SNAPSHOT, ignore since we must be doing so for a reason.
+        if (current == ReleaseType.SNAPSHOT) return@rejectVersionIf true
+
+        // Otherwise we reject if the candidate is more 'unstable' than our version
+        val candidate = AppDependencyUpdates.versionToRelease(candidate.version)
+        return@rejectVersionIf candidate.isLessStableThan(current)
+    }
+
+    // optional parameters
+    checkForGradleUpdate = true
+    outputFormatter = "json"
+    outputDir = "$rootDir/report/dependencyUpdates"
+    reportfileName = "report"
 }
 
 /*

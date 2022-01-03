@@ -1,5 +1,5 @@
 /*
- * Copyright 2021 Vikram LLC
+ * Copyright 2021
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,6 +17,8 @@
 package app.root.androidtemplate.di
 
 import android.content.Context
+import app.root.androidtemplate.implementation.AppNavigatorImpl
+import app.root.androidtemplate.implementation.PermissionHelperImpl
 import app.template.base.util.permission.PermissionHelper
 import app.template.navigation.AppNavigator
 import dagger.Module
@@ -25,8 +27,6 @@ import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ActivityComponent
 import dagger.hilt.android.qualifiers.ActivityContext
 import dagger.hilt.android.scopes.ActivityScoped
-import app.root.androidtemplate.implementation.AppNavigatorImpl
-import app.root.androidtemplate.implementation.PermissionHelperImpl
 
 @InstallIn(ActivityComponent::class)
 @Module

@@ -1,5 +1,5 @@
 /*
- * Copyright 2021 Vikram LLC
+ * Copyright 2021
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,20 +17,14 @@
 package app.root.androidtemplate.appinitializers
 
 import android.app.Application
+import app.template.base.util.Logger
 import app.template.base_android.appinitializers.AppInitializer
-import app.root.androidtemplate.implementation.AppDebugTree
-import app.root.androidtemplate.implementation.CrashlyticsTree
-import timber.log.Timber
 import javax.inject.Inject
 import javax.inject.Named
 
-class TimberInitializer @Inject constructor(@Named("isDebug") val isDebug: Boolean) :
-    AppInitializer {
-
-    override fun init(application: Application) {
-        if (isDebug)
-            Timber.plant(AppDebugTree())
-        else
-            Timber.plant(CrashlyticsTree())
-    }
+class TimberInitializer @Inject constructor(
+    private val logger: Logger,
+    @Named("isDebug") val isDebug: Boolean
+) : AppInitializer {
+    override fun init(application: Application) = logger.setup(isDebug)
 }

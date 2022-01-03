@@ -1,0 +1,200 @@
+name: PR on Master Branch
+
+# Controls when the action will run. Triggers the workflow on push or pull request
+# events but only for the master branch
+on:
+  pull_request:
+    types:
+      [opened, synchronize, reopened, edited]
+    branches:
+      - master
+
+  # Allows you to run the workflow manually
+  workflow_dispatch:
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+
+  PR_TITLE_CHECK:
+
+    name: Check PR Title
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check for JIRA id in PR title
+        run: |
+          #!/bin/bash
+          echo "PR title is \"$PR_TITLE\""
+          if [[ ! $PR_TITLE =~ ^\[[A-Z0-9]+-[0-9]+\] ]];then
+            echo "PR title must start with JIRA ticket. e.g. \"[CON-123] $PR_TITLE\""
+            exit 1
+          fi
+        env:
+          PR_TITLE: ${{ github.event.pull_request.title }}
+
+  Check-Description:
+    name: Check that PR has description
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check if PR is shame-worthy
+        id: is-shame-worthy
+        run: |
+          FILTERED_BODY=$( sed -r -e '/^(##? )|(- *\[)/d' <<< $RAW_BODY )
+          echo "::debug::Filtered PR body to $FILTERED_BODY"
+          if [[ -z "${FILTERED_BODY//[[:space:]]/}" ]]; then
+              echo "::set-output name=is-shame-worthy::true"
+          else
+              echo "::set-output name=is-shame-worthy::false"
+          fi
+        env:
+          RAW_BODY: ${{ github.event.pull_request.body }}
+
+      - name: Shame if PR has no description
+        if: steps.is-shame-worthy.outputs.is-shame-worthy == 'true'
+        run: |
+          SHAME_BODY="Hey @${{ github.actor }}! 👋\nThis pull request seems to contain no description. Please add useful context, rationale, and/or any other information that will help make sense of this change now and in the distant Mars-based future."
+          curl -s -u posthog-bot:${{ secrets.GITHUB_TOKEN }} -X POST -d "{ \"body\": \"$SHAME_BODY\" }" "https://api.github.com/repos/${{ github.repository }}/issues/${{ github.event.pull_request.number }}/comments"
+
+  STATIC_CHECK:
+    name: Static Checks
+
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - uses: actions/checkout@v2
+      - uses: gradle/wrapper-validation-action@v1
+      - uses: actions/setup-java@v2
+        with:
+          distribution: 'adopt'
+          java-version: 16
+      - uses: actions/cache@v2
+        with:
+          path: ~/.gradle/caches
+          key: gradle-${{ runner.os }}-${{ hashFiles('**/**.gradle.kts', '**/gradle/wrapper/gradle-wrapper.properties', '**/buildSrc/src/main/kotlin/Library.kt') }}
+
+      - name: Make gradlew executable
+        run: chmod +x ./gradlew
+
+      - name: Run Spotless
+        run: ./gradlew spotlessCheck
+
+      - name: Run DeteKT code formatter
+        run: ./gradlew detekt
+
+  UNIT_TEST:
+
+    needs: STATIC_CHECK
+
+    name: Run Unit Tests
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout the code
+        uses: actions/checkout@v2
+
+      - name: set up JDK 11
+        uses: actions/setup-java@v2
+        with:
+          distribution: 'adopt'
+          java-version: 11
+
+
+      - name: Copy CI gradle.properties
+        run: mkdir -p ~/.gradle ; cp .github/ci-gradle.properties ~/.gradle/gradle.properties
+
+      - uses: actions/cache@v2
+        continue-on-error: true # continue if the cache restore/upload fails
+        with:
+          path: |
+            ~/.gradle/caches/modules-*
+            ~/.gradle/caches/jars-*
+            ~/.gradle/caches/build-cache-*
+          key: ${{ runner.os }}-gradle-${{ hashFiles('checksum.txt') }}
+
+      - name: Make gradlew executable
+        run: chmod +x ./gradlew
+
+      - name: Run Unit tests
+        run: ./gradlew test
+
+      - name: Upload test report
+        uses: actions/upload-artifact@v2
+        with:
+          name: unit_test_report
+          path: app/build/reports/tests/testDebugUnitTest/
+        if: always()
+
+
+  instrumentation-test:
+
+    needs: [PR_TITLE_CHECK, UNIT_TEST]
+
+    name: Run UI Tests
+    runs-on: macos-latest
+    timeout-minutes: 20
+    strategy:
+      fail-fast: true
+      matrix:
+        api-level: [ 21, 23, 29]
+
+    steps:
+      - name: Checkout the code
+        uses: actions/checkout@v2
+
+      - name: set up JDK
+        uses: actions/setup-java@v2
+        with:
+          distribution: 'adopt'
+          java-version: 11
+
+
+      - name: Make gradlew executable
+        run: chmod +x ./gradlew
+
+      - name: Copy CI gradle.properties
+        run: mkdir -p ~/.gradle ; cp .github/ci-gradle.properties ~/.gradle/gradle.properties
+
+      - name: Gradle cache
+        uses: actions/cache@v2
+        continue-on-error: true # continue if the cache restore/upload fails
+        with:
+          path: |
+            ~/.gradle/caches/modules-*
+            ~/.gradle/caches/jars-*
+            ~/.gradle/caches/build-cache-*
+          key: ${{ runner.os }}-gradle-${{ hashFiles('checksum.txt') }}
+
+      - name: AVD cache
+        uses: actions/cache@v2
+        id: avd-cache
+        with:
+          path: |
+            ~/.android/avd/*
+            ~/.android/adb*
+          key: avd-${{ matrix.api-level }}
+
+      - name: create AVD and generate snapshot for caching
+        if: steps.avd-cache.outputs.cache-hit != 'true'
+        uses: reactivecircus/android-emulator-runner@v2
+        with:
+          api-level: ${{ matrix.api-level }}
+          force-avd-creation: false
+          emulator-options: -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
+          disable-animations: false
+          script: echo "Generated AVD snapshot for caching."
+
+      - name: run kaspresso tests
+        uses: reactivecircus/android-emulator-runner@v2
+        with:
+          api-level: ${{ matrix.api-level }}
+          force-avd-creation: false
+          emulator-options: -no-snapshot-save -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
+          disable-animations: true
+          script: ./gradlew connectedCheck --stacktrace
+
+      - name: Upload test report
+        uses: actions/upload-artifact@v2
+        with:
+          name: instrumentation_test_report
+          path: app/build/reports/androidTests/connected/
+        if: always()

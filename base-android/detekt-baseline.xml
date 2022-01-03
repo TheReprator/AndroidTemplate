@@ -1,0 +1,17 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<SmellBaseline>
+  <ManuallySuppressedIssues/>
+  <CurrentIssues>
+    <ID>LongParameterList:ContextExtensions.kt$( message: String, title: String = "", positiveButtonName: String = "OK", negativeButtonName: String = "Cancel", positiveButtonCallBack: () -> Unit = {}, negativeButtonCallBack: () -> Unit = {} )</ID>
+    <ID>PackageNaming:AndroidFunction.kt$package app.template.base_android.util</ID>
+    <ID>PackageNaming:AndroidVersions.kt$package app.template.base_android.util</ID>
+    <ID>PackageNaming:AppInitializer.kt$package app.template.base_android.appinitializers</ID>
+    <ID>PackageNaming:ContextExtensions.kt$package app.template.base_android.extensions</ID>
+    <ID>PackageNaming:FragmentViewBindingDelegate.kt$package app.template.base_android.viewDelegation</ID>
+    <ID>PackageNaming:GeneralDiffUtil.kt$package app.template.base_android.util</ID>
+    <ID>PackageNaming:ItemOffsetDecoration.kt$package app.template.base_android.util</ID>
+    <ID>PackageNaming:ViewExtensions.kt$package app.template.base_android.extensions</ID>
+    <ID>SpreadOperator:ContextExtensions.kt$(Locale.getDefault(), getString(stringResourceId), *totalStringArray)</ID>
+    <ID>TooManyFunctions:ContextExtensions.kt$app.template.base_android.extensions.ContextExtensions.kt</ID>
+  </CurrentIssues>
+</SmellBaseline>

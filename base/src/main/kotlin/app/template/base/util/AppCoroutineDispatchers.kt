@@ -1,5 +1,5 @@
 /*
- * Copyright 2021 Vikram LLC
+ * Copyright 2021
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,18 +14,14 @@
  * limitations under the License.
  */
 
-package app.template.base_android.util.event
+package app.template.base.util
 
-import androidx.lifecycle.Observer
+import kotlinx.coroutines.CoroutineDispatcher
 
-/**
- * An [Observer] for [Event]s, simplifying the pattern of checking if the [Event]'s content has
- * already been consumed.
- *
- * [onEventUnconsumedContent] is *only* called if the [Event]'s contents has not been consumed.
- */
-class EventObserver<T>(private val onEventUnconsumedContent: (T) -> Unit) : Observer<Event<T>> {
-    override fun onChanged(event: Event<T>?) {
-        event?.consume()?.run(onEventUnconsumedContent)
-    }
+interface AppCoroutineDispatchers {
+    val main: CoroutineDispatcher
+    val computation: CoroutineDispatcher
+    val io: CoroutineDispatcher
+    val default: CoroutineDispatcher
+    val singleThread: CoroutineDispatcher
 }

@@ -44,7 +44,6 @@ android {
     }
 
     buildFeatures.viewBinding = true
-    buildFeatures.dataBinding = true
     buildFeatures.buildConfig = true
 
     compileOptions {
@@ -86,6 +85,18 @@ dependencies {
 
     implementation(Libs.OkHttp.loggingInterceptor)
 
+    implementation(Libs.Firebase.analytics)
+    implementation(Libs.Firebase.crashlytics)
+
     implementation(Libs.DaggerHilt.hilt)
     kapt(Libs.DaggerHilt.compiler)
+
+    debugImplementation(Libs.leakCanary)
+}
+
+if (file("google-services.json").exists()) {
+    plugins {
+        id(Libs.Plugins.crashlytics)
+        id(Libs.Plugins.googleServices)
+    }
 }

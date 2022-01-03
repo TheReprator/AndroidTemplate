@@ -1,5 +1,5 @@
 /*
- * Copyright 2021 Vikram LLC
+ * Copyright 2021
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,10 +16,10 @@
 
 package app.module.modulea.screen
 
-import com.kaspersky.kaspresso.screens.KScreen
-import io.github.kakaocup.kakao.text.KTextView
 import app.module.modulea.ModuleA
 import app.module.modulea.R
+import com.kaspersky.kaspresso.screens.KScreen
+import io.github.kakaocup.kakao.text.KTextView
 
 object ModuleAScreen : KScreen<ModuleAScreen>() {
 

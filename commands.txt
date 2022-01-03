@@ -1,8 +1,12 @@
+To give permission to gradlew
+    chmod +x gradlew
+
 To list all available tasks:
 	a) gradlew tasks
 	b) .gradlew tasks
 	c) ./gradlew tasks
 	d) .\gradlew tasks
+
 
 To generate apk:
     gradlew --stacktrace assembleDebug
@@ -65,6 +69,8 @@ Detekt(Static Code Analysis)
         .\gradlew detekt
     Generate Default .yml file:
         .\gradlew detektGenerateConfig
+    Generate baseline for each module to avoid codesmell detection from "gradlew detekt"
+        .\gradlew detektBaseline
 
 
 To run any Script file from shellConfiguration:

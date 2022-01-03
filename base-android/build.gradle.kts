@@ -40,7 +40,7 @@ android {
         }
     }
 
-    buildFeatures.dataBinding = true
+    buildFeatures.viewBinding = true
 
     packagingOptions {
         jniLibs.excludes.add("META-INF/*")

@@ -1,5 +1,5 @@
 /*
- * Copyright 2021 Vikram LLC
+ * Copyright 2021
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,6 +17,7 @@
 package app.root.androidtemplate.di
 
 import android.content.Context
+import app.root.androidtemplate.BuildConfig
 import app.template.base.util.interent.ConnectionDetector
 import dagger.Lazy
 import dagger.Module
@@ -27,7 +28,6 @@ import dagger.hilt.components.SingletonComponent
 import okhttp3.Cache
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
-import app.root.androidtemplate.BuildConfig
 import retrofit2.Retrofit
 import retrofit2.converter.jackson.JacksonConverterFactory
 import java.io.File

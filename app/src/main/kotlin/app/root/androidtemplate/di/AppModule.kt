@@ -1,5 +1,5 @@
 /*
- * Copyright 2021 Vikram LLC
+ * Copyright 2021
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,9 +20,16 @@ import android.content.Context
 import android.content.SharedPreferences
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ProcessLifecycleOwner
+import app.root.androidtemplate.BuildConfig
+import app.root.androidtemplate.R
+import app.root.androidtemplate.implementation.AppCoroutineDispatchersImpl
+import app.root.androidtemplate.implementation.DateUtilsImpl
+import app.root.androidtemplate.implementation.connectivity.InternetChecker
+import app.template.base.util.AppCoroutineDispatchers
 import app.template.base.util.date.DateUtils
 import app.template.base.util.interent.ConnectionDetector
-import app.template.base.util.network.AppCoroutineDispatchers
+import com.google.firebase.analytics.FirebaseAnalytics
+import com.google.firebase.crashlytics.FirebaseCrashlytics
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -32,11 +39,6 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.asCoroutineDispatcher
-import app.root.androidtemplate.BuildConfig
-import app.root.androidtemplate.R
-import app.root.androidtemplate.implementation.AppCoroutineDispatchersImpl
-import app.root.androidtemplate.implementation.DateUtilsImpl
-import app.root.androidtemplate.implementation.connectivity.InternetChecker
 import java.util.concurrent.Executors
 import javax.inject.Named
 import javax.inject.Singleton
@@ -90,4 +92,14 @@ class AppModule {
     fun provideIsDebug(): Boolean {
         return BuildConfig.DEBUG
     }
+
+    @Provides
+    @Singleton
+    fun provideFirebaseCrashlytics(): FirebaseCrashlytics = FirebaseCrashlytics.getInstance()
+
+    @Provides
+    @Singleton
+    fun provideFirebaseAnalytics(
+        @ApplicationContext context: Context
+    ): FirebaseAnalytics = FirebaseAnalytics.getInstance(context)
 }

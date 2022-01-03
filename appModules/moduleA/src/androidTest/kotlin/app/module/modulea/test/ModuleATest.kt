@@ -1,5 +1,5 @@
 /*
- * Copyright 2021 Vikram LLC
+ * Copyright 2021
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,7 +16,12 @@
 
 package app.module.modulea.test
 
-import androidx.test.espresso.IdlingRegistry
+import android.support.test.espresso.IdlingRegistry
+import app.module.modulea.ModuleA
+import app.module.modulea.dispatcherWithCustomBody
+import app.module.modulea.screen.ModuleAScreen
+import app.module.modulea.util.CustomMockServer
+import app.module.modulea.util.launchFragmentInHiltContainer
 import com.jakewharton.espresso.OkHttp3IdlingResource
 import com.kaspersky.kaspresso.testcases.api.testcase.TestCase
 import dagger.hilt.android.testing.HiltAndroidRule
@@ -26,11 +31,6 @@ import org.junit.After
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
-import app.module.modulea.ModuleA
-import app.module.modulea.dispatcherWithCustomBody
-import app.module.modulea.util.CustomMockServer
-import app.module.modulea.util.launchFragmentInHiltContainer
-import app.module.modulea.screen.ModuleAScreen
 import javax.inject.Inject
 
 @HiltAndroidTest

@@ -1,5 +1,5 @@
 /*
- * Copyright 2021 Vikram LLC
+ * Copyright 2021
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,9 +25,9 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentFactory
 import androidx.test.core.app.ActivityScenario
 import androidx.test.core.app.ApplicationProvider
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 import app.module.modulea.HiltTestActivity
 import app.module.modulea.R
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 
 /**
  * FragmentScenario.EmptyFragmentActivity.THEME_EXTRAS_BUNDLE_KEY not resolve

@@ -1,5 +1,5 @@
 /*
- * Copyright 2021 Vikram LLC
+ * Copyright 2021
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,8 +17,8 @@
 package app.root.androidtemplate
 
 import androidx.multidex.MultiDexApplication
-import dagger.hilt.android.HiltAndroidApp
 import app.root.androidtemplate.appinitializers.AppInitializers
+import dagger.hilt.android.HiltAndroidApp
 import javax.inject.Inject
 
 @HiltAndroidApp

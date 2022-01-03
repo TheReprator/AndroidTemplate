@@ -1,5 +1,5 @@
 /*
- * Copyright 2021 Vikram LLC
+ * Copyright 2021
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,32 +20,22 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import app.template.base.util.isNull
-import dagger.hilt.android.AndroidEntryPoint
 import app.module.modulea.databinding.FragmentModuleaBinding
+import app.template.base.util.isNull
+import app.template.base_android.viewDelegation.viewBinding
+import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class ModuleA : Fragment(R.layout.fragment_modulea) {
 
-     private var _binding: FragmentModuleaBinding? = null
-      private val binding get() = _binding!!
+    private val binding by viewBinding(FragmentModuleaBinding::bind)
+    private val viewModel: ModuleAViewModal by viewModels()
 
-      private val viewModel: ModuleAViewModal by viewModels()
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
-      override fun onDestroyView() {
-          _binding = null
-          super.onDestroyView()
-      }
-
-      override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-          super.onViewCreated(view, savedInstanceState)
-
-          _binding = FragmentModuleaBinding.bind(view).also {
-              it.lifecycleOwner = viewLifecycleOwner
-          }
-
-          if (savedInstanceState.isNull()) {
-              viewModel.fetchList()
-          }
-      }
+        if (savedInstanceState.isNull()) {
+            viewModel.fetchList()
+        }
+    }
 }
