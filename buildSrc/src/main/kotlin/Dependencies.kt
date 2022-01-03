@@ -36,6 +36,7 @@ object Libs {
         const val dokka = "1.6.10"
         const val ktlint = "0.43.2"
         const val detekt = "1.19.0"
+        const val dependencyUpdate = "0.40.0"
     }
 
     object Plugins {
@@ -52,12 +53,11 @@ object Libs {
         const val dokka = "org.jetbrains.dokka"
         const val spotless = "com.diffplug.spotless"
         const val detekt = "io.gitlab.arturbosch.detekt"
-        const val updateVersions = "com.github.ben-manes.versions"
+        const val dependencyUpdateVersions = "com.github.ben-manes.versions"
     }
 
     const val inject = "javax.inject:javax.inject:1"
     const val androidGradlePlugin = "com.android.tools.build:gradle:7.0.4"
-    const val dependencyUpdates = "com.github.ben-manes:gradle-versions-plugin:0.40.0"
     const val timber = "com.jakewharton.timber:timber:4.7.1"
     const val crashlytics = "com.google.firebase:firebase-crashlytics-gradle:2.8.1"
     const val swiperefresh = "androidx.swiperefreshlayout:swiperefreshlayout:1.1.0"
@@ -101,13 +101,13 @@ object Libs {
     }
 
     object AndroidX {
-        const val appcompat = "androidx.appcompat:appcompat:1.3.1"
-        const val recyclerview = "androidx.recyclerview:recyclerview:1.2.0"
+        const val appcompat = "androidx.appcompat:appcompat:1.4.0"
+        const val recyclerview = "androidx.recyclerview:recyclerview:1.2.1"
         const val cardView = "androidx.cardview:cardview:1.0.0"
-        const val annotation = "androidx.annotation:annotation:1.2.0"
+        const val annotation = "androidx.annotation:annotation:1.3.0"
         const val multidex = "androidx.multidex:multidex:2.0.1"
         const val constraintlayout = "androidx.constraintlayout:constraintlayout:2.1.2"
-        const val coreKtx = "androidx.core:core-ktx:1.6.0"
+        const val coreKtx = "androidx.core:core-ktx:1.7.0"
         const val viewPager2 = "androidx.viewpager2:viewpager2:1.0.0"
 
         const val browser = "androidx.browser:browser:1.3.0"
@@ -161,11 +161,11 @@ object Libs {
         private const val version = "2.9.0"
         const val retrofit = "com.squareup.retrofit2:retrofit:$version"
         const val jacksonConverter = "com.squareup.retrofit2:converter-jackson:$version"
-        const val jacksonKotlinModule = "com.fasterxml.jackson.module:jackson-module-kotlin:2.12.2"
+        const val jacksonKotlinModule = "com.fasterxml.jackson.module:jackson-module-kotlin:2.13.1"
     }
 
     object OkHttp {
-        private const val version = "4.9.1"
+        private const val version = "4.9.3"
         const val okhttp = "com.squareup.okhttp3:okhttp:$version"
         const val loggingInterceptor = "com.squareup.okhttp3:logging-interceptor:$version"
         const val mockWebServer = "com.squareup.okhttp3:mockwebserver:$version"
@@ -213,7 +213,7 @@ object Libs {
         }
 
         object Mockk {
-            private const val version = "1.12.1"
+            private const val version = "1.12.2"
             const val unitTest = "io.mockk:mockk:$version"
             const val instrumentedTest = "io.mockk:mockk-android:$version"
         }
@@ -225,7 +225,7 @@ object Libs {
             const val orchestrator = "androidx.test:orchestrator:$version"
             const val rules = "androidx.test:rules:$version"
             const val truth = "androidx.test.ext:truth:$version"
-            const val junit = "androidx.test.ext:junit:1.1.2"
+            const val junit = "androidx.test.ext:junit:1.1.3"
         }
 
         object UITest {

@@ -15,6 +15,7 @@ plugins {
     id(Libs.Plugins.spotless) version Libs.Versions.spotless
 
     id(Libs.Plugins.detekt) version Libs.Versions.detekt
+    id(Libs.Plugins.dependencyUpdateVersions) version Libs.Versions.dependencyUpdate
 }
 
 buildscript {
@@ -30,17 +31,15 @@ buildscript {
         classpath(Libs.Kotlin.gradlePlugin)
         classpath(Libs.AndroidX.Navigation.navigationPlugin)
         classpath(Libs.DaggerHilt.classPath)
-        classpath(Libs.TestDependencies.Junit5.classPath)
 
-        classpath(Libs.dependencyUpdates)
         classpath(Libs.crashlytics)
         classpath(Libs.Google.gmsGoogleServices)
+
+        classpath(Libs.TestDependencies.Junit5.classPath)
     }
 }
 
 subprojects {
-
-    plugins.apply(Libs.Plugins.updateVersions)
 
     plugins.apply(Libs.Plugins.detekt)
 
