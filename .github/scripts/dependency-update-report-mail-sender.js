@@ -14,7 +14,7 @@ module.exports = ({ }) => {
             ciphers: 'SSLv3'
         }
     });
-    const report = require('fs').readFileSync('reports/dependencyUpdates/report.json', 'utf8')
+    const report = require('fs').readFileSync('reports/dependencyUpdates/report.html', 'utf8')
 
     const mailOptions = {
         from: {
