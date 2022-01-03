@@ -125,11 +125,10 @@ tasks.withType<DependencyUpdatesTask> {
         return@rejectVersionIf candidate.isLessStableThan(current)
     }
 
-    // optional parameters
     checkForGradleUpdate = true
-    outputFormatter = "plain"
-    outputDir = "build/dependencyUpdates"
-    reportfileName = "dependency_update_report"
+    outputFormatter = "json"
+    outputDir = "$rootDir/reports/dependencyUpdates/report.json"
+    reportfileName = "report"
 }
 
 /*
