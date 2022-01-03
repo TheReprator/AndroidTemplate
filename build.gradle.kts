@@ -74,6 +74,7 @@ subprojects {
         description = "Runs over whole code base without the starting overhead for each module."
         parallel = true
         buildUponDefaultConfig = true
+        autoCorrect = true
         config.setFrom(files("${rootProject.rootDir}/config/detekt/detekt.yml"))
 
         reports {
