@@ -13,6 +13,10 @@ jobs:
         uses: actions/setup-java@v1
         with:
           java-version: '11'
+      - name: Create folder
+        run: |
+          mkdir -p reports/dependencyUpdates && cp -R dist reports/dependencyUpdates
+          ls reports/dependencyUpdates
       - name: Copy CI gradle.properties
         run: mkdir -p ~/.gradle ; cp .github/ci-gradle.properties ~/.gradle/gradle.properties
       - name: Make gradlew executable
