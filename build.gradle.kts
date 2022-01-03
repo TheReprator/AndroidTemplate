@@ -126,7 +126,7 @@ tasks.withType<DependencyUpdatesTask> {
     }
 
     checkForGradleUpdate = true
-    outputFormatter = "html"
+    outputFormatter = "json"
     outputDir = "$rootDir/reports/dependencyUpdates"
     reportfileName = "report"
 }
