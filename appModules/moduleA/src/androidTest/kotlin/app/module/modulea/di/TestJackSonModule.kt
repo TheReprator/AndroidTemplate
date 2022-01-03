@@ -38,7 +38,7 @@ class TestJackSonModule {
         setSerializationInclusion(JsonInclude.Include.NON_NULL)
         disable(SerializationFeature.FAIL_ON_EMPTY_BEANS)
         disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES)
-        registerModule(KotlinModule())
+        registerModule(KotlinModule.Builder().build())
     }
 
     @Provides
