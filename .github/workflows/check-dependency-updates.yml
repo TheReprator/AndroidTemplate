@@ -25,7 +25,7 @@ jobs:
       - name: Check Dependency Updates
         run: ./gradlew dependencyUpdates
       - name: Log dependency update report
-        run: cat build/dependencyUpdates/dependency_update_report.txt
+        run: cat reports/dependencyUpdates/report.json
       - name: 💌 Send email report
         if: ${{ github.event_name == 'schedule' }}
         uses: actions/github-script@v3
