@@ -47,4 +47,4 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: dependency-update-reports
-          path: build/dependencyUpdates
+          path: reports/dependencyUpdates
