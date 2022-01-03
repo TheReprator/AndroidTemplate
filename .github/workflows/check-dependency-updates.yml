@@ -13,6 +13,12 @@ jobs:
         uses: actions/setup-java@v1
         with:
           java-version: '11'
+
+      - name: Create folder
+        run: |
+          mkdir -p reports/dependencyUpdates/report.json && cp -R dist reports/dependencyUpdates/report.json
+          ls reports/dependencyUpdates/report.json
+
       - name: Copy CI gradle.properties
         run: mkdir -p ~/.gradle ; cp .github/ci-gradle.properties ~/.gradle/gradle.properties
       - name: Make gradlew executable
@@ -25,7 +31,7 @@ jobs:
       - name: Check Dependency Updates
         run: ./gradlew dependencyUpdates
       - name: Log dependency update report
-        run: cat build/dependencyUpdates/dependency_update_report.txt
+        run: cat reports/dependencyUpdates/report.json
       - name: 💌 Send email report
         if: ${{ github.event_name == 'schedule' }}
         uses: actions/github-script@v3
@@ -41,4 +47,4 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: dependency-update-reports
-          path: build/dependencyUpdates
+          path: reports/dependencyUpdates
