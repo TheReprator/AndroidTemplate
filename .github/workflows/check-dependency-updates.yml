@@ -16,7 +16,7 @@ jobs:
 
       - name: Create folder
         run: |
-          mkdir -p reports/dependencyUpdates/report.json && cp -R dist reports/dependencyUpdates/report.json
+          mkdir -p reports/dependencyUpdates/report.json
           ls reports/dependencyUpdates/report.json
 
       - name: Copy CI gradle.properties
