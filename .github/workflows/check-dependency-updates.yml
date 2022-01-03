@@ -14,8 +14,7 @@ jobs:
         with:
           java-version: '11'
       - name: Create folder
-        run: |
-          mkdir -p reports/dependencyUpdates
+        run: mkdir -p reports/dependencyUpdates
       - name: Copy CI gradle.properties
         run: mkdir -p ~/.gradle ; cp .github/ci-gradle.properties ~/.gradle/gradle.properties
       - name: Make gradlew executable
