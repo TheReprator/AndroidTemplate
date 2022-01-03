@@ -33,7 +33,7 @@ object Libs {
     object Versions{
         const val kotlin = "1.6.10"
         const val spotless = "6.1.0"
-        const val dokka = "1.6.0"
+        const val dokka = "1.6.10"
         const val ktlint = "0.43.2"
         const val detekt = "1.19.0"
     }
@@ -57,7 +57,7 @@ object Libs {
 
     const val inject = "javax.inject:javax.inject:1"
     const val androidGradlePlugin = "com.android.tools.build:gradle:7.0.4"
-    const val dependencyUpdates = "com.github.ben-manes:gradle-versions-plugin:0.39.0"
+    const val dependencyUpdates = "com.github.ben-manes:gradle-versions-plugin:0.40.0"
     const val timber = "com.jakewharton.timber:timber:4.7.1"
     const val crashlytics = "com.google.firebase:firebase-crashlytics-gradle:2.8.1"
     const val swiperefresh = "androidx.swiperefreshlayout:swiperefreshlayout:1.1.0"
@@ -106,7 +106,7 @@ object Libs {
         const val cardView = "androidx.cardview:cardview:1.0.0"
         const val annotation = "androidx.annotation:annotation:1.2.0"
         const val multidex = "androidx.multidex:multidex:2.0.1"
-        const val constraintlayout = "androidx.constraintlayout:constraintlayout:2.1.0"
+        const val constraintlayout = "androidx.constraintlayout:constraintlayout:2.1.2"
         const val coreKtx = "androidx.core:core-ktx:1.6.0"
         const val viewPager2 = "androidx.viewpager2:viewpager2:1.0.0"
 

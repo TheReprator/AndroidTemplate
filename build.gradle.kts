@@ -1,10 +1,12 @@
+import app.template.buildsrc.AppDependencyUpdates
+import app.template.buildsrc.ReleaseType
+import com.diffplug.gradle.spotless.SpotlessExtension
+import com.github.benmanes.gradle.versions.updates.DependencyUpdatesTask
 import org.gradle.api.tasks.testing.logging.TestExceptionFormat
 import org.gradle.api.tasks.testing.logging.TestLogEvent
-import org.jetbrains.dokka.gradle.DokkaTaskPartial
-import com.diffplug.gradle.spotless.SpotlessExtension
 import org.jetbrains.dokka.gradle.DokkaMultiModuleTask
+import org.jetbrains.dokka.gradle.DokkaTaskPartial
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
-
 
 plugins {
     kotlin(Libs.Plugins.kotlinJVM) version Libs.Versions.kotlin
@@ -108,6 +110,26 @@ project.rootProject.allprojects {
         evaluationDependsOnChildren()
         this.setRenderer(org.gradle.api.tasks.diagnostics.internal.dependencies.AsciiDependencyReportRenderer())
     }
+}
+
+//Task added to know the updated depencecy
+tasks.withType<DependencyUpdatesTask> {
+
+    rejectVersionIf {
+        val current = AppDependencyUpdates.versionToRelease(currentVersion)
+        // If we're using a SNAPSHOT, ignore since we must be doing so for a reason.
+        if (current == ReleaseType.SNAPSHOT) return@rejectVersionIf true
+
+        // Otherwise we reject if the candidate is more 'unstable' than our version
+        val candidate = AppDependencyUpdates.versionToRelease(candidate.version)
+        return@rejectVersionIf candidate.isLessStableThan(current)
+    }
+
+    // optional parameters
+    checkForGradleUpdate = true
+    outputFormatter = "json"
+    outputDir = "$rootDir/report/dependencyUpdates"
+    reportfileName = "report"
 }
 
 /*
