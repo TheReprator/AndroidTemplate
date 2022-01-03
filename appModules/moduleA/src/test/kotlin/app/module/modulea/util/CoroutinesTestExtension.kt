@@ -19,17 +19,14 @@ package app.module.modulea.util
 import app.template.base.util.AppCoroutineDispatchers
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.test.TestCoroutineDispatcher
-import kotlinx.coroutines.test.TestCoroutineScope
-import kotlinx.coroutines.test.resetMain
-import kotlinx.coroutines.test.setMain
+import kotlinx.coroutines.test.*
 import org.junit.jupiter.api.extension.AfterEachCallback
 import org.junit.jupiter.api.extension.BeforeEachCallback
 import org.junit.jupiter.api.extension.ExtensionContext
 
 class CoroutinesTestExtension(
-    private val dispatcher: TestCoroutineDispatcher = TestCoroutineDispatcher()
-) : BeforeEachCallback, AfterEachCallback, TestCoroutineScope by TestCoroutineScope(dispatcher) {
+    val dispatcher: TestDispatcher = UnconfinedTestDispatcher(TestCoroutineScheduler())
+) : BeforeEachCallback, AfterEachCallback {
 
     val testDispatcherProvider = object : AppCoroutineDispatchers {
         override val main: CoroutineDispatcher get() = dispatcher
@@ -48,7 +45,6 @@ class CoroutinesTestExtension(
     }
 
     override fun afterEach(context: ExtensionContext?) {
-        cleanupTestCoroutines()
         Dispatchers.resetMain()
     }
 }
