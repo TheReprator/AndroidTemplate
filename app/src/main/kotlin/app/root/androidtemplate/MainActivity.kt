@@ -17,7 +17,6 @@
 package app.root.androidtemplate
 
 import android.os.Bundle
-import android.renderscript.ScriptGroup
 import androidx.appcompat.app.AppCompatActivity
 import app.root.androidtemplate.databinding.ActivityMainBinding
 import app.template.base_android.ContentViewSetter
@@ -31,7 +30,6 @@ class MainActivity : AppCompatActivity() {
     internal lateinit var contentViewSetter: ContentViewSetter
 
     private lateinit var binding: ActivityMainBinding
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

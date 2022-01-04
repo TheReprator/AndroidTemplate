@@ -1,6 +1,6 @@
 import com.android.build.api.dsl.ApkSigningConfig
 import java.io.FileInputStream
-import java.util.*
+import java.util.Properties
 
 plugins {
     id(Libs.Plugins.androidApplication)
