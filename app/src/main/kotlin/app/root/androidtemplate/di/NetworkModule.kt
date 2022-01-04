@@ -16,20 +16,18 @@
 
 package app.root.androidtemplate.di
 
-import android.content.Context
 import app.root.androidtemplate.BuildConfig
-import app.template.base.util.interent.ConnectionDetector
 import dagger.Lazy
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
-import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
-import okhttp3.Cache
+import okhttp3.ConnectionPool
+import okhttp3.Dispatcher
+import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.jackson.JacksonConverterFactory
-import java.io.File
 import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
 
@@ -46,21 +44,8 @@ private const val CACHE_VALID_HOURS = 2
 object NetworkModule {
 
     @Provides
-    fun provideCacheInterceptor(): CacheInterceptor =
-        CacheInterceptor(CACHE_VALID_HOURS)
-
-    @Provides
-    fun provideOfflineCacheInterceptor(connectionDetector: ConnectionDetector): OfflineCacheInterceptor =
-        OfflineCacheInterceptor(
-            CACHE_VALID_HOURS,
-            connectionDetector
-        )
-
-    @Provides
     fun provideOkHttpClient(
-        offlineCacheInterceptor: OfflineCacheInterceptor,
-        cacheInterceptor: CacheInterceptor,
-        cache: Cache
+        interceptors: Set<@JvmSuppressWildcards Interceptor>,
     ): OkHttpClient {
         return OkHttpClient.Builder()
             .apply {
@@ -69,24 +54,17 @@ object NetworkModule {
                 writeTimeout(CONNECTION_TIME, TimeUnit.SECONDS)
                 followRedirects(true)
                 followSslRedirects(true)
-                cache(cache)
                 retryOnConnectionFailure(false)
-                addInterceptor(offlineCacheInterceptor)
-                addNetworkInterceptor(cacheInterceptor)
+                interceptors.forEach(::addInterceptor)
+                connectionPool(ConnectionPool(10, 2, TimeUnit.MINUTES))
+                dispatcher(
+                    Dispatcher().apply {
+                        // Allow for increased number of concurrent image fetches on same host
+                        maxRequestsPerHost = 10
+                    }
+                )
             }
             .build()
-    }
-
-    @Provides
-    fun provideCache(file: File): Cache {
-        return Cache(file, CACHE_SIZE)
-    }
-
-    @Provides
-    fun provideFile(
-        @ApplicationContext context: Context
-    ): File {
-        return File(context.cacheDir, "cache_androidTemplate")
     }
 
     @Singleton

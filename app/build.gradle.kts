@@ -84,8 +84,10 @@ android {
         }
     }
 
-    buildFeatures.viewBinding = true
-    buildFeatures.buildConfig = true
+    buildFeatures {
+        viewBinding = true
+        buildConfig = true
+    }
 
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
@@ -142,6 +144,7 @@ dependencies {
 
     qaImplementation(Libs.Retrofit.mock)
 
+    qaImplementation(Libs.OkHttp.loggingInterceptor)
     qaImplementation(Libs.leakCanary)
 }
 

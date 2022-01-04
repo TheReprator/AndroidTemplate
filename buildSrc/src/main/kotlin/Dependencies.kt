@@ -34,7 +34,7 @@ object Libs {
         private const val version = "3.5.2"
         const val chucker = "com.github.chuckerteam.chucker:library:$version"
 
-        private const val debugDrawerVersion = "0.9.7"
+        private const val debugDrawerVersion = "0.9.8-SNAPSHOT"
         const val debugDrawer = "au.com.gridstone.debugdrawer:debugdrawer:$debugDrawerVersion"
         const val leakcanary = "au.com.gridstone.debugdrawer:debugdrawer-leakcanary:$debugDrawerVersion"
         const val retrofit = "au.com.gridstone.debugdrawer:debugdrawer-retrofit:$debugDrawerVersion"
