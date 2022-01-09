@@ -24,6 +24,7 @@ object AppModules {
     const val moduleBaseAndroid = ":base-android"
     const val moduleBaseJava = ":base"
     const val moduleNavigation = ":navigation"
+    const val moduleWork = ":workTask"
 
     const val moduleA = ":appModules:moduleA"
 }
@@ -193,12 +194,16 @@ object Libs {
 
     object DaggerHilt {
         private const val version = "2.40.5"
+        private const val androidXversion = "1.0.0"
 
         const val classPath = "com.google.dagger:hilt-android-gradle-plugin:$version"
         const val test = "com.google.dagger:hilt-android-testing:$version"
 
         const val hilt = "com.google.dagger:hilt-android:$version"
         const val compiler = "com.google.dagger:hilt-android-compiler:$version"
+
+        const val work = "androidx.hilt:hilt-work:$androidXversion"
+        const val hiltCompiler = "androidx.hilt:hilt-compiler:$androidXversion"
     }
 
     object TestDependencies {

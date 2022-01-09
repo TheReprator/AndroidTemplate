@@ -118,17 +118,13 @@ dependencies {
     */
     implementation(Libs.TestDependencies.UITest.busyBee)
 
+    debugImplementation(Libs.TestDependencies.UITest.fragmentTesting)
     androidTestImplementation(Libs.TestDependencies.UITest.fragmentRuntime)
 
     androidTestImplementation(Libs.DaggerHilt.test)
     kaptAndroidTest(Libs.DaggerHilt.compiler)
 
     androidTestImplementation(Libs.TestDependencies.AndroidXTest.junit)
-    androidTestImplementation(Libs.TestDependencies.Espresso.core)
-    androidTestImplementation(Libs.TestDependencies.Espresso.contrib)
-
-    androidTestImplementation(Libs.TestDependencies.Mockk.instrumentedTest)
-    androidTestImplementation(Libs.TestDependencies.UITest.dexmaker)
 
     androidTestImplementation(Libs.TestDependencies.UITest.kaspresso)
 
@@ -137,11 +133,8 @@ dependencies {
 
     // OkHttp Idling Resource
     androidTestImplementation(Libs.TestDependencies.UITest.okhttpIdlingResource)
-    androidTestImplementation(Libs.TestDependencies.Espresso.idlingResource)
 
     androidTestImplementation(Libs.Coroutines.coroutineTest) {
         exclude(group = "org.jetbrains.kotlinx", module = "kotlinx-coroutines-debug")
     }
-
-    debugImplementation(Libs.TestDependencies.UITest.fragmentTesting)
 }

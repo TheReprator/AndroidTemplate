@@ -113,6 +113,7 @@ val qaImplementation by configurations
 dependencies {
     implementation(project(AppModules.moduleBaseJava))
     implementation(project(AppModules.moduleBaseAndroid))
+    implementation(project(AppModules.moduleWork))
 
     implementation(project(AppModules.moduleNavigation))
 
@@ -133,6 +134,12 @@ dependencies {
 
     implementation(Libs.DaggerHilt.hilt)
     kapt(Libs.DaggerHilt.compiler)
+
+    implementation(Libs.DaggerHilt.work)
+    kapt(Libs.DaggerHilt.hiltCompiler)
+
+    implementation(Libs.AndroidX.Work.runtimeKtx)
+    androidTestImplementation(Libs.AndroidX.Work.test)
 
     qaImplementation(Libs.chucker.chucker)
 

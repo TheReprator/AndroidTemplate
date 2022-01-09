@@ -14,6 +14,7 @@ include(
     ":base",
     ":base-android",
     ":navigation",
+    ":workTask",
     ":appModules:moduleA"
 )
 

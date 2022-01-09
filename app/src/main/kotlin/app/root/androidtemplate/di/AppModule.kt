@@ -39,7 +39,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.asCoroutineDispatcher
-import java.util.concurrent.Executors
+import java.util.concurrent.ThreadPoolExecutor
 import javax.inject.Named
 import javax.inject.Singleton
 
@@ -59,10 +59,9 @@ class AppModule {
     }
 
     @Provides
-    fun provideCoroutineDispatcherProvider(): AppCoroutineDispatchers {
+    fun provideCoroutineDispatcherProvider(threadPoolExecutor: ThreadPoolExecutor): AppCoroutineDispatchers {
         return AppCoroutineDispatchersImpl(
-            Dispatchers.Main, Dispatchers.IO, Dispatchers.IO, Dispatchers.Default,
-            Executors.newFixedThreadPool(1).asCoroutineDispatcher()
+            Dispatchers.Main, threadPoolExecutor.asCoroutineDispatcher()
         )
     }
 

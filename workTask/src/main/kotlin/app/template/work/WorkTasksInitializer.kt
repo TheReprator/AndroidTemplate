@@ -14,18 +14,18 @@
  * limitations under the License.
  */
 
-package app.root.androidtemplate.implementation
+package app.template.work
 
-import app.template.base.util.AppCoroutineDispatchers
-import kotlinx.coroutines.CoroutineDispatcher
+import android.app.Application
+import app.template.base.actions.WorkTasks
+import app.template.base_android.appinitializers.AppInitializer
+import dagger.Lazy
 import javax.inject.Inject
-import javax.inject.Singleton
 
-@Singleton
-class AppCoroutineDispatchersImpl @Inject constructor(
-    override val main: CoroutineDispatcher,
-    override val singleThread: CoroutineDispatcher,
-    override val computation: CoroutineDispatcher = singleThread,
-    override val io: CoroutineDispatcher = singleThread,
-    override val default: CoroutineDispatcher = singleThread
-) : AppCoroutineDispatchers
+class WorkTasksInitializer @Inject constructor(
+    private val showTasks: Lazy<WorkTasks>
+) : AppInitializer {
+    override fun init(application: Application) {
+        //showTasks.get().setupNightSyncs()
+    }
+}

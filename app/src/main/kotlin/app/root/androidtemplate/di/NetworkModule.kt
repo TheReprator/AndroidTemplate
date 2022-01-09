@@ -28,12 +28,11 @@ import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.jackson.JacksonConverterFactory
+import java.util.concurrent.ThreadPoolExecutor
 import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
 
 private const val CONNECTION_TIME = 20L
-private const val CACHE_SIZE = (50 * 1024 * 1024).toLong()
-private const val CACHE_VALID_HOURS = 2
 
 @InstallIn(SingletonComponent::class)
 @Module(
@@ -42,9 +41,9 @@ private const val CACHE_VALID_HOURS = 2
     ]
 )
 object NetworkModule {
-
     @Provides
     fun provideOkHttpClient(
+        threadPoolExecutor: ThreadPoolExecutor,
         interceptors: Set<@JvmSuppressWildcards Interceptor>,
     ): OkHttpClient {
         return OkHttpClient.Builder()
@@ -57,12 +56,7 @@ object NetworkModule {
                 retryOnConnectionFailure(false)
                 interceptors.forEach(::addInterceptor)
                 connectionPool(ConnectionPool(10, 2, TimeUnit.MINUTES))
-                dispatcher(
-                    Dispatcher().apply {
-                        // Allow for increased number of concurrent image fetches on same host
-                        maxRequestsPerHost = 10
-                    }
-                )
+                dispatcher(Dispatcher(threadPoolExecutor))
             }
             .build()
     }
