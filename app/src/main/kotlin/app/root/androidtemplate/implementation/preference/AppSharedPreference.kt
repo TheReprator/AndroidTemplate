@@ -27,7 +27,6 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.map
 import java.io.IOException
-import javax.inject.Inject
 
 /*
 * https://medium.com/@chibichibi58/generic-way-to-use-android-data-store-preference-supported-for-all-data-types-ab97fd3022b6
@@ -39,7 +38,7 @@ interface AppSharedPreference {
     suspend fun clearAllPreference()
 }
 
-class AppSharedPreferenceImpl @Inject constructor(context: Context) : AppSharedPreference {
+class AppSharedPreferenceImpl constructor(context: Context) : AppSharedPreference {
 
     private val Context.dataStore by preferencesDataStore(
         name = context.getString(R.string.app_name)
