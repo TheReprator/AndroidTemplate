@@ -121,6 +121,7 @@ object Libs {
         const val multidex = "androidx.multidex:multidex:2.0.1"
         const val constraintlayout = "androidx.constraintlayout:constraintlayout:2.1.2"
         const val coreKtx = "androidx.core:core-ktx:1.7.0"
+        const val preference = "androidx.datastore:datastore-preferences:1.0.0"
         const val viewPager2 = "androidx.viewpager2:viewpager2:1.0.0"
 
         const val browser = "androidx.browser:browser:1.3.0"

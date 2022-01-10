@@ -19,6 +19,7 @@ package app.root.androidtemplate.di
 import android.app.Application
 import android.content.Context
 import android.content.SharedPreferences
+import androidx.datastore.preferences.preferencesDataStore
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ProcessLifecycleOwner
 import app.root.androidtemplate.BuildConfig
@@ -30,6 +31,8 @@ import app.root.androidtemplate.implementation.permission.ActivityProvider
 import app.root.androidtemplate.implementation.permission.ActivityResultManager
 import app.root.androidtemplate.implementation.permission.ActivityResultManagerImpl
 import app.root.androidtemplate.implementation.permission.PermissionManagerImpl
+import app.root.androidtemplate.implementation.preference.AppSharedPreference
+import app.root.androidtemplate.implementation.preference.AppSharedPreferenceImpl
 import app.template.base.util.AppCoroutineDispatchers
 import app.template.base.util.date.DateUtils
 import app.template.base.util.interent.ConnectionDetector
@@ -72,11 +75,8 @@ class AppModule {
     }
 
     @Provides
-    fun provideAppPreferences(@ApplicationContext context: Context): SharedPreferences {
-        return context.getSharedPreferences(
-            context.getString(R.string.app_name),
-            Context.MODE_PRIVATE
-        )
+    fun provideAppPreferences(@ApplicationContext context: Context): AppSharedPreference {
+        return AppSharedPreferenceImpl(context)
     }
 
     @Provides

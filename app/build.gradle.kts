@@ -129,6 +129,8 @@ dependencies {
 
     implementation(Libs.AndroidX.multidex)
 
+    implementation(Libs.AndroidX.preference)
+
     implementation(Libs.Firebase.analytics)
     implementation(Libs.Firebase.crashlytics)
 
