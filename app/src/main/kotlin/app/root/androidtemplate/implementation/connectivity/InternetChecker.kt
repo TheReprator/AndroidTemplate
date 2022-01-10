@@ -47,11 +47,6 @@ class InternetChecker @Inject constructor(
         return (this as? ConnectivityProvider.NetworkState.ConnectedState)?.hasInternet == true
     }
 
-    override fun onCreate(owner: LifecycleOwner) {
-        super.onCreate(owner)
-        provider.addListener(this)
-    }
-
     override fun onStart(owner: LifecycleOwner) {
         super.onStart(owner)
         provider.addListener(this)
