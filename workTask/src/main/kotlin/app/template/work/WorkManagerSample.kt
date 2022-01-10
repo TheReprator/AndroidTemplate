@@ -45,7 +45,7 @@ class WorkManagerSample @AssistedInject constructor(
 
     override suspend fun doWork(): Result {
         val showId = inputData.getLong(PARAM_SHOW_ID, -1)
-        logger.d("$TAG worker running for show id: $showId")
+        logger.e("$TAG worker running for show id: $showId")
         return Result.success()
     }
 }

@@ -140,9 +140,6 @@ dependencies {
     implementation(Libs.DaggerHilt.work)
     kapt(Libs.DaggerHilt.hiltCompiler)
 
-    implementation(Libs.AndroidX.Work.runtimeKtx)
-    androidTestImplementation(Libs.AndroidX.Work.test)
-
     qaImplementation(Libs.chucker.chucker)
 
     qaImplementation(Libs.chucker.debugDrawer)

@@ -56,5 +56,6 @@ dependencies {
     implementation(Libs.DaggerHilt.work)
     kapt(Libs.DaggerHilt.hiltCompiler)
 
-    api(Libs.AndroidX.Work.runtimeKtx)
+    implementation(Libs.AndroidX.Work.runtimeKtx)
+    androidTestImplementation(Libs.AndroidX.Work.test)
 }
