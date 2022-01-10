@@ -18,12 +18,9 @@ package app.root.androidtemplate.di
 
 import android.app.Application
 import android.content.Context
-import android.content.SharedPreferences
-import androidx.datastore.preferences.preferencesDataStore
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ProcessLifecycleOwner
 import app.root.androidtemplate.BuildConfig
-import app.root.androidtemplate.R
 import app.root.androidtemplate.implementation.AppCoroutineDispatchersImpl
 import app.root.androidtemplate.implementation.DateUtilsImpl
 import app.root.androidtemplate.implementation.connectivity.InternetChecker
