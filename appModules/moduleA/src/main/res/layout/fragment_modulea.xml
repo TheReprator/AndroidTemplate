@@ -5,5 +5,7 @@
     style="@style/TextAppearance.AppCompat.Widget.ActionBar.Title"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:textSize="40sp"
+    android:textColor="@android:color/holo_green_dark"
     android:gravity="center"
     android:text="ModuleA" />

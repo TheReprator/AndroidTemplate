@@ -22,6 +22,7 @@ import androidx.hilt.work.HiltWorker
 import androidx.work.CoroutineWorker
 import androidx.work.Data
 import androidx.work.WorkerParameters
+import app.template.base.util.Logger
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedInject
 import timber.log.Timber
@@ -30,6 +31,7 @@ import timber.log.Timber
 class WorkManagerSample @AssistedInject constructor(
     @Assisted context: Context,
     @Assisted params: WorkerParameters,
+    private val logger: Logger
 ) : CoroutineWorker(context, params) {
 
     companion object {
@@ -43,7 +45,7 @@ class WorkManagerSample @AssistedInject constructor(
 
     override suspend fun doWork(): Result {
         val showId = inputData.getLong(PARAM_SHOW_ID, -1)
-        Timber.d("$TAG worker running for show id: $showId")
+        logger.d("$TAG worker running for show id: $showId")
         return Result.success()
     }
 }

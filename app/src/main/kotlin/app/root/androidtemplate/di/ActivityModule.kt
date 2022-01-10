@@ -16,27 +16,17 @@
 
 package app.root.androidtemplate.di
 
-import android.content.Context
 import app.root.androidtemplate.implementation.AppNavigatorImpl
-import app.root.androidtemplate.implementation.PermissionHelperImpl
-import app.template.base.util.permission.PermissionHelper
 import app.template.navigation.AppNavigator
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ActivityComponent
-import dagger.hilt.android.qualifiers.ActivityContext
 import dagger.hilt.android.scopes.ActivityScoped
 
 @InstallIn(ActivityComponent::class)
 @Module
 class ActivityModule {
-
-    @ActivityScoped
-    @Provides
-    fun providePermissionHelper(@ActivityContext context: Context): PermissionHelper {
-        return PermissionHelperImpl(context)
-    }
 
     @ActivityScoped
     @Provides
