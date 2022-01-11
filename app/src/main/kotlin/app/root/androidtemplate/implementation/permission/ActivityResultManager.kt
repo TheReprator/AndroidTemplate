@@ -19,12 +19,6 @@ package app.root.androidtemplate.implementation.permission
 import androidx.activity.result.contract.ActivityResultContract
 
 interface ActivityResultManager {
-    /*companion object {
-        fun getInstance(): ActivityResultManager = ActivityResultManagerImpl
-        fun init(application: Application) {
-            ActivityProvider.init(application)
-        }
-    }*/
 
     /**
      * Requests an Activity Result using the current visible Activity from the app.
