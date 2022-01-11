@@ -1,6 +1,6 @@
 object AndroidSdk {
     const val min = 21
-    const val compile = 31
+    const val compile = 32
     const val target = compile
 
     val localesEnglish = "en"
@@ -24,11 +24,24 @@ object AppModules {
     const val moduleBaseAndroid = ":base-android"
     const val moduleBaseJava = ":base"
     const val moduleNavigation = ":navigation"
+    const val moduleWork = ":workTask"
 
     const val moduleA = ":appModules:moduleA"
 }
 
 object Libs {
+
+    object chucker {
+        private const val version = "3.5.2"
+        const val chucker = "com.github.chuckerteam.chucker:library:$version"
+
+        private const val debugDrawerVersion = "0.9.8-SNAPSHOT"
+        const val debugDrawer = "au.com.gridstone.debugdrawer:debugdrawer:$debugDrawerVersion"
+        const val leakcanary = "au.com.gridstone.debugdrawer:debugdrawer-leakcanary:$debugDrawerVersion"
+        const val retrofit = "au.com.gridstone.debugdrawer:debugdrawer-retrofit:$debugDrawerVersion"
+        const val timber = "au.com.gridstone.debugdrawer:debugdrawer-timber:$debugDrawerVersion"
+        const val okhttplogger = "au.com.gridstone.debugdrawer:debugdrawer-okhttp-logger:$debugDrawerVersion"
+    }
 
     object Versions{
         const val kotlin = "1.6.10"
@@ -108,6 +121,7 @@ object Libs {
         const val multidex = "androidx.multidex:multidex:2.0.1"
         const val constraintlayout = "androidx.constraintlayout:constraintlayout:2.1.2"
         const val coreKtx = "androidx.core:core-ktx:1.7.0"
+        const val preference = "androidx.datastore:datastore-preferences:1.0.0"
         const val viewPager2 = "androidx.viewpager2:viewpager2:1.0.0"
 
         const val browser = "androidx.browser:browser:1.3.0"
@@ -160,6 +174,7 @@ object Libs {
     object Retrofit {
         private const val version = "2.9.0"
         const val retrofit = "com.squareup.retrofit2:retrofit:$version"
+        const val mock = "com.squareup.retrofit2:retrofit-mock:$version"
         const val jacksonConverter = "com.squareup.retrofit2:converter-jackson:$version"
         const val jacksonKotlinModule = "com.fasterxml.jackson.module:jackson-module-kotlin:2.13.1"
     }
@@ -180,12 +195,16 @@ object Libs {
 
     object DaggerHilt {
         private const val version = "2.40.5"
+        private const val androidXversion = "1.0.0"
 
         const val classPath = "com.google.dagger:hilt-android-gradle-plugin:$version"
         const val test = "com.google.dagger:hilt-android-testing:$version"
 
         const val hilt = "com.google.dagger:hilt-android:$version"
         const val compiler = "com.google.dagger:hilt-android-compiler:$version"
+
+        const val work = "androidx.hilt:hilt-work:$androidXversion"
+        const val hiltCompiler = "androidx.hilt:hilt-compiler:$androidXversion"
     }
 
     object TestDependencies {

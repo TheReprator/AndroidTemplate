@@ -3,6 +3,9 @@ dependencyResolutionManagement {
     repositories {
         google()
         mavenCentral()
+        maven {
+            url = uri("https://oss.sonatype.org/content/repositories/snapshots")
+        }
     }
 }
 
@@ -11,6 +14,7 @@ include(
     ":base",
     ":base-android",
     ":navigation",
+    ":workTask",
     ":appModules:moduleA"
 )
 

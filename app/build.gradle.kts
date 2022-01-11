@@ -1,3 +1,7 @@
+import com.android.build.api.dsl.ApkSigningConfig
+import java.io.FileInputStream
+import java.util.Properties
+
 plugins {
     id(Libs.Plugins.androidApplication)
     kotlin(Libs.Plugins.kotlinAndroid)
@@ -12,6 +16,23 @@ kapt {
 
     arguments {
         arg("dagger.hilt.shareTestComponents", "true")
+    }
+}
+
+fun getKeyStoreConfig(defaultSigningConfig: ApkSigningConfig, propertyFileName: String) {
+    val properties = Properties()
+    val propFile = File("./signingconfig/$propertyFileName")
+    if (propFile.canRead() && propFile.exists()) {
+        properties.load(FileInputStream(propFile))
+        if (properties.containsKey("storeFile") && properties.containsKey("storePassword") &&
+            properties.containsKey("keyAlias") && properties.containsKey("keyPassword")
+        ) {
+            defaultSigningConfig.storeFile = file("../${properties.getProperty("storeFile")}")
+            defaultSigningConfig.storePassword = properties.getProperty("storePassword")
+            defaultSigningConfig.keyAlias = properties.getProperty("keyAlias")
+            defaultSigningConfig.keyPassword = properties.getProperty("keyPassword")
+            defaultSigningConfig.isV2SigningEnabled = true
+        }
     }
 }
 
@@ -36,6 +57,12 @@ android {
         buildConfigField("String", AppConstant.hostConstant, "\"${AppConstant.host}\"")
     }
 
+    signingConfigs {
+        getByName("debug") {
+            getKeyStoreConfig(this, "signing-debug.properties")
+        }
+    }
+
     buildTypes {
 
         getByName("debug") {
@@ -43,8 +70,24 @@ android {
         }
     }
 
-    buildFeatures.viewBinding = true
-    buildFeatures.buildConfig = true
+    flavorDimensions.add("mode")
+
+    productFlavors {
+        create("qa") {
+            dimension = "mode"
+            applicationIdSuffix = ".qa"
+            proguardFiles.add(file("proguard-rules-chucker.pro"))
+        }
+
+        create("standard") {
+            dimension = "mode"
+        }
+    }
+
+    buildFeatures {
+        viewBinding = true
+        buildConfig = true
+    }
 
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
@@ -65,9 +108,12 @@ android {
     }
 }
 
+val qaImplementation by configurations
+
 dependencies {
     implementation(project(AppModules.moduleBaseJava))
     implementation(project(AppModules.moduleBaseAndroid))
+    implementation(project(AppModules.moduleWork))
 
     implementation(project(AppModules.moduleNavigation))
 
@@ -83,7 +129,7 @@ dependencies {
 
     implementation(Libs.AndroidX.multidex)
 
-    implementation(Libs.OkHttp.loggingInterceptor)
+    implementation(Libs.AndroidX.preference)
 
     implementation(Libs.Firebase.analytics)
     implementation(Libs.Firebase.crashlytics)
@@ -91,7 +137,21 @@ dependencies {
     implementation(Libs.DaggerHilt.hilt)
     kapt(Libs.DaggerHilt.compiler)
 
-    debugImplementation(Libs.leakCanary)
+    implementation(Libs.DaggerHilt.work)
+    kapt(Libs.DaggerHilt.hiltCompiler)
+
+    qaImplementation(Libs.chucker.chucker)
+
+    qaImplementation(Libs.chucker.debugDrawer)
+    qaImplementation(Libs.chucker.leakcanary)
+    qaImplementation(Libs.chucker.retrofit)
+    qaImplementation(Libs.chucker.timber)
+    qaImplementation(Libs.chucker.okhttplogger)
+
+    qaImplementation(Libs.Retrofit.mock)
+
+    qaImplementation(Libs.OkHttp.loggingInterceptor)
+    qaImplementation(Libs.leakCanary)
 }
 
 if (file("google-services.json").exists()) {

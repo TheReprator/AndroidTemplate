@@ -26,8 +26,7 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import okhttp3.OkHttpClient
 import javax.inject.Inject
 
-class CoilAppInitializer
-@Inject constructor(
+class CoilAppInitializer @Inject constructor(
     private val okHttpClient: OkHttpClient,
     @ApplicationContext private val context: Context
 ) : AppInitializer {

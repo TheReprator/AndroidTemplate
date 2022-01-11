@@ -16,18 +16,24 @@
 
 package app.root.androidtemplate.di
 
+import android.app.Application
 import android.content.Context
-import android.content.SharedPreferences
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ProcessLifecycleOwner
 import app.root.androidtemplate.BuildConfig
-import app.root.androidtemplate.R
 import app.root.androidtemplate.implementation.AppCoroutineDispatchersImpl
 import app.root.androidtemplate.implementation.DateUtilsImpl
 import app.root.androidtemplate.implementation.connectivity.InternetChecker
+import app.root.androidtemplate.implementation.permission.ActivityProvider
+import app.root.androidtemplate.implementation.permission.ActivityResultManager
+import app.root.androidtemplate.implementation.permission.ActivityResultManagerImpl
+import app.root.androidtemplate.implementation.permission.PermissionManagerImpl
+import app.root.androidtemplate.implementation.preference.AppSharedPreference
+import app.root.androidtemplate.implementation.preference.AppSharedPreferenceImpl
 import app.template.base.util.AppCoroutineDispatchers
 import app.template.base.util.date.DateUtils
 import app.template.base.util.interent.ConnectionDetector
+import app.template.base.util.permission.PermissionManager
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.crashlytics.FirebaseCrashlytics
 import dagger.Module
@@ -39,7 +45,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.asCoroutineDispatcher
-import java.util.concurrent.Executors
+import java.util.concurrent.ThreadPoolExecutor
 import javax.inject.Named
 import javax.inject.Singleton
 
@@ -59,19 +65,15 @@ class AppModule {
     }
 
     @Provides
-    fun provideCoroutineDispatcherProvider(): AppCoroutineDispatchers {
+    fun provideCoroutineDispatcherProvider(threadPoolExecutor: ThreadPoolExecutor): AppCoroutineDispatchers {
         return AppCoroutineDispatchersImpl(
-            Dispatchers.Main, Dispatchers.IO, Dispatchers.IO, Dispatchers.Default,
-            Executors.newFixedThreadPool(1).asCoroutineDispatcher()
+            Dispatchers.Main, threadPoolExecutor.asCoroutineDispatcher()
         )
     }
 
     @Provides
-    fun provideAppPreferences(@ApplicationContext context: Context): SharedPreferences {
-        return context.getSharedPreferences(
-            context.getString(R.string.app_name),
-            Context.MODE_PRIVATE
-        )
+    fun provideAppPreferences(@ApplicationContext context: Context): AppSharedPreference {
+        return AppSharedPreferenceImpl(context)
     }
 
     @Provides
@@ -102,4 +104,29 @@ class AppModule {
     fun provideFirebaseAnalytics(
         @ApplicationContext context: Context
     ): FirebaseAnalytics = FirebaseAnalytics.getInstance(context)
+}
+
+@InstallIn(SingletonComponent::class)
+@Module
+class PermissionModule {
+    @Provides
+    @Singleton
+    fun provideActivityProvider(
+        @ApplicationContext context: Application
+    ): ActivityProvider = ActivityProvider(context)
+
+    @Provides
+    @Singleton
+    fun provideActivityResultManager(
+        activityProvider: ActivityProvider
+    ): ActivityResultManager = ActivityResultManagerImpl(activityProvider)
+
+    @Provides
+    @Singleton
+    fun providePermissionManager(
+        activityResultManager: ActivityResultManager,
+        activityProvider: ActivityProvider,
+        context: Context
+    ): PermissionManager = PermissionManagerImpl(activityResultManager, activityProvider, context)
+
 }

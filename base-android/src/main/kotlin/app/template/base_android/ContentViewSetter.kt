@@ -1,5 +1,5 @@
 /*
- * Copyright 2021
+ * Copyright 2022
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,23 +14,11 @@
  * limitations under the License.
  */
 
-package app.root.androidtemplate.di
+package app.template.base_android
 
-import app.root.androidtemplate.implementation.AppNavigatorImpl
-import app.template.navigation.AppNavigator
-import dagger.Module
-import dagger.Provides
-import dagger.hilt.InstallIn
-import dagger.hilt.android.components.ActivityComponent
-import dagger.hilt.android.scopes.ActivityScoped
+import android.app.Activity
+import android.view.View
 
-@InstallIn(ActivityComponent::class)
-@Module
-class ActivityModule {
-
-    @ActivityScoped
-    @Provides
-    fun provideWillyNavigator(): AppNavigator {
-        return AppNavigatorImpl()
-    }
+fun interface ContentViewSetter {
+    fun setContentView(activity: Activity, view: View)
 }

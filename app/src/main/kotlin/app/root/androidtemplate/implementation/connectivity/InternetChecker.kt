@@ -17,10 +17,7 @@
 package app.root.androidtemplate.implementation.connectivity
 
 import android.content.Context
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.LifecycleObserver
-import androidx.lifecycle.OnLifecycleEvent
-import androidx.lifecycle.coroutineScope
+import androidx.lifecycle.*
 import app.root.androidtemplate.implementation.connectivity.base.ConnectivityProvider
 import app.template.base.util.interent.ConnectionDetector
 import dagger.hilt.android.qualifiers.ApplicationContext
@@ -32,7 +29,7 @@ class InternetChecker @Inject constructor(
     @ApplicationContext private val context: Context,
     lifecycle: Lifecycle,
     override var isInternetAvailable: Boolean = false
-) : LifecycleObserver, ConnectionDetector, ConnectivityProvider.ConnectivityStateListener {
+) : DefaultLifecycleObserver, ConnectionDetector, ConnectivityProvider.ConnectivityStateListener {
 
     private val provider: ConnectivityProvider by lazy { ConnectivityProvider.createProvider(context) }
 
@@ -50,18 +47,13 @@ class InternetChecker @Inject constructor(
         return (this as? ConnectivityProvider.NetworkState.ConnectedState)?.hasInternet == true
     }
 
-    @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
-    fun onForegroundStartMonitoringConnectivityOnCreate() {
+    override fun onStart(owner: LifecycleOwner) {
+        super.onStart(owner)
         provider.addListener(this)
     }
 
-    @OnLifecycleEvent(Lifecycle.Event.ON_START)
-    fun onForegroundStartMonitoringConnectivity() {
-        provider.addListener(this)
-    }
-
-    @OnLifecycleEvent(Lifecycle.Event.ON_STOP)
-    fun onBackgroundStartMonitoringConnectivity() {
+    override fun onStop(owner: LifecycleOwner) {
+        super.onStop(owner)
         provider.removeListener(this)
     }
 }

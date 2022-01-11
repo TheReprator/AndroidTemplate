@@ -14,18 +14,8 @@
  * limitations under the License.
  */
 
-package app.root.androidtemplate.implementation
+package app.template.base.actions
 
-import app.template.base.util.AppCoroutineDispatchers
-import kotlinx.coroutines.CoroutineDispatcher
-import javax.inject.Inject
-import javax.inject.Singleton
-
-@Singleton
-class AppCoroutineDispatchersImpl @Inject constructor(
-    override val main: CoroutineDispatcher,
-    override val singleThread: CoroutineDispatcher,
-    override val computation: CoroutineDispatcher = singleThread,
-    override val io: CoroutineDispatcher = singleThread,
-    override val default: CoroutineDispatcher = singleThread
-) : AppCoroutineDispatchers
+interface WorkTasks {
+    fun workManagerSample()
+}

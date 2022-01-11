@@ -14,12 +14,18 @@
  * limitations under the License.
  */
 
-package app.template.base.util.permission
+package app.template.work
 
-interface PermissionHelper {
-    fun hasPermissions(permission: List<String>): Boolean
+import android.app.Application
+import app.template.base.actions.WorkTasks
+import app.template.base_android.appinitializers.AppInitializer
+import dagger.Lazy
+import javax.inject.Inject
 
-    fun hasPermissions(permission: String): Boolean
-
-    fun hasPermissions(vararg perms: String): Boolean
+class WorkTasksInitializer @Inject constructor(
+    private val showTasks: Lazy<WorkTasks>
+) : AppInitializer {
+    override fun init(application: Application) {
+        //showTasks.get().setupNightSyncs()
+    }
 }

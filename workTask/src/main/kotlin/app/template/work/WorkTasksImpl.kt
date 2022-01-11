@@ -14,18 +14,21 @@
  * limitations under the License.
  */
 
-package app.root.androidtemplate.implementation
+package app.template.work
 
-import app.template.base.util.AppCoroutineDispatchers
-import kotlinx.coroutines.CoroutineDispatcher
+import androidx.work.OneTimeWorkRequestBuilder
+import androidx.work.WorkManager
+import app.template.base.actions.WorkTasks
 import javax.inject.Inject
-import javax.inject.Singleton
 
-@Singleton
-class AppCoroutineDispatchersImpl @Inject constructor(
-    override val main: CoroutineDispatcher,
-    override val singleThread: CoroutineDispatcher,
-    override val computation: CoroutineDispatcher = singleThread,
-    override val io: CoroutineDispatcher = singleThread,
-    override val default: CoroutineDispatcher = singleThread
-) : AppCoroutineDispatchers
+class WorkTasksImpl @Inject constructor(
+    private val workManager: WorkManager
+) : WorkTasks {
+    override fun workManagerSample() {
+        val request = OneTimeWorkRequestBuilder<WorkManagerSample>()
+            .addTag(WorkManagerSample.TAG)
+            .setInputData(WorkManagerSample.buildData(-1))
+            .build()
+        workManager.enqueue(request)
+    }
+}

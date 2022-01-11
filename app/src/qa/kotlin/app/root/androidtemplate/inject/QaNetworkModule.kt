@@ -1,5 +1,5 @@
 /*
- * Copyright 2021
+ * Copyright 2022
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,18 +14,24 @@
  * limitations under the License.
  */
 
-package app.root.androidtemplate.implementation
+package app.root.androidtemplate.inject
 
-import app.template.base.util.AppCoroutineDispatchers
-import kotlinx.coroutines.CoroutineDispatcher
-import javax.inject.Inject
+import dagger.Module
+import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.components.SingletonComponent
+import dagger.multibindings.IntoSet
+import okhttp3.Interceptor
+import okhttp3.logging.HttpLoggingInterceptor
 import javax.inject.Singleton
 
-@Singleton
-class AppCoroutineDispatchersImpl @Inject constructor(
-    override val main: CoroutineDispatcher,
-    override val singleThread: CoroutineDispatcher,
-    override val computation: CoroutineDispatcher = singleThread,
-    override val io: CoroutineDispatcher = singleThread,
-    override val default: CoroutineDispatcher = singleThread
-) : AppCoroutineDispatchers
+@InstallIn(SingletonComponent::class)
+@Module
+object QaNetworkModule {
+    @Provides
+    @Singleton
+    @IntoSet
+    fun provideHttpLoggingInterceptor(): Interceptor = HttpLoggingInterceptor().apply {
+        level = HttpLoggingInterceptor.Level.BODY
+    }
+}
