@@ -16,23 +16,24 @@
 
 package app.root.androidtemplate.di
 
+import android.content.Context
 import app.root.androidtemplate.BuildConfig
 import dagger.Lazy
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
-import okhttp3.ConnectionPool
-import okhttp3.Dispatcher
-import okhttp3.Interceptor
-import okhttp3.OkHttpClient
+import okhttp3.*
 import retrofit2.Retrofit
 import retrofit2.converter.jackson.JacksonConverterFactory
+import java.io.File
 import java.util.concurrent.ThreadPoolExecutor
 import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
 
 private const val CONNECTION_TIME = 20L
+private const val CACHE_SIZE = (50 * 1024 * 1024).toLong()
 
 @InstallIn(SingletonComponent::class)
 @Module(
@@ -42,12 +43,26 @@ private const val CONNECTION_TIME = 20L
 )
 object NetworkModule {
     @Provides
+    fun provideCache(file: File): Cache {
+        return Cache(file, CACHE_SIZE)
+    }
+
+    @Provides
+    fun provideFile(
+        @ApplicationContext context: Context
+    ): File {
+        return File(context.cacheDir, "cache_androidTemplate")
+    }
+
+    @Provides
     fun provideOkHttpClient(
         threadPoolExecutor: ThreadPoolExecutor,
         interceptors: Set<@JvmSuppressWildcards Interceptor>,
+        cache: Cache,
     ): OkHttpClient {
         return OkHttpClient.Builder()
             .apply {
+                cache(cache)
                 connectTimeout(CONNECTION_TIME, TimeUnit.SECONDS)
                 readTimeout(CONNECTION_TIME, TimeUnit.SECONDS)
                 writeTimeout(CONNECTION_TIME, TimeUnit.SECONDS)
