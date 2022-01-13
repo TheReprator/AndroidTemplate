@@ -24,6 +24,9 @@ import app.template.base.util.permission.PermissionDenied
 import app.template.base.util.permission.PermissionGranted
 import app.template.base.util.permission.PermissionManager
 import app.template.base.util.permission.PermissionStatus
+import app.template.base_android.permission.ActivityResultManager
+import app.template.base_android.permission.requestPermission
+import app.template.base_android.permission.requestPermissions
 import app.template.base_android.util.ActivityProvider
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject

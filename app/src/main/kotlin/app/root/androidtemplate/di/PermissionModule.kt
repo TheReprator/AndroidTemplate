@@ -3,7 +3,7 @@ package app.root.androidtemplate.di
 import android.app.Application
 import android.content.Context
 import app.root.androidtemplate.implementation.permission.ActivityProviderImpl
-import app.root.androidtemplate.implementation.permission.ActivityResultManager
+import app.template.base_android.permission.ActivityResultManager
 import app.root.androidtemplate.implementation.permission.ActivityResultManagerImpl
 import app.root.androidtemplate.implementation.permission.PermissionManagerImpl
 import app.template.base.util.Logger

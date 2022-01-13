@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package app.root.androidtemplate.implementation.permission
+package app.template.base_android.permission
 
 import android.graphics.Bitmap
 import android.net.Uri
