@@ -19,9 +19,10 @@ package app.module.modulea
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.commit
 import androidx.fragment.app.viewModels
 import app.module.modulea.databinding.FragmentModuleaBinding
-import app.template.base.util.isNull
+import app.module.modulea.permission.PermissionSuspendFragment
 import app.template.base_android.viewDelegation.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -34,8 +35,19 @@ class ModuleA : Fragment(R.layout.fragment_modulea) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        if (savedInstanceState.isNull()) {
-            viewModel.fetchList()
+        childFragmentManager.addOnBackStackChangedListener {
+            val count = childFragmentManager.backStackEntryCount
+            if (0 == count)
+                binding.moduleATitle.visibility = View.VISIBLE
+        }
+
+        binding.moduleATitle.setOnClickListener {
+            binding.moduleATitle.visibility = View.GONE
+
+            childFragmentManager.commit {
+                add(R.id.frame, PermissionSuspendFragment())
+                addToBackStack(null)
+            }
         }
     }
 }

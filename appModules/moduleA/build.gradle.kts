@@ -95,6 +95,8 @@ dependencies {
 
     implementation(Libs.AndroidX.Navigation.fragmentKtx)
 
+    implementation(Libs.AndroidX.MapV3.location)
+
     implementation(Libs.DaggerHilt.hilt)
     kapt(Libs.DaggerHilt.compiler)
 
