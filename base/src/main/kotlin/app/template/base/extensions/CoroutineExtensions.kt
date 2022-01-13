@@ -36,10 +36,9 @@ fun CoroutineScope.computationalBlock(
     coroutineExceptionHandler: CoroutineExceptionHandler? = null,
     block: suspend CoroutineScope.() -> Unit
 ) {
-    val type = if (coroutineExceptionHandler.isNull())
-        coroutinesDispatcherProvider.io
-    else
-        coroutinesDispatcherProvider.io + coroutineExceptionHandler
+    val type = coroutineExceptionHandler?.let {
+        coroutinesDispatcherProvider.io + it
+    } ?: coroutinesDispatcherProvider.io
 
     launch(type) {
         block.invoke(this)
