@@ -50,44 +50,36 @@ class ActivityProviderImpl @Inject constructor(
             ?.takeIf { it.lifecycle.currentState.isAtLeast(Lifecycle.State.INITIALIZED) }
 
     init {
-        logger.e(TAG, "init")
         application.registerActivityLifecycleCallbacks(this)
     }
 
     override fun onActivityCreated(activity: Activity, bundle: Bundle?) {
-        logger.e(TAG, "onActivityCreated")
         (activity as? ComponentActivity)?.let {
             _activityFlow.value = WeakReference(it)
         }
     }
 
     override fun onActivityStarted(activity: Activity) {
-        logger.e(TAG, "onActivityStarted")
         (activity as? ComponentActivity)?.let {
             _activityFlow.value = WeakReference(it)
         }
     }
 
     override fun onActivityResumed(activity: Activity) {
-        logger.e(TAG, "onActivityResumed")
         (activity as? ComponentActivity)?.let {
             _activityFlow.value = WeakReference(it)
         }
     }
 
     override fun onActivityPaused(activity: Activity) {
-        logger.e(TAG, "onActivityPaused")
     }
 
     override fun onActivityStopped(activity: Activity) {
-        logger.e(TAG, "onActivityStopped")
     }
 
     override fun onActivitySaveInstanceState(activity: Activity, bundle: Bundle) {
-        logger.e(TAG, "onActivitySaveInstanceState")
     }
 
     override fun onActivityDestroyed(activity: Activity) {
-        logger.e(TAG, "onActivityDestroyed")
     }
 }
