@@ -21,15 +21,23 @@ import android.app.Application
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.lifecycle.Lifecycle
-import dagger.hilt.android.qualifiers.ApplicationContext
+import app.template.base.util.Logger
+import app.template.base_android.util.ActivityProvider
 import kotlinx.coroutines.flow.*
 import java.lang.ref.WeakReference
+import javax.inject.Inject
 
-class ActivityProvider constructor(@ApplicationContext applicationContext: Application) :
-    Application.ActivityLifecycleCallbacks {
+class ActivityProviderImpl @Inject constructor(
+    application: Application,
+    private val logger: Logger
+) : Application.ActivityLifecycleCallbacks, ActivityProvider {
+
+    companion object {
+        private const val TAG = "ActivityProviderImpl"
+    }
 
     private val _activityFlow = MutableStateFlow(WeakReference<ComponentActivity>(null))
-    val activityFlow = _activityFlow.asStateFlow()
+    override val activityFlow = _activityFlow.asStateFlow()
         .distinctUntilChanged { old, new -> old.get() === new.get() }
         .filter {
             val activity = it.get()
@@ -37,37 +45,49 @@ class ActivityProvider constructor(@ApplicationContext applicationContext: Appli
         }
         .map { it.get()!! }
 
-    val currentActivity
+    override val currentActivity
         get() = _activityFlow.value.get()
             ?.takeIf { it.lifecycle.currentState.isAtLeast(Lifecycle.State.INITIALIZED) }
 
     init {
-        (applicationContext).registerActivityLifecycleCallbacks(this)
+        logger.e(TAG, "init")
+        application.registerActivityLifecycleCallbacks(this)
     }
 
     override fun onActivityCreated(activity: Activity, bundle: Bundle?) {
+        logger.e(TAG, "onActivityCreated")
         (activity as? ComponentActivity)?.let {
             _activityFlow.value = WeakReference(it)
         }
     }
 
     override fun onActivityStarted(activity: Activity) {
+        logger.e(TAG, "onActivityStarted")
         (activity as? ComponentActivity)?.let {
             _activityFlow.value = WeakReference(it)
         }
     }
 
     override fun onActivityResumed(activity: Activity) {
+        logger.e(TAG, "onActivityResumed")
         (activity as? ComponentActivity)?.let {
             _activityFlow.value = WeakReference(it)
         }
     }
 
-    override fun onActivityPaused(activity: Activity) {}
+    override fun onActivityPaused(activity: Activity) {
+        logger.e(TAG, "onActivityPaused")
+    }
 
-    override fun onActivityStopped(activity: Activity) {}
+    override fun onActivityStopped(activity: Activity) {
+        logger.e(TAG, "onActivityStopped")
+    }
 
-    override fun onActivitySaveInstanceState(activity: Activity, bundle: Bundle) {}
+    override fun onActivitySaveInstanceState(activity: Activity, bundle: Bundle) {
+        logger.e(TAG, "onActivitySaveInstanceState")
+    }
 
-    override fun onActivityDestroyed(activity: Activity) {}
+    override fun onActivityDestroyed(activity: Activity) {
+        logger.e(TAG, "onActivityDestroyed")
+    }
 }

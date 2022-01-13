@@ -14,9 +14,19 @@
  * limitations under the License.
  */
 
-package app.template.base.util.permission
+package app.root.androidtemplate.appinitializers
 
-sealed class PermissionStatus
+import android.app.Application
+import app.template.base.util.Logger
+import app.template.base_android.appinitializers.AppInitializer
+import app.template.base_android.util.ActivityProvider
+import javax.inject.Inject
+import javax.inject.Named
 
-object PermissionGranted : PermissionStatus()
-data class PermissionDenied(val shouldShowRationale: Boolean) : PermissionStatus()
+class ActivityProviderInitializer @Inject constructor(
+    private val activityProvider: ActivityProvider
+) : AppInitializer {
+    override fun init(application: Application) {
+        activityProvider
+    }
+}

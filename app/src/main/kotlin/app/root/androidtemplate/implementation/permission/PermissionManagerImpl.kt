@@ -24,13 +24,14 @@ import app.template.base.util.permission.PermissionDenied
 import app.template.base.util.permission.PermissionGranted
 import app.template.base.util.permission.PermissionManager
 import app.template.base.util.permission.PermissionStatus
+import app.template.base_android.util.ActivityProvider
 import dagger.hilt.android.qualifiers.ApplicationContext
+import javax.inject.Inject
 
-class PermissionManagerImpl constructor(
-    private val activityResultManager: ActivityResultManager,
+class PermissionManagerImpl @Inject constructor(
     private val activityProvider: ActivityProvider,
-    @ApplicationContext
-    private val context: Context
+    @ApplicationContext private val context: Context,
+    private val activityResultManager: ActivityResultManager
 ) : PermissionManager {
 
     override fun hasPermission(permission: String): Boolean {

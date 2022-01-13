@@ -16,6 +16,7 @@
 
 package app.root.androidtemplate.di
 
+import app.root.androidtemplate.appinitializers.ActivityProviderInitializer
 import app.root.androidtemplate.appinitializers.CoilAppInitializer
 import app.root.androidtemplate.appinitializers.TimberInitializer
 import app.template.base_android.appinitializers.AppInitializer
@@ -36,4 +37,8 @@ abstract class AppModuleBinds {
     @Binds
     @IntoSet
     abstract fun provideTimberInitializer(bind: TimberInitializer): AppInitializer
+
+    @Binds
+    @IntoSet
+    abstract fun provideActivityProviderInitializer(bind: ActivityProviderInitializer): AppInitializer
 }

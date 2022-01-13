@@ -14,9 +14,12 @@
  * limitations under the License.
  */
 
-package app.template.base.util.permission
+package app.template.base_android.util
 
-sealed class PermissionStatus
+import androidx.activity.ComponentActivity
+import kotlinx.coroutines.flow.Flow
 
-object PermissionGranted : PermissionStatus()
-data class PermissionDenied(val shouldShowRationale: Boolean) : PermissionStatus()
+interface ActivityProvider {
+    val currentActivity: ComponentActivity?
+    val activityFlow: Flow<ComponentActivity>
+}
