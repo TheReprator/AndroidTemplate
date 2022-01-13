@@ -17,7 +17,6 @@
 package app.template.base.util.permission
 
 interface PermissionManager {
-
     /**
      * Determine whether <em>you</em> have been granted a particular permission.
      *
@@ -31,7 +30,6 @@ interface PermissionManager {
      *
      * @param permission The name of the permission to be requested.
      * @return a [PermissionStatus] to indicate the current status.
-     *
      */
     suspend fun requestPermission(permission: String): PermissionStatus
 

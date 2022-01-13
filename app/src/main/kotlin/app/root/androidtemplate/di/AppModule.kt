@@ -16,7 +16,6 @@
 
 package app.root.androidtemplate.di
 
-import android.app.Application
 import android.content.Context
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ProcessLifecycleOwner
@@ -24,16 +23,11 @@ import app.root.androidtemplate.BuildConfig
 import app.root.androidtemplate.implementation.AppCoroutineDispatchersImpl
 import app.root.androidtemplate.implementation.DateUtilsImpl
 import app.root.androidtemplate.implementation.connectivity.InternetChecker
-import app.root.androidtemplate.implementation.permission.ActivityProvider
-import app.root.androidtemplate.implementation.permission.ActivityResultManager
-import app.root.androidtemplate.implementation.permission.ActivityResultManagerImpl
-import app.root.androidtemplate.implementation.permission.PermissionManagerImpl
 import app.root.androidtemplate.implementation.preference.AppSharedPreference
 import app.root.androidtemplate.implementation.preference.AppSharedPreferenceImpl
 import app.template.base.util.AppCoroutineDispatchers
 import app.template.base.util.date.DateUtils
 import app.template.base.util.interent.ConnectionDetector
-import app.template.base.util.permission.PermissionManager
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.crashlytics.FirebaseCrashlytics
 import dagger.Module
@@ -58,7 +52,6 @@ class AppModule {
         return ProcessLifecycleOwner.get().lifecycle
     }
 
-    @Singleton
     @Provides
     fun providesCoroutineScope(appCoroutineDispatchers: AppCoroutineDispatchers): CoroutineScope {
         return CoroutineScope(SupervisorJob() + appCoroutineDispatchers.default)
@@ -96,37 +89,10 @@ class AppModule {
     }
 
     @Provides
-    @Singleton
     fun provideFirebaseCrashlytics(): FirebaseCrashlytics = FirebaseCrashlytics.getInstance()
 
     @Provides
-    @Singleton
     fun provideFirebaseAnalytics(
         @ApplicationContext context: Context
     ): FirebaseAnalytics = FirebaseAnalytics.getInstance(context)
-}
-
-@InstallIn(SingletonComponent::class)
-@Module
-class PermissionModule {
-    @Provides
-    @Singleton
-    fun provideActivityProvider(
-        @ApplicationContext context: Application
-    ): ActivityProvider = ActivityProvider(context)
-
-    @Provides
-    @Singleton
-    fun provideActivityResultManager(
-        activityProvider: ActivityProvider
-    ): ActivityResultManager = ActivityResultManagerImpl(activityProvider)
-
-    @Provides
-    @Singleton
-    fun providePermissionManager(
-        activityResultManager: ActivityResultManager,
-        activityProvider: ActivityProvider,
-        context: Context
-    ): PermissionManager = PermissionManagerImpl(activityResultManager, activityProvider, context)
-
 }

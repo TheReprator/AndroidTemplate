@@ -20,15 +20,17 @@ import androidx.activity.ComponentActivity
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContract
 import androidx.core.os.bundleOf
+import app.template.base_android.util.ActivityProvider
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.mapLatest
 import kotlinx.coroutines.suspendCancellableCoroutine
 import java.util.concurrent.atomic.AtomicInteger
+import javax.inject.Inject
 import kotlin.coroutines.resume
 
- class ActivityResultManagerImpl constructor(private val activityProvider: ActivityProvider) : ActivityResultManager {
+class ActivityResultManagerImpl @Inject constructor(private val activityProvider: ActivityProvider) :
+    ActivityResultManager {
 
     companion object {
         private const val SAVED_STATE_REGISTRY_KEY = "activityresult_saved_state"
