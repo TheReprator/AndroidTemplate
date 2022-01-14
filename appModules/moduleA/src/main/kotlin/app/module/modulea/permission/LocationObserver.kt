@@ -17,42 +17,33 @@
 package app.module.modulea.permission
 
 import android.Manifest
-import android.app.Activity.RESULT_OK
-import android.content.Context
-import android.content.Intent
+import android.app.Activity
 import android.content.IntentSender.SendIntentException
 import android.location.Location
 import android.os.Looper
-import androidx.activity.result.ActivityResult
 import androidx.activity.result.IntentSenderRequest
-import androidx.activity.result.contract.ActivityResultContract
-import androidx.activity.result.contract.ActivityResultContracts.StartIntentSenderForResult.ACTION_INTENT_SENDER_REQUEST
-import androidx.activity.result.contract.ActivityResultContracts.StartIntentSenderForResult.EXTRA_INTENT_SENDER_REQUEST
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.RequiresPermission
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.lifecycleScope
 import app.template.base.util.Logger
 import app.template.base_android.permission.ActivityResultManager
 import app.template.base_android.util.ActivityProvider
 import com.google.android.gms.common.api.ResolvableApiException
 import com.google.android.gms.location.*
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
 import kotlinx.coroutines.launch
-import timber.log.Timber
 import javax.inject.Inject
 
 class LocationObserver @Inject constructor(
     private val activityProvider: ActivityProvider,
     private val activityResultManager: ActivityResultManager,
-    private val logger: Logger
+    private val logger: Logger,
+    private val coroutineScope: CoroutineScope
 ) {
-
-    companion object {
-        const val REQUEST_CHECK_SETTING = 10011
-    }
 
     @OptIn(ExperimentalCoroutinesApi::class)
     @RequiresPermission(Manifest.permission.ACCESS_FINE_LOCATION)
@@ -107,7 +98,7 @@ class LocationObserver @Inject constructor(
             .setFastestInterval(500)
     }
 
-    private suspend fun configureSettingClient(locationRequest: LocationRequest) {
+    private fun configureSettingClient(locationRequest: LocationRequest) {
         val builder = LocationSettingsRequest.Builder()
             .addLocationRequest(locationRequest)
 
@@ -123,9 +114,7 @@ class LocationObserver @Inject constructor(
             logger.e("fail addOnFailureListener")
             if (e is ResolvableApiException) {
                 try {
-                    activityProvider.currentActivity?.lifecycleScope?.launch {
-                        launchGpsOnNotification(e)
-                    }
+                    launchGpsOnNotification(e)
                 } catch (sendEx: SendIntentException) {
                     logger.e("fail 1 addOnFailureListener")
                 } catch (ex: NullPointerException) {
@@ -135,28 +124,17 @@ class LocationObserver @Inject constructor(
         }
     }
 
-    private suspend fun launchGpsOnNotification(e: ResolvableApiException) {
-        val result = activityResultManager.requestResult(
-            contract = LocationContract(),
-            input = e
-        )
-    }
+    private fun launchGpsOnNotification(e: ResolvableApiException) =
+        coroutineScope.launch {
+            val result = activityResultManager.requestResult(
+                contract = ActivityResultContracts.StartIntentSenderForResult(),
+                input = IntentSenderRequest.Builder(e.resolution).build()
+            ) ?: return@launch
 
-    private class LocationContract :
-        ActivityResultContract<ResolvableApiException, ActivityResult>() {
-        override fun createIntent(context: Context, input: ResolvableApiException): Intent {
-            return Intent(ACTION_INTENT_SENDER_REQUEST)
-                .putExtra(
-                    EXTRA_INTENT_SENDER_REQUEST,
-                    IntentSenderRequest.Builder(input.resolution).build()
-                )
+            if (Activity.RESULT_OK == result.resultCode) {
+                logger.e("result ok")
+            } else
+                logger.e("result cancel")
         }
 
-        override fun parseResult(resultCode: Int, intent: Intent?): ActivityResult {
-            val data = if (resultCode == RESULT_OK)
-                0 else 1
-            Timber.e("parse $data")
-            return ActivityResult(resultCode, intent)
-        }
-    }
 }
