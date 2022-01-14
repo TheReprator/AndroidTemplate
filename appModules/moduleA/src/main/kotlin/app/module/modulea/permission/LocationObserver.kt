@@ -45,6 +45,10 @@ class LocationObserver @Inject constructor(
     private val coroutineScope: CoroutineScope
 ) {
 
+    companion object {
+        private const val UPDATE_INTERVAL = 1000L
+        private const val FASTEST_UPDATE_INTERVAL = UPDATE_INTERVAL/2
+    }
     @OptIn(ExperimentalCoroutinesApi::class)
     @RequiresPermission(Manifest.permission.ACCESS_FINE_LOCATION)
     fun observeLocationUpdates(): Flow<Location> {
@@ -94,8 +98,8 @@ class LocationObserver @Inject constructor(
         return LocationRequest
             .create()
             .setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY)
-            .setInterval(1000)
-            .setFastestInterval(500)
+            .setInterval(UPDATE_INTERVAL)
+            .setFastestInterval(FASTEST_UPDATE_INTERVAL)
     }
 
     private fun configureSettingClient(locationRequest: LocationRequest) {
@@ -114,7 +118,7 @@ class LocationObserver @Inject constructor(
             logger.e("fail addOnFailureListener")
             if (e is ResolvableApiException) {
                 try {
-                    launchGpsOnNotification(e)
+                    launchGpsDialog(e)
                 } catch (sendEx: SendIntentException) {
                     logger.e("fail 1 addOnFailureListener")
                 } catch (ex: NullPointerException) {
@@ -124,7 +128,7 @@ class LocationObserver @Inject constructor(
         }
     }
 
-    private fun launchGpsOnNotification(e: ResolvableApiException) =
+    private fun launchGpsDialog(e: ResolvableApiException) =
         coroutineScope.launch {
             val result = activityResultManager.requestResult(
                 contract = ActivityResultContracts.StartIntentSenderForResult(),
