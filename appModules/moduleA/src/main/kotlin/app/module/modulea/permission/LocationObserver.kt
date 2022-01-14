@@ -24,21 +24,25 @@ import android.os.Looper
 import androidx.activity.result.IntentSenderRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.RequiresPermission
-import androidx.appcompat.app.AppCompatActivity
 import app.template.base.util.Logger
 import app.template.base_android.permission.ActivityResultManager
 import app.template.base_android.util.ActivityProvider
 import com.google.android.gms.common.api.ResolvableApiException
 import com.google.android.gms.location.*
+import dagger.assisted.Assisted
+import dagger.assisted.AssistedFactory
+import dagger.assisted.AssistedInject
+import kotlinx.coroutines.CompletableDeferred
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
-class LocationObserver @Inject constructor(
+class LocationObserver @AssistedInject constructor(
+    @Assisted
+    private val locationStatusListener: CompletableDeferred<LocationStatusListener>,
     private val activityProvider: ActivityProvider,
     private val activityResultManager: ActivityResultManager,
     private val logger: Logger,
@@ -47,20 +51,18 @@ class LocationObserver @Inject constructor(
 
     companion object {
         private const val UPDATE_INTERVAL = 1000L
-        private const val FASTEST_UPDATE_INTERVAL = UPDATE_INTERVAL/2
+        private const val FASTEST_UPDATE_INTERVAL = UPDATE_INTERVAL / 2
     }
+
     @OptIn(ExperimentalCoroutinesApi::class)
     @RequiresPermission(Manifest.permission.ACCESS_FINE_LOCATION)
     fun observeLocationUpdates(): Flow<Location> {
         return callbackFlow {
             logger.e("observing location updates")
+            locationStatusListener.await().locationFetchStarted()
 
             if (null == activityProvider.currentActivity)
                 throw Exception("CurrentActivity is null")
-
-            val currentFragment =
-                (activityProvider.currentActivity!! as AppCompatActivity).supportFragmentManager.fragments.last()
-            logger.e("name ${currentFragment}")
 
             val client =
                 LocationServices.getFusedLocationProviderClient(activityProvider.currentActivity!!)
@@ -73,11 +75,17 @@ class LocationObserver @Inject constructor(
                 override fun onLocationResult(locationResult: LocationResult) {
                     logger.e("onLocationResult ${locationResult.lastLocation}")
                     trySend(locationResult.lastLocation)
+                    coroutineScope.launch {
+                        locationStatusListener.await().latestLocation(locationResult.lastLocation)
+                    }
                 }
 
                 override fun onLocationAvailability(locationAvailability: LocationAvailability) {
                     logger.e("onLocationAvailability ${locationAvailability.isLocationAvailable}")
                     super.onLocationAvailability(locationAvailability)
+                    coroutineScope.launch {
+                        locationStatusListener.await().locationUnavailable()
+                    }
                 }
             }
 
@@ -108,6 +116,9 @@ class LocationObserver @Inject constructor(
 
         val settingClient = LocationServices.getSettingsClient(activityProvider.currentActivity!!)
         settingClient.checkLocationSettings(builder.build()).addOnSuccessListener {
+            coroutineScope.launch {
+                locationStatusListener.await().gpsStatus(true)
+            }
             logger.e("addOnSuccessListener")
             val states: LocationSettingsStates? = it.locationSettingsStates
             logger.e("GPS Present: " + states?.isGpsPresent)
@@ -116,6 +127,9 @@ class LocationObserver @Inject constructor(
             logger.e("Location Usable: " + states?.isLocationUsable)
         }.addOnFailureListener { e ->
             logger.e("fail addOnFailureListener")
+            coroutineScope.launch {
+                locationStatusListener.await().gpsStatus(false)
+            }
             if (e is ResolvableApiException) {
                 try {
                     launchGpsDialog(e)
@@ -137,8 +151,11 @@ class LocationObserver @Inject constructor(
 
             if (Activity.RESULT_OK == result.resultCode) {
                 logger.e("result ok")
-            } else
+                locationStatusListener.await().gpsUserAction(true)
+            } else {
                 logger.e("result cancel")
+                locationStatusListener.await().gpsUserAction(false)
+            }
         }
 
 }

@@ -18,23 +18,28 @@ package app.module.modulea.permission
 
 import android.annotation.SuppressLint
 import android.location.Location
-import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import app.template.base.util.Logger
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.CompletableDeferred
 import kotlinx.coroutines.flow.*
 import javax.inject.Inject
 
 @HiltViewModel
 class PermissionSuspendViewModel @Inject constructor(
     private val savedStateHandle: SavedStateHandle,
-    private val locationObserver: LocationObserver,
-    private val locationPermissionController: LocationPermissionController
-) : ViewModel() {
+    private val locationPermissionController: LocationPermissionController,
+    private val logger: Logger,
+    locationObserverFactory: LocationObserverFactory
+) : ViewModel(), LocationStatusListener {
     companion object {
         private const val IS_STARTED_KEY = "is_started"
     }
+
+    private val locationObserver: LocationObserver =
+        locationObserverFactory.create(CompletableDeferred(this))
 
     private val _isStarted = MutableStateFlow(false)
 
@@ -79,4 +84,24 @@ class PermissionSuspendViewModel @Inject constructor(
         val isObservingLocation: Boolean = false,
         val currentLocation: Location? = null
     )
+
+    override fun gpsUserAction(boolean: Boolean) {
+        logger.d("1 gpsUserAction $boolean")
+    }
+
+    override fun gpsStatus(boolean: Boolean) {
+        logger.d("2 gpsStatus $boolean")
+    }
+
+    override fun locationFetchStarted() {
+        logger.d("3 locationFetchStarted ")
+    }
+
+    override fun latestLocation(location: Location) {
+        logger.d("4 latestLocation $location")
+    }
+
+    override fun locationUnavailable() {
+        logger.d("5 locationUnavailable")
+    }
 }
