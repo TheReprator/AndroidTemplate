@@ -17,11 +17,9 @@
 package app.root.androidtemplate.appinitializers
 
 import android.app.Application
-import app.template.base.util.Logger
 import app.template.base_android.appinitializers.AppInitializer
 import app.template.base_android.util.ActivityProvider
 import javax.inject.Inject
-import javax.inject.Named
 
 class ActivityProviderInitializer @Inject constructor(
     private val activityProvider: ActivityProvider

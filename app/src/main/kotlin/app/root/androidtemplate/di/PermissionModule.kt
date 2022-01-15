@@ -6,8 +6,8 @@ import app.root.androidtemplate.implementation.permission.ActivityProviderImpl
 import app.template.base_android.permission.ActivityResultManager
 import app.root.androidtemplate.implementation.permission.ActivityResultManagerImpl
 import app.root.androidtemplate.implementation.permission.PermissionManagerImpl
-import app.template.base.util.Logger
-import app.template.base.util.permission.PermissionManager
+import app.template.base.actions.Logger
+import app.template.base.actions.permission.PermissionManager
 import app.template.base_android.util.ActivityProvider
 import dagger.Module
 import dagger.Provides

@@ -21,7 +21,7 @@ import android.app.Application
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.lifecycle.Lifecycle
-import app.template.base.util.Logger
+import app.template.base.actions.Logger
 import app.template.base_android.util.ActivityProvider
 import kotlinx.coroutines.flow.*
 import java.lang.ref.WeakReference

@@ -23,11 +23,9 @@ import app.root.androidtemplate.BuildConfig
 import app.root.androidtemplate.implementation.AppCoroutineDispatchersImpl
 import app.root.androidtemplate.implementation.DateUtilsImpl
 import app.root.androidtemplate.implementation.connectivity.InternetChecker
-import app.root.androidtemplate.implementation.preference.AppSharedPreference
-import app.root.androidtemplate.implementation.preference.AppSharedPreferenceImpl
 import app.template.base.util.AppCoroutineDispatchers
-import app.template.base.util.date.DateUtils
-import app.template.base.util.interent.ConnectionDetector
+import app.template.base.actions.DateUtils
+import app.template.base.actions.ConnectionDetector
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.crashlytics.FirebaseCrashlytics
 import dagger.Module
@@ -41,7 +39,6 @@ import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.asCoroutineDispatcher
 import java.util.concurrent.ThreadPoolExecutor
 import javax.inject.Named
-import javax.inject.Singleton
 
 @InstallIn(SingletonComponent::class)
 @Module
@@ -62,11 +59,6 @@ class AppModule {
         return AppCoroutineDispatchersImpl(
             Dispatchers.Main, threadPoolExecutor.asCoroutineDispatcher()
         )
-    }
-
-    @Provides
-    fun provideAppPreferences(@ApplicationContext context: Context): AppSharedPreference {
-        return AppSharedPreferenceImpl(context)
     }
 
     @Provides

@@ -44,7 +44,7 @@ fun <T, U> getCallingObjectForActivityFragment(
     }
 }
 
-fun getContext(
+fun getAppContext(
     param: Any
 ): Context {
     return when (param) {

@@ -18,8 +18,8 @@ package app.root.androidtemplate.di
 
 import app.root.androidtemplate.implementation.AppAnalytics
 import app.root.androidtemplate.implementation.AppLogger
-import app.template.base.util.Analytics
-import app.template.base.util.Logger
+import app.template.base.actions.Analytics
+import app.template.base.actions.Logger
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn

@@ -19,7 +19,7 @@ package app.root.androidtemplate.implementation.connectivity
 import android.content.Context
 import androidx.lifecycle.*
 import app.root.androidtemplate.implementation.connectivity.base.ConnectivityProvider
-import app.template.base.util.interent.ConnectionDetector
+import app.template.base.actions.ConnectionDetector
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 import javax.inject.Singleton
