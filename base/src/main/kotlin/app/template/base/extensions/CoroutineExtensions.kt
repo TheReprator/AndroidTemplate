@@ -17,7 +17,6 @@
 package app.template.base.extensions
 
 import app.template.base.util.AppCoroutineDispatchers
-import app.template.base.util.isNull
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch

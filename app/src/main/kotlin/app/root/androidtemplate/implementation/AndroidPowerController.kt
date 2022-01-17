@@ -23,7 +23,11 @@ import android.os.Build
 import android.os.PowerManager
 import androidx.annotation.RequiresApi
 import androidx.core.content.getSystemService
-import app.template.base.actions.*
+import app.template.base.actions.AppSettingPreferences
+import app.template.base.actions.Logger
+import app.template.base.actions.PowerController
+import app.template.base.actions.SaveData
+import app.template.base.actions.SaveDataReason
 import app.template.base_android.util.flowBroadcasts
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.Flow

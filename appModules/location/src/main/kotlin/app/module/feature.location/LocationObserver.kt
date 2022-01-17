@@ -28,7 +28,13 @@ import app.template.base.actions.Logger
 import app.template.base_android.permission.ActivityResultManager
 import app.template.base_android.util.ActivityProvider
 import com.google.android.gms.common.api.ResolvableApiException
-import com.google.android.gms.location.*
+import com.google.android.gms.location.LocationAvailability
+import com.google.android.gms.location.LocationCallback
+import com.google.android.gms.location.LocationRequest
+import com.google.android.gms.location.LocationResult
+import com.google.android.gms.location.LocationServices
+import com.google.android.gms.location.LocationSettingsRequest
+import com.google.android.gms.location.LocationSettingsStates
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedInject
 import kotlinx.coroutines.CompletableDeferred
@@ -156,5 +162,4 @@ class LocationObserver @AssistedInject constructor(
                 locationStatusListener.await().gpsUserAction(false)
             }
         }
-
 }

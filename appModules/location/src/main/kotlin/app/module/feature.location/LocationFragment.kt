@@ -29,7 +29,7 @@ import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 
 @AndroidEntryPoint
-class LocationFragment: Fragment (R.layout.fragment_location) {
+class LocationFragment : Fragment(R.layout.fragment_location) {
 
     private val binding by viewBinding(FragmentLocationBinding::bind)
     private val viewModel: LocationViewModel by viewModels()

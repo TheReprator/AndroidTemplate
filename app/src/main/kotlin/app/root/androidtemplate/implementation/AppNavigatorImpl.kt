@@ -38,5 +38,4 @@ class AppNavigatorImpl @Inject constructor() : AppNavigator {
     override fun navigateToBack(navController: NavController) {
         navController.navigateUp()
     }
-
 }

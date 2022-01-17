@@ -23,9 +23,9 @@ import app.root.androidtemplate.BuildConfig
 import app.root.androidtemplate.implementation.AppCoroutineDispatchersImpl
 import app.root.androidtemplate.implementation.DateUtilsImpl
 import app.root.androidtemplate.implementation.connectivity.InternetChecker
-import app.template.base.util.AppCoroutineDispatchers
-import app.template.base.actions.DateUtils
 import app.template.base.actions.ConnectionDetector
+import app.template.base.actions.DateUtils
+import app.template.base.util.AppCoroutineDispatchers
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.crashlytics.FirebaseCrashlytics
 import dagger.Module

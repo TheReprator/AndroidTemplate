@@ -17,7 +17,10 @@
 package app.root.androidtemplate.implementation.connectivity
 
 import android.content.Context
-import androidx.lifecycle.*
+import androidx.lifecycle.DefaultLifecycleObserver
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.coroutineScope
 import app.root.androidtemplate.implementation.connectivity.base.ConnectivityProvider
 import app.template.base.actions.ConnectionDetector
 import dagger.hilt.android.qualifiers.ApplicationContext
