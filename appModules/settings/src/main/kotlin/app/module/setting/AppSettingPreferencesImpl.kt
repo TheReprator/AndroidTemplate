@@ -2,30 +2,24 @@ package app.module.setting
 
 import android.content.Context
 import android.content.SharedPreferences
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.content.edit
 import app.template.base.actions.AppSettingPreferences
 import app.template.base.actions.AppSettingPreferences.Theme
 import dagger.hilt.android.qualifiers.ApplicationContext
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.MutableSharedFlow
-import kotlinx.coroutines.flow.distinctUntilChanged
-import kotlinx.coroutines.flow.filter
-import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.flow.onStart
 import javax.inject.Inject
-import javax.inject.Named
 
 class AppSettingPreferencesImpl @Inject constructor(
     @ApplicationContext private val context: Context,
     private val sharedPreferences: SharedPreferences
 ) : AppSettingPreferences {
-    private val defaultThemeValue = context.getString(R.string.pref_theme_default_value)
-
-    private val preferenceKeyChangedFlow = MutableSharedFlow<String>(extraBufferCapacity = 1)
-
     private val listener = SharedPreferences.OnSharedPreferenceChangeListener { _, key ->
-        preferenceKeyChangedFlow.tryEmit(key)
+        when (key) {
+            KEY_THEME -> updateUsingThemePreference()
+        }
     }
+
+    private val defaultThemeValue = context.getString(R.string.pref_theme_default_value)
 
     companion object {
         const val KEY_THEME = "pref_theme"
@@ -33,6 +27,7 @@ class AppSettingPreferencesImpl @Inject constructor(
     }
 
     override fun setup() {
+        updateUsingThemePreference()
         sharedPreferences.registerOnSharedPreferenceChangeListener(listener)
     }
 
@@ -48,25 +43,7 @@ class AppSettingPreferencesImpl @Inject constructor(
             putBoolean(KEY_DATA_SAVER, value)
         }
 
-    override fun observeUseLessData(): Flow<Boolean> {
-        return preferenceKeyChangedFlow
-            // Emit on start so that we always send the initial value
-            .onStart { emit(KEY_DATA_SAVER) }
-            .filter { it == KEY_DATA_SAVER }
-            .map { useLessData }
-            .distinctUntilChanged()
-    }
-
-    override fun observeTheme(): Flow<Theme> {
-        return preferenceKeyChangedFlow
-            // Emit on start so that we always send the initial value
-            .onStart { emit(KEY_THEME) }
-            .filter { it == KEY_THEME }
-            .map { theme }
-            .distinctUntilChanged()
-    }
-
-    private val Theme.storageKey: String
+    val Theme.storageKey: String
         get() = when (this) {
             Theme.LIGHT -> context.getString(R.string.pref_theme_light_value)
             Theme.DARK -> context.getString(R.string.pref_theme_dark_value)
@@ -77,5 +54,11 @@ class AppSettingPreferencesImpl @Inject constructor(
         context.getString(R.string.pref_theme_light_value) -> Theme.LIGHT
         context.getString(R.string.pref_theme_dark_value) -> Theme.DARK
         else -> Theme.SYSTEM
+    }
+
+    private fun updateUsingThemePreference() = when (theme) {
+        Theme.DARK -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+        Theme.LIGHT -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+        Theme.SYSTEM -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
     }
 }

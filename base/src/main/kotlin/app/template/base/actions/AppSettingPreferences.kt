@@ -16,17 +16,13 @@
 
 package app.template.base.actions
 
-import kotlinx.coroutines.flow.Flow
-
 interface AppSettingPreferences {
 
     fun setup()
 
-    var theme: Theme
-    fun observeTheme(): Flow<Theme>
+    val theme: Theme
 
-    var useLessData: Boolean
-    fun observeUseLessData(): Flow<Boolean>
+    val useLessData: Boolean
 
     enum class Theme {
         LIGHT,

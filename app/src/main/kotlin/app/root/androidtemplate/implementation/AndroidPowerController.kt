@@ -23,10 +23,7 @@ import android.os.Build
 import android.os.PowerManager
 import androidx.annotation.RequiresApi
 import androidx.core.content.getSystemService
-import app.template.base.actions.AppSettingPreferences
-import app.template.base.actions.PowerController
-import app.template.base.actions.SaveData
-import app.template.base.actions.SaveDataReason
+import app.template.base.actions.*
 import app.template.base_android.util.flowBroadcasts
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.Flow
@@ -39,12 +36,14 @@ import javax.inject.Singleton
 @Singleton
 internal class AndroidPowerController @Inject constructor(
     @ApplicationContext private val context: Context,
-    private val preferences: AppSettingPreferences
+    private val preferences: AppSettingPreferences,
+    private val logger: Logger
 ) : PowerController {
     private val powerManager: PowerManager = context.getSystemService()!!
     private val connectivityManager: ConnectivityManager = context.getSystemService()!!
 
     override fun observeShouldSaveData(ignorePreference: Boolean): Flow<SaveData> {
+        logger.e("vikramAppSetting 6")
         return merge(
             context.flowBroadcasts(IntentFilter(PowerManager.ACTION_POWER_SAVE_MODE_CHANGED)),
             context.flowBroadcasts(IntentFilter(ConnectivityManager.ACTION_RESTRICT_BACKGROUND_CHANGED))

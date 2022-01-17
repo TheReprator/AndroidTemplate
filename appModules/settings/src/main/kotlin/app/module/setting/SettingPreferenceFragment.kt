@@ -4,12 +4,14 @@ package app.module.setting
 
 import android.content.pm.PackageManager
 import android.os.Bundle
-import android.preference.SwitchPreference
 import androidx.browser.customtabs.CustomTabsIntent
 import androidx.core.content.pm.PackageInfoCompat
 import androidx.core.net.toUri
+import androidx.lifecycle.lifecycleScope
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
+import androidx.preference.SwitchPreference
+import app.template.base.actions.PowerController
 import app.template.base.actions.SaveData
 import app.template.base.actions.SaveDataReason
 import app.template.base_android.extensions.resolveThemeColor
@@ -23,10 +25,12 @@ class SettingPreferenceFragment : PreferenceFragmentCompat() {
     @Inject
     lateinit var settingNavigator: SettingNavigator
 
-    internal var saveData: SaveData? = null
+    @Inject
+    lateinit var powerController: PowerController
+
+    private var saveData: SaveData? = null
         set(value) {
-            val pref = findPreference<Preference?>("pref_data_saver") as? SwitchPreference
-                ?: throw IllegalStateException()
+            val pref: SwitchPreference = findPreference("pref_data_saver")!!
 
             pref.isEnabled = when (value) {
                 is SaveData.Enabled -> value.reason == SaveDataReason.PREFERENCE
@@ -43,6 +47,16 @@ class SettingPreferenceFragment : PreferenceFragmentCompat() {
 
             field = value
         }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        lifecycleScope.launchWhenStarted {
+            powerController.observeShouldSaveData(ignorePreference = true).collect { saveData ->
+                this@SettingPreferenceFragment.saveData = saveData
+            }
+        }
+    }
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         setPreferencesFromResource(R.xml.preferences, rootKey)

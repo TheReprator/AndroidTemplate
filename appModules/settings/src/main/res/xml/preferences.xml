@@ -4,6 +4,7 @@
     <PreferenceCategory android:title="@string/settings_ui_category_title">
 
         <ListPreference
+            android:icon="@drawable/ic_theme"
             android:defaultValue="@string/pref_theme_default_value"
             android:entries="@array/prefs_theme_titles"
             android:entryValues="@array/prefs_theme_values"
