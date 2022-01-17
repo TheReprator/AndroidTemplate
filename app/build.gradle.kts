@@ -21,7 +21,7 @@ kapt {
 
 fun getKeyStoreConfig(defaultSigningConfig: ApkSigningConfig, propertyFileName: String) {
     val properties = Properties()
-    val propFile = File("./signingconfig/$propertyFileName")
+    val propFile = File("./config/signingconfig/$propertyFileName")
     if (propFile.canRead() && propFile.exists()) {
         properties.load(FileInputStream(propFile))
         if (properties.containsKey("storeFile") && properties.containsKey("storePassword") &&
@@ -31,7 +31,7 @@ fun getKeyStoreConfig(defaultSigningConfig: ApkSigningConfig, propertyFileName: 
             defaultSigningConfig.storePassword = properties.getProperty("storePassword")
             defaultSigningConfig.keyAlias = properties.getProperty("keyAlias")
             defaultSigningConfig.keyPassword = properties.getProperty("keyPassword")
-            defaultSigningConfig.isV2SigningEnabled = true
+            defaultSigningConfig.enableV2Signing = true
         }
     }
 }
@@ -162,3 +162,13 @@ if (file("google-services.json").exists()) {
         id(Libs.Plugins.googleServices)
     }
 }
+
+
+val installGitHook by tasks.registering(Copy::class) {
+    from(File(rootProject.rootDir, "config/hooks/pre-push"))
+    into(File(rootProject.rootDir, ".git/hooks/"))
+    // https://github.com/gradle/kotlin-dsl-samples/issues/1412
+    fileMode = 0b111101101 // -rwxr-xr-x
+}
+
+tasks.getByPath(":app:preBuild").dependsOn(installGitHook)
