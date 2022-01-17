@@ -17,7 +17,6 @@
 package app.template.base.extensions
 
 import app.template.base.util.AppCoroutineDispatchers
-import app.template.base.util.isNull
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
@@ -36,10 +35,9 @@ fun CoroutineScope.computationalBlock(
     coroutineExceptionHandler: CoroutineExceptionHandler? = null,
     block: suspend CoroutineScope.() -> Unit
 ) {
-    val type = if (coroutineExceptionHandler.isNull())
-        coroutinesDispatcherProvider.io
-    else
-        coroutinesDispatcherProvider.io + coroutineExceptionHandler
+    val type = coroutineExceptionHandler?.let {
+        coroutinesDispatcherProvider.io + it
+    } ?: coroutinesDispatcherProvider.io
 
     launch(type) {
         block.invoke(this)

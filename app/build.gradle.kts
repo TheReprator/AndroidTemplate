@@ -114,6 +114,8 @@ dependencies {
     implementation(project(AppModules.moduleBaseJava))
     implementation(project(AppModules.moduleBaseAndroid))
     implementation(project(AppModules.moduleWork))
+    implementation(project(AppModules.moduleLocation))
+    implementation(project(AppModules.moduleSetting))
 
     implementation(project(AppModules.moduleNavigation))
 

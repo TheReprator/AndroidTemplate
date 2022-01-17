@@ -26,6 +26,6 @@ class WorkTasksInitializer @Inject constructor(
     private val showTasks: Lazy<WorkTasks>
 ) : AppInitializer {
     override fun init(application: Application) {
-        //showTasks.get().setupNightSyncs()
+        // showTasks.get().setupNightSyncs()
     }
 }

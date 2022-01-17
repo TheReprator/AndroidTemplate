@@ -20,6 +20,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContract
 import androidx.core.os.bundleOf
+import app.template.base_android.permission.ActivityResultManager
 import app.template.base_android.util.ActivityProvider
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.first

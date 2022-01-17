@@ -27,6 +27,8 @@ object AppModules {
     const val moduleWork = ":workTask"
 
     const val moduleA = ":appModules:moduleA"
+    const val moduleLocation = ":appModules:location"
+    const val moduleSetting = ":appModules:settings"
 }
 
 object Libs {
@@ -125,6 +127,8 @@ object Libs {
         const val viewPager2 = "androidx.viewpager2:viewpager2:1.0.0"
 
         const val browser = "androidx.browser:browser:1.3.0"
+        const val preferenceKtx = "androidx.preference:preference-ktx:1.2.0-rc01"
+
 
         object Fragment {
             private const val version = "1.4.0"

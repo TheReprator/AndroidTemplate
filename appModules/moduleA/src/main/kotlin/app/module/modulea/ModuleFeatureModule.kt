@@ -1,5 +1,5 @@
 /*
- * Copyright 2021
+ * Copyright 2022
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,9 +14,25 @@
  * limitations under the License.
  */
 
-package app.template.base.util.permission
+@file:Suppress("DEPRECATION")
 
-sealed class PermissionStatus
+package app.module.modulea
 
-object PermissionGranted : PermissionStatus()
-data class PermissionDenied(val shouldShowRationale: Boolean) : PermissionStatus()
+import app.template.navigation.AppNavigator
+import app.template.navigation.FeatureNavigator
+import dagger.Module
+import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.android.components.FragmentComponent
+
+@InstallIn(FragmentComponent::class)
+@Module
+class ModuleFeatureModule {
+
+    @Provides
+    fun provideFeatureNavigator(
+        appNavigator: AppNavigator
+    ): FeatureNavigator {
+        return appNavigator
+    }
+}

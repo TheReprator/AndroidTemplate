@@ -17,7 +17,7 @@
 package app.root.androidtemplate.appinitializers
 
 import android.app.Application
-import app.template.base.util.Logger
+import app.template.base.actions.Logger
 import app.template.base_android.appinitializers.AppInitializer
 import javax.inject.Inject
 import javax.inject.Named

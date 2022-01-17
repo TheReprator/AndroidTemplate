@@ -17,15 +17,13 @@
 package app.template.work
 
 import android.content.Context
-import android.util.Log
 import androidx.hilt.work.HiltWorker
 import androidx.work.CoroutineWorker
 import androidx.work.Data
 import androidx.work.WorkerParameters
-import app.template.base.util.Logger
+import app.template.base.actions.Logger
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedInject
-import timber.log.Timber
 
 @HiltWorker
 class WorkManagerSample @AssistedInject constructor(

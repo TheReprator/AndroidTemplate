@@ -2,15 +2,19 @@
 <SmellBaseline>
   <ManuallySuppressedIssues/>
   <CurrentIssues>
+    <ID>EmptyFunctionBlock:ActivityProviderImpl.kt$ActivityProviderImpl${ }</ID>
+    <ID>LongMethod:ActivityResultManagerImpl.kt$ActivityResultManagerImpl$@OptIn(ExperimentalCoroutinesApi::class) override suspend fun &lt;I, O, C : ActivityResultContract&lt;I, O>> requestResult( contract: C, input: I ): O?</ID>
+    <ID>MagicNumber:AndroidPowerController.kt$AndroidPowerController$24</ID>
+    <ID>MagicNumber:NetworkModule.kt$NetworkModule$10</ID>
+    <ID>MagicNumber:ThreadModule.kt$ThreadModule$60</ID>
     <ID>PrintStackTrace:DateUtilsImpl.kt$DateUtilsImpl$e</ID>
-    <ID>SpreadOperator:PermissionHelperImpl.kt$PermissionHelperImpl$(*arrayOf(permission))</ID>
-    <ID>SpreadOperator:PermissionHelperImpl.kt$PermissionHelperImpl$(*permission.toTypedArray())</ID>
     <ID>SwallowedException:AppAnalytics.kt$AppAnalytics$t: Throwable</ID>
     <ID>SwallowedException:AppLogger.kt$AppLogger$e: IllegalStateException</ID>
     <ID>ThrowingExceptionsWithoutMessageOrCause:AppLogger.kt$AppDebugTree$Throwable()</ID>
     <ID>TooGenericExceptionCaught:AppAnalytics.kt$AppAnalytics$t: Throwable</ID>
     <ID>TooManyFunctions:AppLogger.kt$AppLogger : Logger</ID>
     <ID>TooManyFunctions:DateUtilsImpl.kt$DateUtilsImpl : DateUtils</ID>
-    <ID>UnnecessaryAbstractClass:AppModuleBinds.kt$AppModuleBinds</ID>
+    <ID>UnusedPrivateMember:ActivityProviderImpl.kt$ActivityProviderImpl$private val logger: Logger</ID>
+    <ID>UnusedPrivateMember:ActivityProviderImpl.kt$ActivityProviderImpl.Companion$private const val TAG = "ActivityProviderImpl"</ID>
   </CurrentIssues>
 </SmellBaseline>

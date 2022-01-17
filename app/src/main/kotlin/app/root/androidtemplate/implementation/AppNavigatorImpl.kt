@@ -16,9 +16,26 @@
 
 package app.root.androidtemplate.implementation
 
+import androidx.navigation.NavController
+import app.module.modulea.ModuleADirections
 import app.template.navigation.AppNavigator
 import dagger.hilt.android.scopes.ActivityScoped
 import javax.inject.Inject
 
 @ActivityScoped
-class AppNavigatorImpl @Inject constructor() : AppNavigator
+class AppNavigatorImpl @Inject constructor() : AppNavigator {
+
+    override fun navigateToLocationScreen(navController: NavController) {
+        val direction = ModuleADirections.navigateToLocation()
+        navController.navigate(direction)
+    }
+
+    override fun navigateToSettingScreen(navController: NavController) {
+        val direction = ModuleADirections.navigateToSetting()
+        navController.navigate(direction)
+    }
+
+    override fun navigateToBack(navController: NavController) {
+        navController.navigateUp()
+    }
+}

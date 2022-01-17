@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package app.template.base.util
+package app.template.base.actions
 
 interface Analytics {
     fun trackScreenView(

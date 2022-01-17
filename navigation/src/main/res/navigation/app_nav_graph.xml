@@ -10,5 +10,27 @@
         android:id="@+id/navigation_moduleA"
         android:name="app.module.modulea.ModuleA"
         android:label="Module A Fragment"
-        tools:layout="@layout/fragment_modulea"/>
+        tools:layout="@layout/fragment_modulea">
+
+        <action
+            android:id="@+id/navigateToLocation"
+            app:destination="@id/navigation_location"/>
+
+        <action
+            android:id="@+id/navigateToSetting"
+            app:destination="@id/navigation_setting"/>
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_location"
+        android:name="app.module.feature.location.LocationFragment"
+        android:label="Module Location Fragment"
+        tools:layout="@layout/fragment_location"/>
+
+    <fragment
+        android:id="@+id/navigation_setting"
+        android:name="app.module.setting.SettingParentFragment"
+        android:label="Module Setting Fragment"
+        tools:layout="@layout/fragment_setting"/>
 </navigation>

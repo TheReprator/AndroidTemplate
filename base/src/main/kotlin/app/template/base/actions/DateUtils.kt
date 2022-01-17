@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package app.template.base.util.date
+package app.template.base.actions
 
 import androidx.annotation.StringDef
 import java.util.Calendar

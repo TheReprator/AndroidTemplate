@@ -17,7 +17,7 @@
 package app.root.androidtemplate.implementation
 
 import android.util.Log
-import app.template.base.util.Logger
+import app.template.base.actions.Logger
 import app.template.base_android.util.isAndroidNOrLater
 import com.google.firebase.crashlytics.FirebaseCrashlytics
 import timber.log.Timber

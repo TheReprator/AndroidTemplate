@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package app.template.base.util.interent
+package app.template.base.actions
 
 interface ConnectionDetector {
     val isInternetAvailable: Boolean

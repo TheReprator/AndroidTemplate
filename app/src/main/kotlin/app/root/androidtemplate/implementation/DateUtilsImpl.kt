@@ -16,8 +16,8 @@
 
 package app.root.androidtemplate.implementation
 
-import app.template.base.util.date.DateUtils
-import app.template.base.util.date.DateUtils.Companion.EPOCH
+import app.template.base.actions.DateUtils
+import app.template.base.actions.DateUtils.Companion.EPOCH
 import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.Calendar

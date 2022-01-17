@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package app.template.base.util.permission
+package app.template.base.actions.permission
 
 interface PermissionManager {
     /**

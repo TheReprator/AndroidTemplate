@@ -15,7 +15,9 @@ include(
     ":base-android",
     ":navigation",
     ":workTask",
-    ":appModules:moduleA"
+    ":appModules:moduleA",
+    ":appModules:location",
+    ":appModules:settings"
 )
 
 rootProject.buildFileName = "build.gradle.kts"

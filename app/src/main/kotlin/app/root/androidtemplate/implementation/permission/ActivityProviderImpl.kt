@@ -21,9 +21,13 @@ import android.app.Application
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.lifecycle.Lifecycle
-import app.template.base.util.Logger
+import app.template.base.actions.Logger
 import app.template.base_android.util.ActivityProvider
-import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.distinctUntilChanged
+import kotlinx.coroutines.flow.filter
+import kotlinx.coroutines.flow.map
 import java.lang.ref.WeakReference
 import javax.inject.Inject
 
@@ -50,44 +54,36 @@ class ActivityProviderImpl @Inject constructor(
             ?.takeIf { it.lifecycle.currentState.isAtLeast(Lifecycle.State.INITIALIZED) }
 
     init {
-        logger.e(TAG, "init")
         application.registerActivityLifecycleCallbacks(this)
     }
 
     override fun onActivityCreated(activity: Activity, bundle: Bundle?) {
-        logger.e(TAG, "onActivityCreated")
         (activity as? ComponentActivity)?.let {
             _activityFlow.value = WeakReference(it)
         }
     }
 
     override fun onActivityStarted(activity: Activity) {
-        logger.e(TAG, "onActivityStarted")
         (activity as? ComponentActivity)?.let {
             _activityFlow.value = WeakReference(it)
         }
     }
 
     override fun onActivityResumed(activity: Activity) {
-        logger.e(TAG, "onActivityResumed")
         (activity as? ComponentActivity)?.let {
             _activityFlow.value = WeakReference(it)
         }
     }
 
     override fun onActivityPaused(activity: Activity) {
-        logger.e(TAG, "onActivityPaused")
     }
 
     override fun onActivityStopped(activity: Activity) {
-        logger.e(TAG, "onActivityStopped")
     }
 
     override fun onActivitySaveInstanceState(activity: Activity, bundle: Bundle) {
-        logger.e(TAG, "onActivitySaveInstanceState")
     }
 
     override fun onActivityDestroyed(activity: Activity) {
-        logger.e(TAG, "onActivityDestroyed")
     }
 }

@@ -1,0 +1,8 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<SmellBaseline>
+  <ManuallySuppressedIssues/>
+  <CurrentIssues>
+    <ID>UnnecessaryAbstractClass:WorkTasksInject.kt$WorkTasksModuleBinds</ID>
+    <ID>UnusedPrivateMember:WorkTasksInitializer.kt$WorkTasksInitializer$private val showTasks: Lazy&lt;WorkTasks></ID>
+  </CurrentIssues>
+</SmellBaseline>

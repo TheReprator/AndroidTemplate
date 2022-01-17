@@ -18,7 +18,10 @@ package app.root.androidtemplate.di
 
 import app.root.androidtemplate.appinitializers.ActivityProviderInitializer
 import app.root.androidtemplate.appinitializers.CoilAppInitializer
+import app.root.androidtemplate.appinitializers.PreferencesInitializer
 import app.root.androidtemplate.appinitializers.TimberInitializer
+import app.root.androidtemplate.implementation.AndroidPowerController
+import app.template.base.actions.PowerController
 import app.template.base_android.appinitializers.AppInitializer
 import dagger.Binds
 import dagger.Module
@@ -29,6 +32,13 @@ import dagger.multibindings.IntoSet
 @InstallIn(SingletonComponent::class)
 @Module
 abstract class AppModuleBinds {
+
+    @Binds
+    internal abstract fun providePowerController(bind: AndroidPowerController): PowerController
+
+    @Binds
+    @IntoSet
+    abstract fun providePreferencesInitializer(bind: PreferencesInitializer): AppInitializer
 
     @Binds
     @IntoSet

@@ -2,7 +2,7 @@
 <SmellBaseline>
   <ManuallySuppressedIssues/>
   <CurrentIssues>
-    <ID>UnusedPrivateMember:ModuleA.kt$ModuleA$private val binding by viewBinding(FragmentModuleaBinding::bind)</ID>
+    <ID>UnusedPrivateMember:ModuleA.kt$ModuleA$private val viewModel: ModuleAViewModal by viewModels()</ID>
     <ID>UnusedPrivateMember:ModuleAViewModal.kt$ModuleAViewModal$blockError: (String) -> Unit</ID>
     <ID>UnusedPrivateMember:ModuleAViewModal.kt$ModuleAViewModal$blockLoader: (Boolean) -> Unit</ID>
     <ID>VariableNaming:ModuleAViewModal.kt$ModuleAViewModal$private val BUSYBEE_OPERATION_NAME = "Network Call"</ID>

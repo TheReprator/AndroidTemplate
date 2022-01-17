@@ -13,7 +13,7 @@
         android:supportsRtl="true"
         android:allowBackup="false"
         android:fullBackupContent="@xml/backup"
-        android:theme="@style/Theme.App">
+        android:theme="@style/Theme.App.DayNight">
         <activity
             android:name=".MainActivity"
             android:exported="true">

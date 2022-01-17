@@ -17,7 +17,7 @@
 package app.root.androidtemplate.implementation
 
 import android.os.Bundle
-import app.template.base.util.Analytics
+import app.template.base.actions.Analytics
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.analytics.ktx.logEvent
 import javax.inject.Inject
