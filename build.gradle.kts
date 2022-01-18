@@ -9,6 +9,7 @@ import org.jetbrains.dokka.gradle.DokkaTaskPartial
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
+    id("version.gradle") apply false
     id(Libs.Plugins.dokka) version (Libs.Versions.dokka)
     id(Libs.Plugins.spotless) version Libs.Versions.spotless
 

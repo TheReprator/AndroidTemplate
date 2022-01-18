@@ -19,6 +19,5 @@ include(
     ":appModules:location",
     ":appModules:settings"
 )
-
 rootProject.buildFileName = "build.gradle.kts"
 rootProject.name = "AndroidTemplate"

@@ -171,4 +171,4 @@ val installGitHook by tasks.registering(Copy::class) {
     fileMode = 0b111101101 // -rwxr-xr-x
 }
 
-tasks.getByPath(":app:preBuild").dependsOn(installGitHook)
+//tasks.getByPath(":app:preBuild").dependsOn(installGitHook)
