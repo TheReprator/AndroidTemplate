@@ -15,8 +15,10 @@ include(
     ":base-android",
     ":navigation",
     ":workTask",
+    ":moduleNotification",
     ":appModules:moduleA",
     ":appModules:location",
+    ":appModules:notification",
     ":appModules:settings"
 )
 

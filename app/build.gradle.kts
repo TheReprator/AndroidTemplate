@@ -114,8 +114,10 @@ dependencies {
     implementation(project(AppModules.moduleBaseJava))
     implementation(project(AppModules.moduleBaseAndroid))
     implementation(project(AppModules.moduleWork))
-    implementation(project(AppModules.moduleLocation))
-    implementation(project(AppModules.moduleSetting))
+    implementation(project(AppModules.moduleNotification))
+    implementation(project(AppModules.featureLocation))
+    implementation(project(AppModules.featureSetting))
+    implementation(project(AppModules.featureNotification))
 
     implementation(project(AppModules.moduleNavigation))
 
@@ -171,4 +173,4 @@ val installGitHook by tasks.registering(Copy::class) {
     fileMode = 0b111101101 // -rwxr-xr-x
 }
 
-tasks.getByPath(":app:preBuild").dependsOn(installGitHook)
+//tasks.getByPath(":app:preBuild").dependsOn(installGitHook)

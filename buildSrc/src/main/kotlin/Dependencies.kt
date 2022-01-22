@@ -25,10 +25,12 @@ object AppModules {
     const val moduleBaseJava = ":base"
     const val moduleNavigation = ":navigation"
     const val moduleWork = ":workTask"
+    const val moduleNotification = ":moduleNotification"
 
     const val moduleA = ":appModules:moduleA"
-    const val moduleLocation = ":appModules:location"
-    const val moduleSetting = ":appModules:settings"
+    const val featureLocation = ":appModules:location"
+    const val featureSetting = ":appModules:settings"
+    const val featureNotification = ":appModules:notification"
 }
 
 object Libs {

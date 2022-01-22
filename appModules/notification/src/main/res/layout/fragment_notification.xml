@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    android:padding="16dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"
+            android:src="@drawable/ic_notify_logo" />
+
+        <TextView
+            style="@style/DefaultTheme.TextButton.Colored"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/notifyDefault"
+            android:text="Notify default!" />
+
+        <TextView
+            style="@style/DefaultTheme.TextButton.Colored"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/notifyTextList"
+            android:text="Notify text list!" />
+
+        <TextView
+            style="@style/DefaultTheme.TextButton.Colored"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/notifyBigText"
+            android:text="Notify big text!" />
+
+        <TextView
+            style="@style/DefaultTheme.TextButton.Colored"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/notifyBigPicture"
+            android:text="Notify big picture!" />
+
+        <TextView
+            style="@style/DefaultTheme.TextButton.Colored"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/notifyMessage"
+            android:text="Notify messages!" />
+
+        <TextView
+            style="@style/DefaultTheme.TextButton.Colored"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/notifyBubble"
+            android:text="Notify bubble!" />
+
+        <TextView
+            style="@style/DefaultTheme.TextButton.Colored"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/notifyInDeterminateProgress"
+            android:text="Notify Indeterminate Progress!" />
+
+        <TextView
+            style="@style/DefaultTheme.TextButton.Colored"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/notifyDeterminateProgress"
+            android:text="Notify Determinate Progress!" />
+
+    </LinearLayout>
+</ScrollView>

@@ -20,6 +20,10 @@
             android:id="@+id/navigateToSetting"
             app:destination="@id/navigation_setting"/>
 
+        <action
+            android:id="@+id/navigateToNotification"
+            app:destination="@id/navigation_notification"/>
+
     </fragment>
 
     <fragment
@@ -33,4 +37,10 @@
         android:name="app.module.setting.SettingParentFragment"
         android:label="Module Setting Fragment"
         tools:layout="@layout/fragment_setting"/>
+
+    <fragment
+        android:id="@+id/navigation_notification"
+        android:name="app.module.feature.notification.NotificationFragment"
+        android:label="Module Notification Fragment"
+        tools:layout="@layout/fragment_notification"/>
 </navigation>

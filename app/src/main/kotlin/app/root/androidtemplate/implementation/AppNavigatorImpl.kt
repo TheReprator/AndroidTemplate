@@ -35,6 +35,11 @@ class AppNavigatorImpl @Inject constructor() : AppNavigator {
         navController.navigate(direction)
     }
 
+    override fun navigateToNotification(navController: NavController) {
+        val direction = ModuleADirections.navigateToNotification()
+        navController.navigate(direction)
+    }
+
     override fun navigateToBack(navController: NavController) {
         navController.navigateUp()
     }

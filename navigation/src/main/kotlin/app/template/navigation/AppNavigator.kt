@@ -18,7 +18,8 @@ package app.template.navigation
 
 import androidx.navigation.NavController
 
-interface AppNavigator : FeatureNavigator, LocationNavigator, SettingNavigator
+interface AppNavigator : FeatureNavigator, LocationNavigator,
+    SettingNavigator, NotificationNavigator
 
 fun interface BackNavigator {
     fun navigateToBack(navController: NavController)
@@ -29,7 +30,10 @@ interface FeatureNavigator {
     fun navigateToLocationScreen(navController: NavController)
 
     fun navigateToSettingScreen(navController: NavController)
+
+    fun navigateToNotification(navController: NavController)
 }
 
 interface LocationNavigator : BackNavigator
 interface SettingNavigator : BackNavigator
+interface NotificationNavigator : BackNavigator

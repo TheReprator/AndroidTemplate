@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<SmellBaseline>
+  <ManuallySuppressedIssues/>
+  <CurrentIssues>
+    <ID>LongMethod:LocationObserver.kt$LocationObserver$private fun configureSettingClient(locationRequest: LocationRequest)</ID>
+    <ID>ReturnCount:LocationController.kt$LocationController$private suspend fun showRationale(): Boolean</ID>
+    <ID>SwallowedException:LocationController.kt$LocationController$e: CancellationException</ID>
+    <ID>SwallowedException:LocationObserver.kt$LocationObserver$ex: NullPointerException</ID>
+    <ID>SwallowedException:LocationObserver.kt$LocationObserver$sendEx: SendIntentException</ID>
+    <ID>TooGenericExceptionCaught:LocationObserver.kt$LocationObserver$ex: NullPointerException</ID>
+    <ID>TooGenericExceptionThrown:LocationObserver.kt$LocationObserver$throw Exception("CurrentActivity is null")</ID>
+  </CurrentIssues>
+</SmellBaseline>

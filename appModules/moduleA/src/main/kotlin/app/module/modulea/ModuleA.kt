@@ -46,5 +46,9 @@ class ModuleA : Fragment(R.layout.fragment_modulea) {
         binding.featureSetting.setOnClickListener {
             featureNavigator.navigateToSettingScreen(findNavController())
         }
+
+        binding.featureNotification.setOnClickListener {
+            featureNavigator.navigateToNotification(findNavController())
+        }
     }
 }

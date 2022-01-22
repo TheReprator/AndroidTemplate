@@ -29,4 +29,18 @@
         android:text="Setting Feature"
         android:textColor="@android:color/holo_green_dark"
         android:textSize="40sp" />
+
+    <Space android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="20dp"/>
+
+    <TextView
+        android:id="@+id/featureNotification"
+        style="@style/TextAppearance.AppCompat.Title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="Notification Feature"
+        android:textColor="@android:color/holo_green_dark"
+        android:textSize="40sp" />
 </LinearLayout>
