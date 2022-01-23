@@ -78,8 +78,8 @@ class NotificationFragment : Fragment(R.layout.fragment_notification) {
         }
     }
 
-    fun notifyDefault() {
-        Notify.with(context!!)
+    private fun notifyDefault() {
+        Notify.with(requireContext())
             .content {
                 title = "New dessert menu"
                 text = "The Cheesecake Factory has a new dessert for you to try!"
@@ -88,15 +88,15 @@ class NotificationFragment : Fragment(R.layout.fragment_notification) {
                 key = "test_key"
                 summaryContent = "test summary content"
                 summaryTitle = { count -> "Summary title" }
-                summaryDescription = { count -> count.toString() + " new notifications." }
+                summaryDescription = { count -> "$count new notifications." }
             }
             .show()
     }
 
-    fun notifyTextList() {
+    private fun notifyTextList() {
         Notify.with(requireContext())
             .asTextList {
-                lines = Arrays.asList("New! Fresh Strawberry Cheesecake.",
+                lines = listOf("New! Fresh Strawberry Cheesecake.",
                     "New! Salted Caramel Cheesecake.",
                     "New! OREO Dream Dessert.")
                 title = "New menu items!"
@@ -106,7 +106,7 @@ class NotificationFragment : Fragment(R.layout.fragment_notification) {
 
     }
 
-    fun notifyBigText() {
+    private fun notifyBigText() {
         Notify.with(requireContext())
             .asBigText {
                 title = "Chocolate brownie sundae"
@@ -119,23 +119,24 @@ class NotificationFragment : Fragment(R.layout.fragment_notification) {
             .show()
     }
 
-    fun notifyBigPicture() {
+    private fun notifyBigPicture() {
         Notify.with(requireContext())
             .asBigPicture {
                 title = "Chocolate brownie sundae"
                 text = "Get a look at this amazing dessert!"
                 expandedText = "The delicious brownie sundae now available."
                 image = BitmapFactory.decodeResource(resources, R.drawable.chocolate_brownie_sundae)
+                largeIcon = BitmapFactory.decodeResource(resources, R.drawable.ic_launcherrr)
             }
             .show()
     }
 
-    fun notifyMessage() {
+    private fun notifyMessage() {
         Notify.with(requireContext())
             .asMessage {
                 userDisplayName = "Karn"
                 conversationTitle = "Sundae chat"
-                messages = Arrays.asList(
+                messages = listOf(
                     NotificationCompat.MessagingStyle.Message("Are you guys ready to try the Strawberry sundae?",
                         System.currentTimeMillis() - (6 * 60 * 1000), // 6 Mins ago
                         "Karn"),
@@ -150,7 +151,7 @@ class NotificationFragment : Fragment(R.layout.fragment_notification) {
             .show()
     }
 
-    fun notifyBubble() {
+    private fun notifyBubble() {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q) {
             Toast.makeText(requireContext(), "Notification Bubbles are only supported on a device running Android Q or later.", Toast.LENGTH_SHORT).show()
             return
@@ -173,7 +174,7 @@ class NotificationFragment : Fragment(R.layout.fragment_notification) {
             .show()
     }
 
-    fun notifyIndeterminateProgress() {
+    private fun notifyIndeterminateProgress() {
 
         Notify.with(requireContext())
             .asBigText {
@@ -187,7 +188,7 @@ class NotificationFragment : Fragment(R.layout.fragment_notification) {
             .show()
     }
 
-    fun notifyDeterminateProgress() {
+    private fun notifyDeterminateProgress() {
 
         Notify.with(requireContext())
             .asBigText {
