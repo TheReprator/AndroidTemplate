@@ -50,12 +50,12 @@ dependencies {
     implementation(project(AppModules.moduleBaseJava))
     implementation(project(AppModules.moduleBaseAndroid))
 
-    implementation(Libs.DaggerHilt.hilt)
-    kapt(Libs.DaggerHilt.compiler)
+    implementation(libs.hilt.library )
+    kapt(libs.hilt.compiler)
 
-    implementation(Libs.DaggerHilt.work)
-    kapt(Libs.DaggerHilt.hiltCompiler)
+    implementation(libs.androidx.hilt.work)
+    kapt(libs.androidx.hilt.compiler)
 
-    implementation(Libs.AndroidX.Work.runtimeKtx)
-    androidTestImplementation(Libs.AndroidX.Work.test)
+    implementation(libs.androidx.workmanager.work)
+    androidTestImplementation(libs.androidx.workmanager.testing)
 }

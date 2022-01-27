@@ -121,39 +121,32 @@ dependencies {
 
     implementation(project(AppModules.moduleA))
 
-    implementation(Libs.AndroidX.constraintlayout)
+    implementation(libs.androidx.navigation.fragment)
+    implementation(libs.androidx.navigation.ui)
 
-    kapt(Libs.AndroidX.Lifecycle.compiler)
-    implementation(Libs.AndroidX.Lifecycle.extensions)
+    implementation(libs.hilt.library)
+    kapt(libs.hilt.compiler)
 
-    implementation(Libs.AndroidX.Navigation.fragmentKtx)
-    implementation(Libs.AndroidX.Navigation.uiKtx)
+    implementation(libs.androidx.hilt.work)
+    kapt(libs.androidx.hilt.compiler)
 
-    implementation(Libs.AndroidX.multidex)
+    implementation(libs.google.analytics)
+    implementation(libs.google.crashlytics)
 
-    implementation(Libs.AndroidX.preference)
+    kapt(libs.androidx.lifecycle.compiler)
+    implementation(libs.androidx.lifecycle.extensions)
 
-    implementation(Libs.Firebase.analytics)
-    implementation(Libs.Firebase.crashlytics)
+    qaImplementation(libs.chucker.library)
 
-    implementation(Libs.DaggerHilt.hilt)
-    kapt(Libs.DaggerHilt.compiler)
+    qaImplementation(libs.debugdrawer.debugdrawer)
+    qaImplementation(libs.debugdrawer.leakcanary)
+    qaImplementation(libs.debugdrawer.retrofit)
+    qaImplementation(libs.retrofit.mock)
+    qaImplementation(libs.debugdrawer.timber)
+    qaImplementation(libs.debugdrawer.okhttplogger)
 
-    implementation(Libs.DaggerHilt.work)
-    kapt(Libs.DaggerHilt.hiltCompiler)
-
-    qaImplementation(Libs.chucker.chucker)
-
-    qaImplementation(Libs.chucker.debugDrawer)
-    qaImplementation(Libs.chucker.leakcanary)
-    qaImplementation(Libs.chucker.retrofit)
-    qaImplementation(Libs.chucker.timber)
-    qaImplementation(Libs.chucker.okhttplogger)
-
-    qaImplementation(Libs.Retrofit.mock)
-
-    qaImplementation(Libs.OkHttp.loggingInterceptor)
-    qaImplementation(Libs.leakCanary)
+    qaImplementation(libs.leakCanary)
+    qaImplementation(libs.okhttp.loggingInterceptor)
 }
 
 if (file("google-services.json").exists()) {

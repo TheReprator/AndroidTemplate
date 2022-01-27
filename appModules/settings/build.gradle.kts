@@ -59,10 +59,10 @@ dependencies {
     implementation(project(AppModules.moduleBaseAndroid))
     implementation(project(AppModules.moduleNavigation))
 
-    implementation(Libs.AndroidX.browser)
-    implementation(Libs.AndroidX.preferenceKtx)
-    implementation(Libs.AndroidX.Navigation.fragmentKtx)
+    implementation(libs.androidx.browser)
+    implementation(libs.androidx.preference)
+    implementation(libs.androidx.navigation.fragment)
 
-    implementation(Libs.DaggerHilt.hilt)
-    kapt(Libs.DaggerHilt.compiler)
+    implementation(libs.hilt.library)
+    kapt(libs.hilt.compiler)
 }

@@ -12,14 +12,14 @@ java {
 }
 
 dependencies {
-    implementation(Libs.AndroidX.annotation)
+    implementation(libs.androidx.annotation)
 
-    api(Libs.Kotlin.stdlib)
-    api(Libs.Coroutines.core)
+    api(libs.kotlin.stdlib)
+    api(libs.kotlin.coroutines.core)
 
-    api(Libs.timber)
+    api(libs.timber)
 
-    api(Libs.Retrofit.retrofit)
-    api(Libs.Retrofit.jacksonConverter)
-    api(Libs.Retrofit.jacksonKotlinModule)
+    api(libs.retrofit.retrofit)
+    api(libs.retrofit.jacksonConverter)
+    api(libs.jacksonKotlinModule)
 }

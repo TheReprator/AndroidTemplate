@@ -48,15 +48,12 @@ android {
 }
 
 dependencies {
-    implementation(Libs.Kotlin.stdlib)
-
-    api(Libs.AndroidX.Fragment.fragment)
-
-    api(Libs.AndroidX.recyclerview)
-
-    api(Libs.Google.materialWidget)
-    api(Libs.AndroidX.coreKtx)
-    api(Libs.AndroidX.appcompat)
-
-    api(Libs.Coil.coil)
+    implementation(libs.kotlin.stdlib)
+    api(libs.androidx.core)
+    api(libs.androidx.appCompat)
+    api(libs.coil.coil)
+    api(libs.google.material)
+    api(libs.androidx.fragment)
+    api(libs.androidx.widget.reyclerview)
+    api(libs.androidx.widget.constraintlayout)
 }

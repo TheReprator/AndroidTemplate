@@ -9,7 +9,6 @@ import org.jetbrains.dokka.gradle.DokkaTaskPartial
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-    id("version.gradle") apply false
     id(Libs.Plugins.dokka) version (Libs.Versions.dokka)
     id(Libs.Plugins.spotless) version Libs.Versions.spotless
 
@@ -18,23 +17,20 @@ plugins {
 }
 
 buildscript {
-
     repositories {
-        gradlePluginPortal()
         google()
         mavenCentral()
     }
 
     dependencies {
-        classpath(Libs.androidGradlePlugin)
-        classpath(Libs.Kotlin.gradlePlugin)
-        classpath(Libs.AndroidX.Navigation.navigationPlugin)
-        classpath(Libs.DaggerHilt.classPath)
+        classpath(libs.android.pluginGradle)
+        classpath(libs.kotlin.pluginGradle)
+        classpath(libs.hilt.pluginGradle)
+        classpath(libs.junit5.pluginGradle)
+        classpath(libs.androidx.navigation.safeArgument)
 
-        classpath(Libs.crashlytics)
-        classpath(Libs.Google.gmsGoogleServices)
-
-        classpath(Libs.TestDependencies.Junit5.classPath)
+        classpath(libs.google.crashlyticsGradle)
+        classpath(libs.google.gmsGoogleServices)
     }
 }
 

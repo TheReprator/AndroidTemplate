@@ -33,6 +33,7 @@ import app.template.base.actions.SaveDataReason
 import app.template.base_android.extensions.resolveThemeColor
 import app.template.navigation.SettingNavigator
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collect
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -79,9 +80,9 @@ class SettingPreferenceFragment : PreferenceFragmentCompat() {
 
         findPreference<Preference?>("privacy_policy")?.setOnPreferenceClickListener {
             CustomTabsIntent.Builder()
-                .setToolbarColor(context!!.resolveThemeColor(android.R.attr.colorPrimary))
+                .setToolbarColor(requireContext().resolveThemeColor(android.R.attr.colorPrimary))
                 .build()
-                .launchUrl(context!!, getString(R.string.privacy_policy_url).toUri())
+                .launchUrl(requireContext(), getString(R.string.privacy_policy_url).toUri())
             true
         }
 

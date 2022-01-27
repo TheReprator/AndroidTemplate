@@ -58,9 +58,6 @@ android {
 dependencies {
     implementation(project(AppModules.moduleBaseAndroid))
 
-    implementation(Libs.AndroidX.appcompat)
-    implementation(Libs.AndroidX.coreKtx)
-
-    implementation(Libs.AndroidX.Navigation.fragmentKtx)
-    implementation(Libs.AndroidX.Navigation.uiKtx)
+    implementation(libs.androidx.navigation.ui)
+    implementation(libs.androidx.navigation.fragment)
 }

@@ -4,7 +4,6 @@ plugins {
     kotlin(Libs.Plugins.kotlinKapt)
     id(Libs.Plugins.kotlinNavigation)
     id(Libs.Plugins.kaptDagger)
-    id(Libs.TestDependencies.Junit5.plugin)
 }
 
 kapt {
@@ -64,13 +63,6 @@ android {
         unitTests.isIncludeAndroidResources = true
         animationsDisabled = true
     }
-
-    sourceSets {
-        getByName("test").java.srcDirs("src/test/kotlin/", "src/sharedTest/kotlin/")
-        getByName("test").resources.srcDirs("src/sharedTest/resources/")
-        getByName("androidTest").java.srcDirs("src/androidTest/kotlin/", "src/sharedTest/kotlin/")
-        getByName("androidTest").resources.srcDirs("src/sharedTest/resources/")
-    }
 }
 
 dependencies {
@@ -78,43 +70,10 @@ dependencies {
     implementation(project(AppModules.moduleBaseAndroid))
     implementation(project(AppModules.moduleNavigation))
 
-    implementation(Libs.AndroidX.Navigation.fragmentKtx)
+    implementation(libs.google.location)
 
-    implementation(Libs.AndroidX.MapV3.location)
+    implementation(libs.androidx.navigation.fragment)
 
-    implementation(Libs.DaggerHilt.hilt)
-    kapt(Libs.DaggerHilt.compiler)
-
-    /*
-    *  Unit Testing
-    * */
-    testImplementation(Libs.TestDependencies.Junit5.platformSuite)
-    testImplementation(Libs.TestDependencies.Junit5.api)
-    testRuntimeOnly(Libs.TestDependencies.Junit5.runtime)
-
-    testImplementation(Libs.TestDependencies.core)
-    testImplementation(Libs.TestDependencies.Mockk.unitTest)
-
-    testImplementation(Libs.Coroutines.coroutineTest) {
-        exclude(group = "org.jetbrains.kotlinx", module = "kotlinx-coroutines-debug")
-    }
-
-    /*
-       UI Tests
-    */
-    implementation(Libs.TestDependencies.UITest.busyBee)
-
-    debugImplementation(Libs.TestDependencies.UITest.fragmentTesting)
-    androidTestImplementation(Libs.TestDependencies.UITest.fragmentRuntime)
-
-    androidTestImplementation(Libs.DaggerHilt.test)
-    kaptAndroidTest(Libs.DaggerHilt.compiler)
-
-    androidTestImplementation(Libs.TestDependencies.AndroidXTest.junit)
-
-    androidTestImplementation(Libs.TestDependencies.UITest.kaspresso)
-
-    androidTestImplementation(Libs.Coroutines.coroutineTest) {
-        exclude(group = "org.jetbrains.kotlinx", module = "kotlinx-coroutines-debug")
-    }
+    implementation(libs.hilt.library)
+    kapt(libs.hilt.compiler)
 }
