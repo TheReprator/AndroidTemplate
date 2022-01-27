@@ -1,15 +1,10 @@
 plugins {
-    id(Libs.Plugins.androidLibrary)
-    kotlin(Libs.Plugins.kotlinAndroid)
-    kotlin(Libs.Plugins.kotlinKapt)
-    id(Libs.Plugins.kotlinNavigation)
-    id(Libs.Plugins.kaptDagger)
-    id(Libs.TestDependencies.Junit5.plugin)
-}
-
-kapt {
-    correctErrorTypes = true
-    useBuildCache = true
+    id("com.android.library")
+    kotlin("android")
+    kotlin("kapt")
+    id("androidx.navigation.safeargs.kotlin")
+    id("dagger.hilt.android.plugin")
+    id("de.mannodermaus.android-junit5")
 }
 
 android {
@@ -89,54 +84,47 @@ dependencies {
     implementation(project(AppModules.moduleBaseAndroid))
     implementation(project(AppModules.moduleNavigation))
 
-    implementation(Libs.AndroidX.cardView)
-    implementation(Libs.swiperefresh)
-    implementation(Libs.AndroidX.constraintlayout)
+    implementation(libs.androidx.widget.cardView)
+    implementation(libs.androidx.widget.swiperefresh)
 
-    implementation(Libs.AndroidX.Navigation.fragmentKtx)
+    implementation(libs.androidx.navigation.fragment)
 
-    implementation(Libs.AndroidX.MapV3.location)
-
-    implementation(Libs.DaggerHilt.hilt)
-    kapt(Libs.DaggerHilt.compiler)
+    implementation(libs.hilt.library)
+    kapt(libs.hilt.compiler)
 
     /*
     *  Unit Testing
     * */
-    testImplementation(Libs.TestDependencies.Junit5.platformSuite)
-    testImplementation(Libs.TestDependencies.Junit5.api)
-    testRuntimeOnly(Libs.TestDependencies.Junit5.runtime)
+    testImplementation(libs.junit5.platformSuite)
+    testImplementation(libs.junit5.api)
+    testRuntimeOnly(libs.junit5.runtime)
 
-    testImplementation(Libs.TestDependencies.core)
-    testImplementation(Libs.OkHttp.mockWebServer)
-    testImplementation(Libs.TestDependencies.Mockk.unitTest)
+    testImplementation(libs.test.archCoreTesting)
+    testImplementation(libs.okhttp.mockwebserver)
+    testImplementation(libs.test.mockK)
 
-    testImplementation(Libs.Coroutines.coroutineTest) {
-        exclude(group = "org.jetbrains.kotlinx", module = "kotlinx-coroutines-debug")
-    }
+    testImplementation(libs.kotlin.coroutines.test)
 
     /*
        UI Tests
     */
-    implementation(Libs.TestDependencies.UITest.busyBee)
+    implementation(libs.uiTest.busyBee)
 
-    debugImplementation(Libs.TestDependencies.UITest.fragmentTesting)
-    androidTestImplementation(Libs.TestDependencies.UITest.fragmentRuntime)
+    debugImplementation(libs.uiTest.fragmentTesting)
+    androidTestImplementation(libs.uiTest.fragmentRuntime)
 
-    androidTestImplementation(Libs.DaggerHilt.test)
-    kaptAndroidTest(Libs.DaggerHilt.compiler)
+    androidTestImplementation(libs.hilt.testing)
+    kaptAndroidTest(libs.hilt.compiler)
 
-    androidTestImplementation(Libs.TestDependencies.AndroidXTest.junit)
+    androidTestImplementation(libs.androidx.test.junit)
 
-    androidTestImplementation(Libs.TestDependencies.UITest.kaspresso)
+    androidTestImplementation(libs.uiTest.kaspresso)
 
-    androidTestImplementation(Libs.OkHttp.mockWebServer)
-    androidTestImplementation(Libs.OkHttp.loggingInterceptor)
+    androidTestImplementation(libs.okhttp.mockwebserver)
+    androidTestImplementation(libs.okhttp.loggingInterceptor)
 
     // OkHttp Idling Resource
-    androidTestImplementation(Libs.TestDependencies.UITest.okhttpIdlingResource)
+    androidTestImplementation(libs.uiTest.okhttpIdlingResource)
 
-    androidTestImplementation(Libs.Coroutines.coroutineTest) {
-        exclude(group = "org.jetbrains.kotlinx", module = "kotlinx-coroutines-debug")
-    }
+    androidTestImplementation(libs.kotlin.coroutines.test)
 }

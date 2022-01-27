@@ -1,9 +1,9 @@
 plugins {
-    id(Libs.Plugins.androidLibrary)
-    kotlin(Libs.Plugins.kotlinAndroid)
-    kotlin(Libs.Plugins.kotlinKapt)
-    id(Libs.Plugins.kotlinNavigation)
-    id(Libs.Plugins.kaptDagger)
+    id("com.android.library")
+    kotlin("android")
+    kotlin("kapt")
+    id("androidx.navigation.safeargs.kotlin")
+    id("dagger.hilt.android.plugin")
 }
 
 kapt {
@@ -59,10 +59,10 @@ dependencies {
     implementation(project(AppModules.moduleBaseAndroid))
     implementation(project(AppModules.moduleNavigation))
 
-    implementation(Libs.AndroidX.browser)
-    implementation(Libs.AndroidX.preferenceKtx)
-    implementation(Libs.AndroidX.Navigation.fragmentKtx)
+    implementation(libs.androidx.browser)
+    implementation(libs.androidx.preference)
+    implementation(libs.androidx.navigation.fragment)
 
-    implementation(Libs.DaggerHilt.hilt)
-    kapt(Libs.DaggerHilt.compiler)
+    implementation(libs.hilt.library)
+    kapt(libs.hilt.compiler)
 }

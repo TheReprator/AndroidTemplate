@@ -1,3 +1,4 @@
+enableFeaturePreview("VERSION_CATALOGS")
 dependencyResolutionManagement {
     repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
     repositories {
@@ -19,6 +20,5 @@ include(
     ":appModules:location",
     ":appModules:settings"
 )
-
 rootProject.buildFileName = "build.gradle.kts"
 rootProject.name = "AndroidTemplate"

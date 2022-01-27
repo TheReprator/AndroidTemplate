@@ -1,0 +1,174 @@
+[versions]
+accompanist = "0.21.5-rc"
+androidxhilt = "1.0.0"
+androidxlifecycle = "2.4.0"
+androidxtest = "1.4.0"
+chucker = "3.5.2"
+junit5 = "5.8.2"
+workManager = "2.7.1"
+navigation = "2.3.5"
+coil = "1.4.0"
+compose = "1.1.0-rc01"
+composecompiler = "1.1.0-rc02" # rc02 works with Kotlin 1.6.10
+composesnapshot = "-" # a single character = no snapshot
+coroutines = "1.5.2"
+dagger = "2.40.5"
+debugdrawer = "0.9.8-SNAPSHOT"
+hilt = "2.40.5"
+kotlin = "1.6.10"
+okhttp = "4.9.3"
+paging = "3.1.0"
+retrofit = "2.9.0"
+room = "2.4.0"
+threetenbp = "1.5.2"
+spotless = "6.1.0"
+dokka = "1.6.10"
+detekt = "1.19.0"
+ktlint = "0.43.2"
+gradleDependencyUpdate = "0.40.0"
+
+[plugins]
+dokka = { id = "org.jetbrains.dokka", version.ref = "dokka" }
+detekt = { id = "io.gitlab.arturbosch.detekt", version.ref = "detekt" }
+detekt-formatting = { id = "io.gitlab.arturbosch.detekt:detekt-formatting", version.ref = "detekt" }
+spotless = { id = "com.diffplug.spotless", version.ref = "spotless" }
+gradleDependencyUpdate = { id = "com.github.ben-manes.versions", version.ref = "gradleDependencyUpdate" }
+
+[libraries]
+accompanist-flowlayout = { module = "com.google.accompanist:accompanist-flowlayout", version.ref = "accompanist" }
+accompanist-insets = { module = "com.google.accompanist:accompanist-insets", version.ref = "accompanist" }
+accompanist-insetsui = { module = "com.google.accompanist:accompanist-insets-ui", version.ref = "accompanist" }
+accompanist-navigation-animation = { module = "com.google.accompanist:accompanist-navigation-animation", version.ref = "accompanist" }
+accompanist-swiperefresh = { module = "com.google.accompanist:accompanist-swiperefresh", version.ref = "accompanist" }
+accompanist-pager-pager = { module = "com.google.accompanist:accompanist-pager", version.ref = "accompanist" }
+accompanist-pager-indicators = { module = "com.google.accompanist:accompanist-pager-indicators", version.ref = "accompanist" }
+
+snapper = "dev.chrisbanes.snapper:snapper:0.1.0"
+
+android-pluginGradle = "com.android.tools.build:gradle:7.1.0"
+
+androidx-activity-compose = "androidx.activity:activity-compose:1.4.0"
+androidx-fragment = "androidx.fragment:fragment-ktx:1.4.0"
+androidx-widget-reyclerview = "androidx.recyclerview:recyclerview:1.2.1"
+androidx-widget-cardView = "androidx.cardview:cardview:1.0.0"
+androidx-widget-swiperefresh = "androidx.swiperefreshlayout:swiperefreshlayout:1.1.0"
+androidx-widget-constraintlayout = "androidx.constraintlayout:constraintlayout:2.1.2"
+androidx-browser = "androidx.browser:browser:1.4.0"
+androidx-collection = "androidx.collection:collection-ktx:1.2.0"
+androidx-core = "androidx.core:core-ktx:1.7.0"
+androidx-appCompat = "androidx.appcompat:appcompat:1.4.0"
+androidx-emoji = "androidx.emoji:emoji:1.1.0"
+androidx-preference = "androidx.preference:preference-ktx:1.2.0-rc01"
+androidx-dataStore = "androidx.datastore:datastore-preferences:1.0.0"
+androidx-annotation = "androidx.annotation:annotation:1.3.0"
+
+androidx-hilt-compiler = { module = "androidx.hilt:hilt-compiler", version.ref = "androidxhilt" }
+androidx-hilt-compose = "androidx.hilt:hilt-navigation-compose:1.0.0-rc01"
+androidx-hilt-work = { module = "androidx.hilt:hilt-work", version.ref = "androidxhilt" }
+
+androidx-lifecycle-compiler = { module = "androidx.lifecycle:lifecycle-compiler", version.ref = "androidxlifecycle" }
+androidx-lifecycle-runtime = { module = "androidx.lifecycle:lifecycle-runtime-ktx", version.ref = "androidxlifecycle" }
+androidx-lifecycle-viewmodel-ktx = { module = "androidx.lifecycle:lifecycle-viewmodel-ktx", version.ref = "androidxlifecycle" }
+androidx-lifecycle-extensions = "androidx.lifecycle:lifecycle-extensions:2.2.0"
+androidx-lifecycle-viewmodel-compose = "androidx.lifecycle:lifecycle-viewmodel-compose:1.0.0-alpha07"
+
+androidx-paging-common = { module = "androidx.paging:paging-common-ktx", version.ref = "paging" }
+androidx-paging-runtime = { module = "androidx.paging:paging-runtime-ktx", version.ref = "paging" }
+androidx-paging-compose = "androidx.paging:paging-compose:1.0.0-alpha14"
+
+androidx-palette = "androidx.palette:palette:1.0.0"
+
+androidx-room-common = { module = "androidx.room:room-common", version.ref = "room" }
+androidx-room-compiler = { module = "androidx.room:room-compiler", version.ref = "room" }
+androidx-room-ktx = { module = "androidx.room:room-ktx", version.ref = "room" }
+androidx-room-paging = { module = "androidx.room:room-paging", version.ref = "room" }
+androidx-room-runtime = { module = "androidx.room:room-runtime", version.ref = "room" }
+androidx-room-testing = { module = "androidx.room:room-testing", version.ref = "room" }
+
+androidx-test-core = { module = "androidx.test:core", version.ref = "androidxtest" }
+androidx-test-junit = "androidx.test.ext:junit-ktx:1.1.3"
+androidx-test-rules = { module = "androidx.test:rules", version.ref = "androidxtest" }
+androidx-test-runner = { module = "androidx.test:runner", version.ref = "androidxtest" }
+
+androidx-workmanager-work = { module = "androidx.work:work-runtime-ktx", version.ref = "workManager" }
+androidx-workmanager-testing = { module = "androidx.work:work-testing", version.ref = "workManager" }
+
+androidx-navigation-fragment = { module = "androidx.navigation:navigation-fragment-ktx", version.ref = "navigation" }
+androidx-navigation-ui = { module = "androidx.navigation:navigation-ui-ktx", version.ref = "navigation" }
+androidx-navigation-test = { module = "androidx.navigation:navigation-testing", version.ref = "navigation" }
+androidx-navigation-safeArgument = { module = "androidx.navigation:navigation-safe-args-gradle-plugin", version.ref = "navigation" }
+androidx-navigation-compose = "androidx.navigation:navigation-compose:2.4.0-beta02"
+
+chucker-library = { module = "com.github.chuckerteam.chucker:library", version.ref = "chucker" }
+
+coil-coil = { module = "io.coil-kt:coil", version.ref = "coil" }
+coil-compose = { module = "io.coil-kt:coil-compose", version.ref = "coil" }
+coil-gif = { module = "io.coil-kt:coil-gif", version.ref = "coil" }
+
+compose-animation-animation = { module = "androidx.compose.animation:animation", version.ref = "compose" }
+compose-foundation-foundation = { module = "androidx.compose.foundation:foundation", version.ref = "compose" }
+compose-foundation-layout = { module = "androidx.compose.foundation:foundation-layout", version.ref = "compose" }
+compose-material-iconsext = { module = "androidx.compose.material:material-icons-extended", version.ref = "compose" }
+compose-material-material = { module = "androidx.compose.material:material", version.ref = "compose" }
+compose-ui-test = { module = "androidx.compose.ui:ui-test-junit4", version.ref = "compose" }
+compose-ui-tooling = { module = "androidx.compose.ui:ui-tooling", version.ref = "compose" }
+compose-ui-ui = { module = "androidx.compose.ui:ui", version.ref = "compose" }
+compose-ui-util = { module = "androidx.compose.ui:ui-util", version.ref = "compose" }
+compose-ui-viewbinding = { module = "androidx.compose.ui:ui-viewbinding", version.ref = "compose" }
+
+dagger-compiler = { module = "com.google.dagger:dagger-compiler", version.ref = "dagger" }
+dagger-dagger = { module = "com.google.dagger:dagger", version.ref = "dagger" }
+
+google-material = "com.google.android.material:material:1.4.0"
+google-location = "com.google.android.gms:play-services-location:19.0.0"
+google-analytics = "com.google.firebase:firebase-analytics-ktx:20.0.2"
+google-crashlytics = "com.google.firebase:firebase-crashlytics-ktx:18.2.6"
+google-crashlyticsGradle = "com.google.firebase:firebase-crashlytics-gradle:2.8.1"
+google-gmsGoogleServices = "com.google.gms:google-services:4.3.10"
+
+debugdrawer-debugdrawer = { module = "au.com.gridstone.debugdrawer:debugdrawer", version.ref = "debugdrawer" }
+debugdrawer-leakcanary = { module = "au.com.gridstone.debugdrawer:debugdrawer-leakcanary", version.ref = "debugdrawer" }
+debugdrawer-retrofit = { module = "au.com.gridstone.debugdrawer:debugdrawer-retrofit", version.ref = "debugdrawer" }
+debugdrawer-timber = { module = "au.com.gridstone.debugdrawer:debugdrawer-timber", version.ref = "debugdrawer" }
+debugdrawer-okhttplogger = { module = "au.com.gridstone.debugdrawer:debugdrawer-okhttp-logger", version.ref = "debugdrawer" }
+
+hilt-compiler = { module = "com.google.dagger:hilt-android-compiler", version.ref = "hilt" }
+hilt-pluginGradle = { module = "com.google.dagger:hilt-android-gradle-plugin", version.ref = "hilt" }
+hilt-library = { module = "com.google.dagger:hilt-android", version.ref = "hilt" }
+hilt-testing = { module = "com.google.dagger:hilt-android-testing", version.ref = "hilt" }
+
+kotlin-coroutines-android = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "coroutines" }
+kotlin-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "coroutines" }
+kotlin-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "coroutines" }
+kotlin-extensions = { module = "org.jetbrains.kotlin:kotlin-android-extensions", version.ref = "kotlin" }
+kotlin-pluginGradle = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
+kotlin-stdlib = { module = "org.jetbrains.kotlin:kotlin-stdlib", version.ref = "kotlin" }
+
+leakCanary = "com.squareup.leakcanary:leakcanary-android:2.7"
+
+okhttp-loggingInterceptor = { module = "com.squareup.okhttp3:logging-interceptor", version.ref = "okhttp" }
+okhttp-mockwebserver = { module = "com.squareup.okhttp3:mockwebserver", version.ref = "okhttp" }
+okhttp-okhttp = { module = "com.squareup.okhttp3:okhttp", version.ref = "okhttp" }
+
+retrofit-jacksonConverter = { module = "com.squareup.retrofit2:converter-jackson", version.ref = "retrofit" }
+retrofit-retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
+retrofit-mock = { module = "com.squareup.retrofit2:retrofit-mock", version.ref = "retrofit" }
+
+jacksonKotlinModule = "com.fasterxml.jackson.module:jackson-module-kotlin:2.13.1"
+
+timber = "com.jakewharton.timber:timber:4.7.1"
+
+junit5-platformSuite = "org.junit.platform:junit-platform-suite:1.8.2"
+junit5-api = { module = "org.junit.jupiter:junit-jupiter-api", version.ref = "junit5" }
+junit5-runtime = { module = "org.junit.jupiter:junit-jupiter-engine", version.ref = "junit5" }
+junit5-pluginGradle = "de.mannodermaus.gradle.plugins:android-junit5:1.8.2.0"
+unitTest-robolectric = "org.robolectric:robolectric:4.7.3"
+
+uiTest-okhttpIdlingResource = "com.jakewharton.espresso:okhttp3-idling-resource:1.0.0"
+uiTest-kaspresso = "com.kaspersky.android-components:kaspresso:1.4.0"
+uiTest-fragmentRuntime = "androidx.lifecycle:lifecycle-runtime-testing:2.4.0"
+uiTest-fragmentTesting = "androidx.fragment:fragment-testing:1.4.0"
+uiTest-busyBee = "io.americanexpress.busybee:busybee-android:0.0.4"
+
+test-archCoreTesting = "androidx.arch.core:core-testing:2.1.0"
+test-mockK = "io.mockk:mockk:1.12.1"

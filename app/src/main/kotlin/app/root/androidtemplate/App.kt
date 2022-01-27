@@ -16,14 +16,14 @@
 
 package app.root.androidtemplate
 
-import androidx.multidex.MultiDexApplication
+import android.app.Application
 import androidx.work.Configuration
 import app.root.androidtemplate.appinitializers.AppInitializers
 import dagger.hilt.android.HiltAndroidApp
 import javax.inject.Inject
 
 @HiltAndroidApp
-class App : MultiDexApplication(), Configuration.Provider {
+class App : Application(), Configuration.Provider {
 
     @Inject
     lateinit var initializers: AppInitializers
