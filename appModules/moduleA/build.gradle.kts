@@ -1,10 +1,10 @@
 plugins {
-    id(Libs.Plugins.androidLibrary)
-    kotlin(Libs.Plugins.kotlinAndroid)
-    kotlin(Libs.Plugins.kotlinKapt)
-    id(Libs.Plugins.kotlinNavigation)
-    id(Libs.Plugins.kaptDagger)
-    id(Libs.TestDependencies.Junit5.plugin)
+    id("com.android.library")
+    kotlin("android")
+    kotlin("kapt")
+    id("androidx.navigation.safeargs.kotlin")
+    id("dagger.hilt.android.plugin")
+    id("de.mannodermaus.android-junit5")
 }
 
 android {

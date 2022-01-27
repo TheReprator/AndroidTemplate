@@ -1,7 +1,7 @@
 plugins {
-    id(Libs.Plugins.androidLibrary)
-    kotlin(Libs.Plugins.kotlinAndroid)
-    kotlin(Libs.Plugins.kotlinKapt)
+    id("com.android.library")
+    kotlin("android")
+    kotlin("kapt")
 }
 
 android {
@@ -11,7 +11,7 @@ android {
     defaultConfig {
         minSdk = AndroidSdk.min
 
-        testInstrumentationRunner = Libs.TestDependencies.testRunner
+        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
         consumerProguardFiles(
             file("proguard-rules.pro")

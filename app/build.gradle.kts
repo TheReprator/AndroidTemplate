@@ -3,11 +3,11 @@ import java.io.FileInputStream
 import java.util.Properties
 
 plugins {
-    id(Libs.Plugins.androidApplication)
-    kotlin(Libs.Plugins.kotlinAndroid)
-    kotlin(Libs.Plugins.kotlinKapt)
-    id(Libs.Plugins.kotlinNavigation)
-    id(Libs.Plugins.kaptDagger)
+    id("com.android.application")
+    kotlin("android")
+    kotlin("kapt")
+    id("androidx.navigation.safeargs.kotlin")
+    id("dagger.hilt.android.plugin")
 }
 
 kapt {
@@ -48,7 +48,7 @@ android {
         versionCode = AppVersion.versionCode
         versionName = AppVersion.versionName
 
-        testInstrumentationRunner = Libs.TestDependencies.testRunner
+        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
         multiDexEnabled = true
 
@@ -151,11 +151,10 @@ dependencies {
 
 if (file("google-services.json").exists()) {
     plugins {
-        id(Libs.Plugins.crashlytics)
-        id(Libs.Plugins.googleServices)
+        id("com.google.firebase.crashlytics")
+        id("com.google.gms.google-services")
     }
 }
-
 
 val installGitHook by tasks.registering(Copy::class) {
     from(File(rootProject.rootDir, "config/hooks/pre-push"))
@@ -164,4 +163,4 @@ val installGitHook by tasks.registering(Copy::class) {
     fileMode = 0b111101101 // -rwxr-xr-x
 }
 
-//tasks.getByPath(":app:preBuild").dependsOn(installGitHook)
+// tasks.getByPath(":app:preBuild").dependsOn(installGitHook)

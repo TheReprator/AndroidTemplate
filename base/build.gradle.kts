@@ -1,5 +1,5 @@
 plugins {
-    id(Libs.Plugins.kotlinLibrary)
+    id("kotlin")
 }
 
 java {

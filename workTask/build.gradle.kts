@@ -1,7 +1,7 @@
 plugins {
-    id(Libs.Plugins.androidLibrary)
-    kotlin(Libs.Plugins.kotlinAndroid)
-    kotlin(Libs.Plugins.kotlinKapt)
+    id("com.android.library")
+    kotlin("android")
+    kotlin("kapt")
 }
 
 kapt {
@@ -50,7 +50,7 @@ dependencies {
     implementation(project(AppModules.moduleBaseJava))
     implementation(project(AppModules.moduleBaseAndroid))
 
-    implementation(libs.hilt.library )
+    implementation(libs.hilt.library)
     kapt(libs.hilt.compiler)
 
     implementation(libs.androidx.hilt.work)

@@ -1,8 +1,8 @@
 plugins {
-    id(Libs.Plugins.androidLibrary)
-    kotlin(Libs.Plugins.kotlinAndroid)
-    kotlin(Libs.Plugins.kotlinKapt)
-    id(Libs.Plugins.kotlinNavigation)
+    id("com.android.library")
+    kotlin("android")
+    kotlin("kapt")
+    id("androidx.navigation.safeargs.kotlin")
 }
 
 kapt {

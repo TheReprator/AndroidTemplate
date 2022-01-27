@@ -9,11 +9,10 @@ import org.jetbrains.dokka.gradle.DokkaTaskPartial
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-    id(Libs.Plugins.dokka) version (Libs.Versions.dokka)
-    id(Libs.Plugins.spotless) version Libs.Versions.spotless
-
-    id(Libs.Plugins.detekt) version Libs.Versions.detekt
-    id(Libs.Plugins.dependencyUpdateVersions) version Libs.Versions.dependencyUpdate
+    alias(libs.plugins.dokka)
+    alias(libs.plugins.detekt)
+    alias(libs.plugins.spotless)
+    alias(libs.plugins.gradleDependencyUpdate)
 }
 
 buildscript {
@@ -36,10 +35,9 @@ buildscript {
 
 subprojects {
 
-    plugins.apply(Libs.Plugins.detekt)
-
-    plugins.apply(Libs.Plugins.dokka)
-    plugins.apply(Libs.Plugins.spotless)
+    plugins.apply("io.gitlab.arturbosch.detekt")
+    plugins.apply("org.jetbrains.dokka")
+    plugins.apply("com.diffplug.spotless")
 
     configure<SpotlessExtension> {
         kotlin {
@@ -47,7 +45,7 @@ subprojects {
             targetExclude("$buildDir/**/*.kt")
             targetExclude("bin/**/*.kt")
 
-            ktlint(Libs.Versions.ktlint)
+            ktlint(libs.versions.ktlint.get())
             licenseHeaderFile("${project.rootProject.projectDir}/config/spotless/copyright.kt")
         }
 
@@ -78,7 +76,7 @@ subprojects {
     }
 
     dependencies {
-        detektPlugins(Libs.detekt)
+        detektPlugins("io.gitlab.arturbosch.detekt:detekt-formatting:1.19.0")
     }
 }
 
