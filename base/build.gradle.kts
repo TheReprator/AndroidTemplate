@@ -1,5 +1,6 @@
 plugins {
     id("kotlin")
+    id("version.gradle")
 }
 
 java {
