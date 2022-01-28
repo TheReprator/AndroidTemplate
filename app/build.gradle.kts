@@ -6,6 +6,7 @@ plugins {
     id("com.android.application")
     kotlin("android")
     kotlin("kapt")
+    id("version.gradle")
     id("androidx.navigation.safeargs.kotlin")
     id("dagger.hilt.android.plugin")
 }

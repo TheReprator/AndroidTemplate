@@ -16,7 +16,7 @@
 
 package app.template.base.actions
 
-import androidx.annotation.StringDef
+import app.template.base.annotation.AppStringDef
 import java.util.Calendar
 import java.util.Date
 import java.util.TimeZone
@@ -47,7 +47,7 @@ interface DateUtils {
     }
 
     @kotlin.annotation.Retention(AnnotationRetention.SOURCE)
-    @StringDef(HOUR_MINUTE, HOUR_MINUTE_SECONDS, HOUR_MINUTE_SECONDS_24, DD_MMM_YYYY)
+    @AppStringDef(HOUR_MINUTE, HOUR_MINUTE_SECONDS, HOUR_MINUTE_SECONDS_24, DD_MMM_YYYY)
     annotation class DateFormat
 
     fun convertToEpoch(time: Long): Long

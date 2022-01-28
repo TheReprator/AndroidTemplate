@@ -12,8 +12,6 @@ java {
 }
 
 dependencies {
-    implementation(libs.androidx.annotation)
-
     api(libs.kotlin.stdlib)
     api(libs.kotlin.coroutines.core)
 
