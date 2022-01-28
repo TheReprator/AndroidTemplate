@@ -134,8 +134,7 @@ dependencies {
     implementation(libs.google.analytics)
     implementation(libs.google.crashlytics)
 
-    kapt(libs.androidx.lifecycle.compiler)
-    implementation(libs.androidx.lifecycle.extensions)
+    implementation(libs.androidx.lifecycle.process)
 
     qaImplementation(libs.chucker.library)
 
