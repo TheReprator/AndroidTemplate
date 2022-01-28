@@ -13,6 +13,7 @@ plugins {
     alias(libs.plugins.detekt)
     alias(libs.plugins.spotless)
     alias(libs.plugins.gradleDependencyUpdate)
+    id("version.gradle").apply(false)
 }
 
 buildscript {
@@ -34,7 +35,7 @@ buildscript {
 }
 
 subprojects {
-
+   apply(plugin = "version.gradle")
     plugins.apply("io.gitlab.arturbosch.detekt")
     plugins.apply("org.jetbrains.dokka")
     plugins.apply("com.diffplug.spotless")

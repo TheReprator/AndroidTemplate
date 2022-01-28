@@ -10,6 +10,7 @@ dependencyResolutionManagement {
     }
 }
 includeBuild("compositeBuild")
+
 include(
     ":app",
     ":base",
