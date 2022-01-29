@@ -117,6 +117,10 @@ fun Project.androidLibrary() {
 
     configureAndroid({
         testInstrumentationRunner = AppInfo.testRunner
+
+        consumerProguardFiles(
+            file("proguard-rules.pro")
+        )
     })
 }
 
