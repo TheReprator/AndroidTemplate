@@ -8,20 +8,22 @@ import org.jetbrains.kotlin.gradle.plugin.KaptExtension
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 fun Project.jvm() {
-    pluginManager.withPlugin("kotlin") {
 
-        val javaPluginExtension =
-            project.extensions.findByType(JavaPluginExtension::class.java) ?: throw Exception(
-                "Not a java module. Did you forget to apply 'kotlin-jvm' plugin?"
-            )
+    project.pluginManager.apply {
+        apply("kotlin")
+    }
 
-        with(javaPluginExtension) {
-            sourceCompatibility = JavaVersion.VERSION_11
-            targetCompatibility = JavaVersion.VERSION_11
+    val javaPluginExtension =
+        project.extensions.findByType(JavaPluginExtension::class.java) ?: throw Exception(
+            "Not an Java application. Did you forget to apply 'kotlin' plugin?"
+        )
 
-            with(sourceSets) {
-                map { it.java.srcDirs("src/${it.name}/kotlin") }
-            }
+    with(javaPluginExtension) {
+        sourceCompatibility = JavaVersion.VERSION_11
+        targetCompatibility = JavaVersion.VERSION_11
+
+        with(sourceSets) {
+            map { it.java.srcDirs("src/${it.name}/kotlin") }
         }
     }
 }
