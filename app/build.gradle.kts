@@ -42,8 +42,6 @@ android {
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
-        multiDexEnabled = true
-
         resourceConfigurations.add(AndroidSdk.localesEnglish)
 
         buildConfigField("String", AppConstant.hostConstant, "\"${AppConstant.host}\"")

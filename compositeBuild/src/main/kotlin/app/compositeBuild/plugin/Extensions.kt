@@ -1,4 +1,4 @@
-package version.gradle
+package app.compositeBuild.plugin
 
 import com.android.build.gradle.LibraryExtension
 import org.gradle.api.JavaVersion
@@ -13,11 +13,7 @@ fun Project.jvm() {
         apply("kotlin")
     }
 
-    val javaPluginExtension =
-        project.extensions.findByType(JavaPluginExtension::class.java) ?: throw Exception(
-            "Not an Java application. Did you forget to apply 'kotlin' plugin?"
-        )
-
+    val javaPluginExtension = project.extensions.findByType(JavaPluginExtension::class.java)!!
     with(javaPluginExtension) {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
@@ -54,9 +50,7 @@ fun Project.androidLibrary() {
     }
 
     val androidLibraryPluginExtension =
-        project.extensions.findByType(LibraryExtension::class.java) ?: throw Exception(
-            "Not an android library module. Did you forget to apply 'com.android.library' plugin?"
-        )
+        project.extensions.findByType(LibraryExtension::class.java) !!
 
     with(androidLibraryPluginExtension) {
 
@@ -131,9 +125,7 @@ fun Project.appComponentLibrary() {
     }
 
     val androidLibraryPluginExtension =
-        project.extensions.findByType(LibraryExtension::class.java) ?: throw Exception(
-            "Not an android library module. Did you forget to apply 'com.android.library' plugin?"
-        )
+        project.extensions.findByType(LibraryExtension::class.java) !!
 
 
     with(androidLibraryPluginExtension) {
