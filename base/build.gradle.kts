@@ -4,7 +4,6 @@ plugins {
 }
 
 dependencies {
-    //api(libs.kotlin.stdlib)
     api(kotlin("stdlib"))
     api(libs.kotlin.coroutines.core)
 

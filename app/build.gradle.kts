@@ -11,15 +11,6 @@ plugins {
     id("dagger.hilt.android.plugin")
 }
 
-kapt {
-    correctErrorTypes = true
-    useBuildCache = true
-
-    arguments {
-        arg("dagger.hilt.shareTestComponents", "true")
-    }
-}
-
 fun getKeyStoreConfig(defaultSigningConfig: ApkSigningConfig, propertyFileName: String) {
     val properties = Properties()
     val propFile = File("./config/signingconfig/$propertyFileName")
