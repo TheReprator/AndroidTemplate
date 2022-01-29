@@ -31,6 +31,16 @@ gradlePlugin {
     }
 }
 
+java {
+    toolchain.languageVersion.set(JavaLanguageVersion.of(11))
+}
+
+tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
+    kotlinOptions {
+        jvmTarget = JavaVersion.VERSION_11.toString()
+    }
+}
+
 dependencies {
     implementation("com.android.tools.build:gradle:7.1.0")
     implementation(kotlin("gradle-plugin", "1.6.10"))

@@ -1,24 +1,40 @@
 package app.compositeBuild.plugin
 
+import com.android.build.api.dsl.ApkSigningConfig
 import com.android.build.gradle.BaseExtension
 import com.android.build.gradle.internal.dsl.BaseAppModuleExtension
 import org.gradle.api.JavaVersion
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.findByType
+import org.gradle.kotlin.dsl.getValue
+import org.gradle.kotlin.dsl.provideDelegate
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+import java.io.File
+import java.io.FileInputStream
+import java.util.*
 
 class AppMainApplicationPlugin : Plugin<Project> {
 
     override fun apply(project: Project) {
-        println("AppMainApplicationPlugin")
         project.configurePlugins()
         project.configureAndroidCommonInfo()
         project.configureAndroidApplicationId()
+
+
+        if (File("google-services.json").exists()) {
+            project.pluginManager.apply {
+                apply("com.google.firebase.crashlytics")
+                apply("com.google.gms.google-services")
+            }
+        }
     }
 
     private fun Project.configurePlugins() {
         plugins.apply("com.android.application")
+        plugins.apply("com.android.application")
+        plugins.apply("kotlin-android")
+        plugins.apply("kotlin-kapt")
     }
 
     private fun Project.configureAndroidCommonInfo() {
@@ -63,17 +79,56 @@ class AppMainApplicationPlugin : Plugin<Project> {
                 }
             }
 
+            signingConfigs {
+                getByName("debug") {
+                    getKeyStoreConfig(this, "signing-debug.properties")
+                }
+
+                create("release")  {
+                    getKeyStoreConfig(this, "signing-release.properties")
+                }
+            }
+
             buildTypes {
                 getByName("debug") {
                     isDebuggable = true
                 }
 
-                getByName("release") {
-                    isMinifyEnabled = false
-                    proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
+                maybeCreate("beta").apply {
+                    applicationIdSuffix = ".beta"
+                    signingConfig = signingConfigs.getByName("debug")
+                    isMinifyEnabled = true
+                    isShrinkResources = true
+                    proguardFiles(
+                        getDefaultProguardFile("proguard-android-optimize.txt"),
+                        "proguard-rules.pro"
+                    )
+                }
+
+                maybeCreate("release").apply {
+                    signingConfig = signingConfigs.getByName("release")
+                    isMinifyEnabled = true
+                    isShrinkResources = true
+                    proguardFiles(
+                        getDefaultProguardFile("proguard-android-optimize.txt"),
+                        "proguard-rules.pro"
+                    )
                 }
             }
 
+            flavorDimensions("mode")
+
+            productFlavors {
+                create("qa") {
+                    dimension = "mode"
+                    applicationIdSuffix = ".qa"
+                    proguardFiles.add(file("proguard-rules-chucker.pro"))
+                }
+
+                create("standard") {
+                    dimension = "mode"
+                }
+            }
         }
     }
 
@@ -84,6 +139,23 @@ class AppMainApplicationPlugin : Plugin<Project> {
                 defaultConfig {
                     applicationId = "app.root.androidtemplate"
                 }
+            }
+        }
+    }
+
+    private fun getKeyStoreConfig(defaultSigningConfig: ApkSigningConfig, propertyFileName: String) {
+        val properties = Properties()
+        val propFile = File("./config/signingconfig/$propertyFileName")
+        if (propFile.canRead() && propFile.exists()) {
+            properties.load(FileInputStream(propFile))
+            if (properties.containsKey("storeFile") && properties.containsKey("storePassword") &&
+                properties.containsKey("keyAlias") && properties.containsKey("keyPassword")
+            ) {
+                defaultSigningConfig.storeFile = File("../${properties.getProperty("storeFile")}")
+                defaultSigningConfig.storePassword = properties.getProperty("storePassword")
+                defaultSigningConfig.keyAlias = properties.getProperty("keyAlias")
+                defaultSigningConfig.keyPassword = properties.getProperty("keyPassword")
+                defaultSigningConfig.enableV2Signing = true
             }
         }
     }
