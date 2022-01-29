@@ -20,6 +20,7 @@ class VersionGradle : Plugin<Project> {
 
         if(project.pluginManager.hasPlugin("kotlin")){
             println("vikramJava")
+            project.jvm()
         }else if(project.pluginManager.hasPlugin("com.android.library")) {
             println("vikramAndroidLibrary")
         }else if(project.pluginManager.hasPlugin("com.android.application")){
