@@ -8,25 +8,26 @@ import org.gradle.api.plugins.JavaPluginExtension
 class AppJVMPlugin : Plugin<Project> {
 
     override fun apply(project: Project) {
-        /**
-         * Configure the android plugin once it is applied.
-         */
-        project.pluginManager.withPlugin("kotlin") {
+        println("AppJVMPlugin")
 
-            val javaPluginExtension =
-                project.extensions.findByType(JavaPluginExtension::class.java) ?: throw Exception(
-                    "Not an Android application. Did you forget to apply 'com.android.application' plugin?"
-                )
+        project.pluginManager.apply {
+            apply("kotlin")
+        }
 
-            with(javaPluginExtension) {
-                sourceCompatibility = JavaVersion.VERSION_11
-                targetCompatibility = JavaVersion.VERSION_11
+        val javaPluginExtension =
+            project.extensions.findByType(JavaPluginExtension::class.java) ?: throw Exception(
+                "Not an Android application. Did you forget to apply 'com.android.application' plugin?"
+            )
 
-                with(sourceSets) {
-                    map { it.java.srcDirs("src/${it.name}/kotlin") }
-                }
+        with(javaPluginExtension) {
+            sourceCompatibility = JavaVersion.VERSION_11
+            targetCompatibility = JavaVersion.VERSION_11
+
+            with(sourceSets) {
+                map { it.java.srcDirs("src/${it.name}/kotlin") }
             }
         }
+
     }
 
 }

@@ -1,6 +1,5 @@
 plugins {
-    kotlin("jvm")
-    id("version.gradle")
+    id("appJavaPlugin")
 }
 
 dependencies {

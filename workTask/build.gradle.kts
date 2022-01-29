@@ -1,8 +1,5 @@
 plugins {
-    id("com.android.library")
-    kotlin("android")
-    kotlin("kapt")
-    id("version.gradle")
+    id("appComponentPlugin")
 }
 
 android {

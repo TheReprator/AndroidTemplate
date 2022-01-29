@@ -11,14 +11,8 @@ fun Project.jvm() {
 
         val javaPluginExtension =
             project.extensions.findByType(JavaPluginExtension::class.java) ?: throw Exception(
-                "Not an java module. Did you forget to apply 'kotlin(\"jvm\")' plugin?"
+                "Not a java module. Did you forget to apply 'kotlin-jvm' plugin?"
             )
-
-        pluginManager.apply {
-            apply("org.jetbrains.kotlin.jvm")
-        }
-
-        println("vikramJava inside")
 
         with(javaPluginExtension) {
             sourceCompatibility = JavaVersion.VERSION_11
@@ -31,60 +25,120 @@ fun Project.jvm() {
     }
 }
 
-@SuppressWarnings("UnstableApiUsage")
 fun Project.androidLibrary() {
 
-    pluginManager.withPlugin("com.android.library") {
+    pluginManager.apply {
+        apply("com.android.library")
+        apply("kotlin-android")
+        apply("kotlin-kapt")
+    }
 
-        val androidLibraryPluginExtension =
-            project.extensions.findByType(LibraryExtension::class.java) ?: throw Exception(
-                "Not an java module. Did you forget to apply 'com.android.library' plugin?"
+    val androidLibraryPluginExtension =
+        project.extensions.findByType(LibraryExtension::class.java) ?: throw Exception(
+            "Not an android library module. Did you forget to apply 'com.android.library' plugin?"
+        )
+
+    with(androidLibraryPluginExtension) {
+
+        compileSdk = 32
+
+        defaultConfig {
+            minSdk = 21
+
+            testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+
+            consumerProguardFiles(
+                file("proguard-rules.pro")
             )
 
-        println("vikramAndroidLibrary inside")
+            resourceConfigurations.add("en")
+        }
 
-        with(androidLibraryPluginExtension) {
+        compileOptions {
+            sourceCompatibility = JavaVersion.VERSION_11
+            targetCompatibility = JavaVersion.VERSION_11
+        }
 
-            compileSdk = 32
+        with(sourceSets) {
+            map { it.java.srcDirs("src/${it.name}/kotlin") }
+        }
 
-            defaultConfig {
-                minSdk = 21
-
-                testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-
-                consumerProguardFiles(
-                    file("proguard-rules.pro")
-                )
-
-                resourceConfigurations.add("en")
+        testOptions {
+            unitTests.apply {
+                isReturnDefaultValues = true
+                isIncludeAndroidResources = true
             }
+        }
 
-            compileOptions {
-                sourceCompatibility = JavaVersion.VERSION_11
-                targetCompatibility = JavaVersion.VERSION_11
+        buildFeatures.viewBinding = true
+
+        packagingOptions {
+            jniLibs.excludes.add("META-INF/*")
+        }
+
+        project.tasks.withType(KotlinCompile::class.java).configureEach {
+            kotlinOptions {
+                jvmTarget = JavaVersion.VERSION_11.toString()
             }
+        }
+    }
+}
 
-            with(sourceSets) {
-                map { it.java.srcDirs("src/${it.name}/kotlin") }
+fun Project.appComponentLibrary() {
+
+    pluginManager.apply {
+        apply("com.android.library")
+        apply("kotlin-android")
+        apply("kotlin-kapt")
+    }
+
+    val androidLibraryPluginExtension =
+        project.extensions.findByType(LibraryExtension::class.java) ?: throw Exception(
+            "Not an android library module. Did you forget to apply 'com.android.library' plugin?"
+        )
+
+
+    with(androidLibraryPluginExtension) {
+
+        compileSdk = 32
+
+        defaultConfig {
+            minSdk = 21
+
+            testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+
+            consumerProguardFiles(
+                file("proguard-rules.pro")
+            )
+
+            resourceConfigurations.add("en")
+        }
+
+        compileOptions {
+            sourceCompatibility = JavaVersion.VERSION_11
+            targetCompatibility = JavaVersion.VERSION_11
+        }
+
+        with(sourceSets) {
+            map { it.java.srcDirs("src/${it.name}/kotlin") }
+        }
+
+        testOptions {
+            unitTests.apply {
+                isReturnDefaultValues = true
+                isIncludeAndroidResources = true
             }
+        }
 
-            testOptions {
-                unitTests.apply {
-                    isReturnDefaultValues = true
-                    isIncludeAndroidResources = true
-                }
-            }
+        buildFeatures.viewBinding = true
 
-            buildFeatures.viewBinding = true
+        packagingOptions {
+            jniLibs.excludes.add("META-INF/*")
+        }
 
-            packagingOptions {
-                jniLibs.excludes.add("META-INF/*")
-            }
-
-            project.tasks.withType(KotlinCompile::class.java).configureEach {
-                kotlinOptions {
-                    jvmTarget = JavaVersion.VERSION_11.toString()
-                }
+        project.tasks.withType(KotlinCompile::class.java).configureEach {
+            kotlinOptions {
+                jvmTarget = JavaVersion.VERSION_11.toString()
             }
         }
     }

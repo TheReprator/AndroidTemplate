@@ -20,12 +20,10 @@ class VersionGradle : Plugin<Project> {
           }*/
 
         project.pluginManager.withPlugin("kotlin-kapt") {
-            println("vikramKotlinKapt")
 
             val kotlinKaptPluginExtension =
-                project.extensions.findByType(KaptExtension::class.java) ?: throw Exception(
-                    "Not an java module. Did you forget to apply 'com.android.library' plugin?"
-                )
+                project.extensions.findByType(KaptExtension::class.java) ?:
+                    throw Exception("Not an java module. Did you forget to apply 'kotlin-kapt' plugin?")
 
             with(kotlinKaptPluginExtension) {
                 correctErrorTypes = true
@@ -34,16 +32,12 @@ class VersionGradle : Plugin<Project> {
                 arguments {
                     arg("dagger.hilt.shareTestComponents", "true")
                 }
-
-                println("vikramKotlinKaptInner")
             }
         }
 
         if (project.pluginManager.hasPlugin("kotlin")) {
-            println("vikramJava")
             project.jvm()
         } else if (project.pluginManager.hasPlugin("com.android.library")) {
-            println("vikramAndroidLibrary")
             project.androidLibrary()
         } else if (project.pluginManager.hasPlugin("com.android.application")) {
             println("vikramAndroidApplication")
