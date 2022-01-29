@@ -1,16 +1,21 @@
 package app.compositeBuild.plugin
 
-import com.android.build.gradle.LibraryExtension
+import app.compositeBuild.extra.AndroidSdk
+import app.compositeBuild.extra.AppInfo
+import app.compositeBuild.extra.AppPlugins
+import com.android.build.gradle.BaseExtension
+import com.android.build.gradle.internal.dsl.DefaultConfig
 import org.gradle.api.JavaVersion
 import org.gradle.api.Project
 import org.gradle.api.plugins.JavaPluginExtension
+import org.gradle.api.plugins.PluginManager
 import org.jetbrains.kotlin.gradle.plugin.KaptExtension
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 fun Project.jvm() {
 
     project.pluginManager.apply {
-        apply("kotlin")
+        apply(AppPlugins.APP_KOTLIN)
     }
 
     val javaPluginExtension = project.extensions.findByType(JavaPluginExtension::class.java)!!
@@ -24,124 +29,51 @@ fun Project.jvm() {
     }
 }
 
-fun Project.androidLibrary() {
 
+fun Project.configurePlugin(pluginManagerBlock: PluginManager.() -> Unit = {}) {
     pluginManager.apply {
-        apply("com.android.library")
-        apply("kotlin-android")
-        apply("kotlin-kapt")
+        apply(AppPlugins.APP_KOTLIN_ANDROID)
+        apply(AppPlugins.APP_KOTLIN_KAPT)
+
+        pluginManagerBlock(this)
     }
+}
 
-    project.pluginManager.withPlugin("kotlin-kapt") {
+fun Project.configureKapt() {
+    project.pluginManager.withPlugin(AppPlugins.APP_KOTLIN_KAPT) {
 
-        println("insideKaptPlugin")
         val kotlinKaptPluginExtension =
-            project.extensions.findByType(KaptExtension::class.java) ?:
-            throw Exception("Not an kapt module. Did you forget to apply 'kotlin-kapt' plugin?")
+            project.extensions.findByType(KaptExtension::class.java)
+                ?: throw Exception("Not an kapt module. Did you forget to apply 'kotlin-kapt' plugin?")
 
         with(kotlinKaptPluginExtension) {
             correctErrorTypes = true
             useBuildCache = true
 
             arguments {
-                arg("dagger.hilt.shareTestComponents", "true")
-            }
-        }
-    }
-
-    val androidLibraryPluginExtension =
-        project.extensions.findByType(LibraryExtension::class.java) !!
-
-    with(androidLibraryPluginExtension) {
-
-        compileSdk = 32
-
-        defaultConfig {
-            minSdk = 21
-
-            testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-
-            consumerProguardFiles(
-                file("proguard-rules.pro")
-            )
-
-            resourceConfigurations.add("en")
-        }
-
-        compileOptions {
-            sourceCompatibility = JavaVersion.VERSION_11
-            targetCompatibility = JavaVersion.VERSION_11
-        }
-
-        with(sourceSets) {
-            map { it.java.srcDirs("src/${it.name}/kotlin") }
-        }
-
-        testOptions {
-            unitTests.apply {
-                isReturnDefaultValues = true
-                isIncludeAndroidResources = true
-            }
-        }
-
-        buildFeatures.viewBinding = true
-
-        packagingOptions {
-            jniLibs.excludes.add("META-INF/*")
-        }
-
-        project.tasks.withType(KotlinCompile::class.java).configureEach {
-            kotlinOptions {
-                jvmTarget = JavaVersion.VERSION_11.toString()
+                arg(AppPlugins.APP_KAPT_ARGUMENTS, "true")
             }
         }
     }
 }
 
-fun Project.appComponentLibrary() {
-
-    pluginManager.apply {
-        apply("com.android.library")
-        apply("kotlin-android")
-        apply("kotlin-kapt")
-    }
-
-    project.pluginManager.withPlugin("kotlin-kapt") {
-
-        println("insideKaptPlugin")
-
-        val kotlinKaptPluginExtension =
-            project.extensions.findByType(KaptExtension::class.java) ?:
-            throw Exception("Not an Kapt module. Did you forget to apply 'kotlin-kapt' plugin?")
-
-        with(kotlinKaptPluginExtension) {
-            correctErrorTypes = true
-            useBuildCache = true
-
-            arguments {
-                arg("dagger.hilt.shareTestComponents", "true")
-            }
-        }
-    }
+fun Project.configureAndroid(
+    defaultConfigBlock: DefaultConfig.() -> Unit,
+    baseExtensionBlock: BaseExtension.() -> Unit = {}
+) {
 
     val androidLibraryPluginExtension =
-        project.extensions.findByType(LibraryExtension::class.java) !!
-
+        project.extensions.findByType(BaseExtension::class.java)!!
 
     with(androidLibraryPluginExtension) {
 
-        compileSdk = 32
+        compileSdkVersion(AndroidSdk.compile)
 
         defaultConfig {
-            minSdk = 21
+            minSdk = AndroidSdk.min
 
-            testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-
-            consumerProguardFiles(
-                file("proguard-rules.pro")
-            )
-
-            resourceConfigurations.add("en")
+            resourceConfigurations.add(AndroidSdk.localesEnglish)
+            defaultConfigBlock(this)
         }
 
         compileOptions {
@@ -171,5 +103,32 @@ fun Project.appComponentLibrary() {
                 jvmTarget = JavaVersion.VERSION_11.toString()
             }
         }
+
+        baseExtensionBlock(this)
     }
+}
+
+fun Project.androidLibrary() {
+    configurePlugin {
+        apply(AppPlugins.APP_ANDROID_LIBRARY)
+    }
+
+    configureKapt()
+
+    configureAndroid({
+        testInstrumentationRunner = AppInfo.testRunner
+    })
+}
+
+fun Project.appComponentLibrary() {
+
+    configurePlugin {
+        apply(AppPlugins.APP_ANDROID_LIBRARY)
+    }
+
+    configureKapt()
+
+    configureAndroid({
+        testInstrumentationRunner = AppInfo.testRunner
+    })
 }

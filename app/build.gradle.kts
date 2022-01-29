@@ -44,13 +44,6 @@ dependencies {
     qaImplementation(libs.okhttp.loggingInterceptor)
 }
 
-if (file("google-services.json").exists()) {
-    plugins {
-        id("com.google.firebase.crashlytics")
-        id("com.google.gms.google-services")
-    }
-}
-
 val installGitHook by tasks.registering(Copy::class) {
     from(File(rootProject.rootDir, "config/hooks/pre-push"))
     into(File(rootProject.rootDir, ".git/hooks/"))
