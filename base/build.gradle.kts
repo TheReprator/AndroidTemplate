@@ -1,20 +1,9 @@
 plugins {
-    id("kotlin")
-}
-
-java {
-    sourceCompatibility = JavaVersion.VERSION_11
-    targetCompatibility = JavaVersion.VERSION_11
-
-    sourceSets {
-        map { it.java.srcDirs("src/${it.name}/kotlin") }
-    }
+    id("appJavaPlugin")
 }
 
 dependencies {
-    implementation(libs.androidx.annotation)
-
-    api(libs.kotlin.stdlib)
+    api(kotlin("stdlib"))
     api(libs.kotlin.coroutines.core)
 
     api(libs.timber)

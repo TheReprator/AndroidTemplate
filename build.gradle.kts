@@ -34,7 +34,6 @@ buildscript {
 }
 
 subprojects {
-
     plugins.apply("io.gitlab.arturbosch.detekt")
     plugins.apply("org.jetbrains.dokka")
     plugins.apply("com.diffplug.spotless")
