@@ -4,6 +4,7 @@ import com.android.build.gradle.LibraryExtension
 import org.gradle.api.JavaVersion
 import org.gradle.api.Project
 import org.gradle.api.plugins.JavaPluginExtension
+import org.jetbrains.kotlin.gradle.plugin.KaptExtension
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 fun Project.jvm() {
@@ -31,6 +32,23 @@ fun Project.androidLibrary() {
         apply("com.android.library")
         apply("kotlin-android")
         apply("kotlin-kapt")
+    }
+
+    project.pluginManager.withPlugin("kotlin-kapt") {
+
+        println("insideKaptPlugin")
+        val kotlinKaptPluginExtension =
+            project.extensions.findByType(KaptExtension::class.java) ?:
+            throw Exception("Not an kapt module. Did you forget to apply 'kotlin-kapt' plugin?")
+
+        with(kotlinKaptPluginExtension) {
+            correctErrorTypes = true
+            useBuildCache = true
+
+            arguments {
+                arg("dagger.hilt.shareTestComponents", "true")
+            }
+        }
     }
 
     val androidLibraryPluginExtension =
@@ -90,6 +108,24 @@ fun Project.appComponentLibrary() {
         apply("com.android.library")
         apply("kotlin-android")
         apply("kotlin-kapt")
+    }
+
+    project.pluginManager.withPlugin("kotlin-kapt") {
+
+        println("insideKaptPlugin")
+
+        val kotlinKaptPluginExtension =
+            project.extensions.findByType(KaptExtension::class.java) ?:
+            throw Exception("Not an Kapt module. Did you forget to apply 'kotlin-kapt' plugin?")
+
+        with(kotlinKaptPluginExtension) {
+            correctErrorTypes = true
+            useBuildCache = true
+
+            arguments {
+                arg("dagger.hilt.shareTestComponents", "true")
+            }
+        }
     }
 
     val androidLibraryPluginExtension =

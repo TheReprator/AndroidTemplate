@@ -16,7 +16,7 @@ class AppJVMPlugin : Plugin<Project> {
 
         val javaPluginExtension =
             project.extensions.findByType(JavaPluginExtension::class.java) ?: throw Exception(
-                "Not an Android application. Did you forget to apply 'com.android.application' plugin?"
+                "Not an Java application. Did you forget to apply 'kotlin' plugin?"
             )
 
         with(javaPluginExtension) {
