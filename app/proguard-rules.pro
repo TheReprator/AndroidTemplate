@@ -56,3 +56,11 @@
 # Retain annotation default values for all annotations.
 # Required until R8 version >= 3.1.12+ (in AGP 7.1.0+).
 -keep,allowobfuscation,allowshrinking @interface *
+
+# This to preserve the line number information for
+# debugging stack traces.
+-keepattributes SourceFile,LineNumberTable
+# If you keep the line number information, uncomment this to
+# hide the original source file name.
+-renamesourcefileattribute SourceFile
+#-dontobfuscate
